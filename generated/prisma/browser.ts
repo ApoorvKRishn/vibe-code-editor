@@ -27,3 +27,13 @@ export type User = Prisma.UserModel
  * 
  */
 export type Account = Prisma.AccountModel
+/**
+ * Model Workspace
+ * 
+ */
+export type Workspace = Prisma.WorkspaceModel
+/**
+ * Model FileItem
+ * 
+ */
+export type FileItem = Prisma.FileItemModel
