@@ -8,10 +8,15 @@ import { getUserById } from "./modules/auth/actions";
 const baseAdapter = PrismaAdapter(db);
 const customAdapter = {
   ...baseAdapter,
-  createUser: async (data: any) => {
-    const { emailVerified, ...rest } = data;
-    const payload = emailVerified ? { ...rest, emailVerified } : rest;
-    return baseAdapter.createUser!(payload as any);
+  createUser: async (user: any) => {
+    return db.user.create({
+      data: {
+        name: user.name ?? null,
+        email: user.email,
+        image: user.image ?? null,
+        role: "USER",
+      },
+    });
   },
 };
 
