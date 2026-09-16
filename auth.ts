@@ -1,98 +1,17 @@
-import NextAuth from "next-auth"
-import { PrismaAdapter } from "@auth/prisma-adapter"
+import NextAuth from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 
-import authConfig from "./auth.config"
+import authConfig from "./auth.config";
 import { db } from "./lib/db";
-import { getAccountByUserId, getUserById } from "./modules/auth/actions";
+import { getUserById } from "./modules/auth/actions";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   trustHost: true,
+  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
+  adapter: PrismaAdapter(db),
+  session: { strategy: "jwt" },
   callbacks: {
-    /**
-     * Handle user creation and account linking after a successful sign-in
-     */
-    async signIn({ user, account, profile }) {
-      if (!user || !account) return false;
-
-      // Handle fallback email if GitHub user email is private/null
-      const safeEmail =
-        user.email ||
-        (profile as any)?.email ||
-        `${account.providerAccountId}@github.noreply`;
-      user.email = safeEmail;
-
-      try {
-        // Check if the user already exists
-        const existingUser = await db.user.findUnique({
-          where: { email: safeEmail },
-        });
-
-        // If user does not exist, create a new one
-        if (!existingUser) {
-          const newUser = await db.user.create({
-            data: {
-              email: safeEmail,
-              name: user.name || (profile as any)?.login || "Developer",
-              image: user.image || (profile as any)?.avatar_url,
-              accounts: {
-                // @ts-ignore
-                create: {
-                  type: account.type,
-                  provider: account.provider,
-                  providerAccountId: account.providerAccountId,
-                  refreshToken: account.refresh_token,
-                  accessToken: account.access_token,
-                  expiresAt: account.expires_at,
-                  tokenType: account.token_type,
-                  scope: account.scope,
-                  idToken: account.id_token,
-                  sessionState: account.session_state,
-                },
-              },
-            },
-          });
-
-          if (!newUser) return false;
-        } else {
-          // Link the account if user exists
-          const existingAccount = await db.account.findUnique({
-            where: {
-              provider_providerAccountId: {
-                provider: account.provider,
-                providerAccountId: account.providerAccountId,
-              },
-            },
-          });
-
-          // If the account does not exist, create it
-          if (!existingAccount) {
-            await db.account.create({
-              data: {
-                userId: existingUser.id,
-                type: account.type,
-                provider: account.provider,
-                providerAccountId: account.providerAccountId,
-                refreshToken: account.refresh_token,
-                accessToken: account.access_token,
-                expiresAt: account.expires_at,
-                tokenType: account.token_type,
-                scope: account.scope,
-                idToken: account.id_token,
-                // @ts-ignore
-                sessionState: account.session_state,
-              },
-            });
-          }
-        }
-
-        return true;
-      } catch (error) {
-        console.error("Error in signIn callback:", error);
-        return true;
-      }
-    },
-
-    async jwt({ token, user, account }) {
+    async jwt({ token, user }) {
       if (!token.sub) return token;
       const existingUser = await getUserById(token.sub);
 
@@ -117,9 +36,5 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       return session;
     },
   },
-
-  secret: process.env.AUTH_SECRET,
-  adapter: PrismaAdapter(db),
-  session: { strategy: "jwt" },
   ...authConfig,
-})
+});
