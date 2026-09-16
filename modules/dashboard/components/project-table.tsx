@@ -51,9 +51,11 @@ import {
   Copy,
   Download,
   Eye,
+  Star,
 } from "lucide-react";
 import { toast } from "sonner";
 import { MarkedToggleButton } from "./marked-toggle";
+import { toggleStarMarked } from "../actions";
 
 interface ProjectTableProps {
   projects: Project[];
@@ -86,7 +88,9 @@ export default function ProjectTable({
     description: "",
   });
   const [isLoading, setIsLoading] = useState(false);
- 
+  const [starredMap, setStarredMap] = useState<Record<string, boolean>>(
+    () => Object.fromEntries(projects.map((p) => [p.id, p.Starmark?.[0]?.isMarked ?? false]))
+  );
 
   const handleEditClick = (project: Project) => {
     setSelectedProject(project);
@@ -162,6 +166,18 @@ export default function ProjectTable({
     toast.success("Project url copied to clipboard");
   };
 
+  const handleStarToggle = async (projectId: string) => {
+    const newValue = !starredMap[projectId];
+    setStarredMap((prev) => ({ ...prev, [projectId]: newValue }));
+    try {
+      await toggleStarMarked(projectId, newValue);
+      toast.success(newValue ? "Added to favorites" : "Removed from favorites");
+    } catch {
+      setStarredMap((prev) => ({ ...prev, [projectId]: !newValue }));
+      toast.error("Failed to update favorite");
+    }
+  };
+
   return (
     <>
       <div className="border rounded-lg overflow-hidden">
@@ -169,6 +185,7 @@ export default function ProjectTable({
           <TableHeader>
             <TableRow>
               <TableHead>Project</TableHead>
+              <TableHead className="w-[40px]"></TableHead>
               <TableHead>Template</TableHead>
               <TableHead>Created</TableHead>
               <TableHead>User</TableHead>
@@ -190,6 +207,21 @@ export default function ProjectTable({
                       {project.description}
                     </span>
                   </div>
+                </TableCell>
+                <TableCell className="w-[40px]">
+                  <button
+                    onClick={() => handleStarToggle(project.id)}
+                    className="group flex items-center justify-center w-7 h-7 rounded hover:bg-amber-50 transition-colors"
+                    title={starredMap[project.id] ? "Remove from favorites" : "Add to favorites"}
+                  >
+                    <Star
+                      className={`h-4 w-4 transition-colors ${
+                        starredMap[project.id]
+                          ? "text-amber-500 fill-amber-500"
+                          : "text-gray-300 group-hover:text-amber-400"
+                      }`}
+                    />
+                  </button>
                 </TableCell>
                 <TableCell>
                   <Badge
