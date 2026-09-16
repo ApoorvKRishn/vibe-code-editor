@@ -24,9 +24,7 @@ const Page = async () => {
             projects={(playgrounds as unknown as Project[]) || []}
             onDeleteProject={deleteProjectById}
             onUpdateProject={editProjectById}
-            onDuplicateProject={async (id) => {
-              await duplicateProjectById(id);
-            }}
+            onDuplicateProject={duplicateProjectById}
           />
         )}
       </div>
