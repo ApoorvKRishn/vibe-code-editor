@@ -20,16 +20,17 @@ enum UserRole {
 }
 
 model User {
-  id       String    @id @default(cuid()) @map("_id")
-  name     String?
-  email    String    @unique
-  image    String?
-  accounts Account[]
-  role     UserRole  @default(USER)
+  id            String    @id @default(cuid()) @map("_id")
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  role          UserRole  @default(USER)
 
-  myPlaground Playground[]
+  myPlaground      Playground[]
   staredPlayground StarMark[]
-  chatMessages ChatMessage[]
+  chatMessages     ChatMessage[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
