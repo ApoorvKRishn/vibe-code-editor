@@ -13,6 +13,7 @@ export default {
         process.env.AUTH_GITHUB_SECRET ||
         process.env.GITHUB_SECRET ||
         process.env.GITHUB_CLIENT_SECRET,
+      checks: ["state"],
     }),
     Google({
       clientId:
