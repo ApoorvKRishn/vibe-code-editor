@@ -1,0 +1,10661 @@
+
+/**
+ * Client
+**/
+
+import * as runtime from './runtime/library.js';
+import $Types = runtime.Types // general types
+import $Public = runtime.Types.Public
+import $Utils = runtime.Types.Utils
+import $Extensions = runtime.Types.Extensions
+import $Result = runtime.Types.Result
+
+export type PrismaPromise<T> = $Public.PrismaPromise<T>
+
+
+/**
+ * Model User
+ * 
+ */
+export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model Account
+ * 
+ */
+export type Account = $Result.DefaultSelection<Prisma.$AccountPayload>
+/**
+ * Model Playground
+ * 
+ */
+export type Playground = $Result.DefaultSelection<Prisma.$PlaygroundPayload>
+/**
+ * Model StarMark
+ * 
+ */
+export type StarMark = $Result.DefaultSelection<Prisma.$StarMarkPayload>
+/**
+ * Model TemplateFile
+ * 
+ */
+export type TemplateFile = $Result.DefaultSelection<Prisma.$TemplateFilePayload>
+/**
+ * Model ChatMessage
+ * 
+ */
+export type ChatMessage = $Result.DefaultSelection<Prisma.$ChatMessagePayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const UserRole: {
+  ADMIN: 'ADMIN',
+  USER: 'USER',
+  PREMIUM_USER: 'PREMIUM_USER'
+};
+
+export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+
+
+export const Templates: {
+  REACT: 'REACT',
+  NEXTJS: 'NEXTJS',
+  EXPRESS: 'EXPRESS',
+  VUE: 'VUE',
+  HONO: 'HONO',
+  ANGULAR: 'ANGULAR'
+};
+
+export type Templates = (typeof Templates)[keyof typeof Templates]
+
+}
+
+export type UserRole = $Enums.UserRole
+
+export const UserRole: typeof $Enums.UserRole
+
+export type Templates = $Enums.Templates
+
+export const Templates: typeof $Enums.Templates
+
+/**
+ * ##  Prisma Client ʲˢ
+ *
+ * Type-safe database client for TypeScript & Node.js
+ * @example
+ * ```
+ * const prisma = new PrismaClient()
+ * // Fetch zero or more Users
+ * const users = await prisma.user.findMany()
+ * ```
+ *
+ *
+ * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
+ */
+export class PrismaClient<
+  ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
+  const U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
+  ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs
+> {
+  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
+
+    /**
+   * ##  Prisma Client ʲˢ
+   *
+   * Type-safe database client for TypeScript & Node.js
+   * @example
+   * ```
+   * const prisma = new PrismaClient()
+   * // Fetch zero or more Users
+   * const users = await prisma.user.findMany()
+   * ```
+   *
+   *
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
+   */
+
+  constructor(optionsArg ?: Prisma.Subset<ClientOptions, Prisma.PrismaClientOptions>);
+  $on<V extends U>(eventType: V, callback: (event: V extends 'query' ? Prisma.QueryEvent : Prisma.LogEvent) => void): PrismaClient;
+
+  /**
+   * Connect with the database
+   */
+  $connect(): $Utils.JsPromise<void>;
+
+  /**
+   * Disconnect from the database
+   */
+  $disconnect(): $Utils.JsPromise<void>;
+
+  /**
+   * Add a middleware
+   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
+   * @see https://pris.ly/d/extensions
+   */
+  $use(cb: Prisma.Middleware): void
+
+/**
+   * Allows the running of a sequence of read/write operations that are guaranteed to either succeed or fail as a whole.
+   * @example
+   * ```
+   * const [george, bob, alice] = await prisma.$transaction([
+   *   prisma.user.create({ data: { name: 'George' } }),
+   *   prisma.user.create({ data: { name: 'Bob' } }),
+   *   prisma.user.create({ data: { name: 'Alice' } }),
+   * ])
+   * ```
+   * 
+   * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
+   */
+  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P]): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
+
+  $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => $Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number }): $Utils.JsPromise<R>
+
+  /**
+   * Executes a raw MongoDB command and returns the result of it.
+   * @example
+   * ```
+   * const user = await prisma.$runCommandRaw({
+   *   aggregate: 'User',
+   *   pipeline: [{ $match: { name: 'Bob' } }, { $project: { email: true, _id: false } }],
+   *   explain: false,
+   * })
+   * ```
+   * 
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   */
+  $runCommandRaw(command: Prisma.InputJsonObject): Prisma.PrismaPromise<Prisma.JsonObject>
+
+  $extends: $Extensions.ExtendsHook<"extends", Prisma.TypeMapCb<ClientOptions>, ExtArgs, $Utils.Call<Prisma.TypeMapCb<ClientOptions>, {
+    extArgs: ExtArgs
+  }>>
+
+      /**
+   * `prisma.user`: Exposes CRUD operations for the **User** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Users
+    * const users = await prisma.user.findMany()
+    * ```
+    */
+  get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.account`: Exposes CRUD operations for the **Account** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Accounts
+    * const accounts = await prisma.account.findMany()
+    * ```
+    */
+  get account(): Prisma.AccountDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.playground`: Exposes CRUD operations for the **Playground** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Playgrounds
+    * const playgrounds = await prisma.playground.findMany()
+    * ```
+    */
+  get playground(): Prisma.PlaygroundDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.starMark`: Exposes CRUD operations for the **StarMark** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StarMarks
+    * const starMarks = await prisma.starMark.findMany()
+    * ```
+    */
+  get starMark(): Prisma.StarMarkDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.templateFile`: Exposes CRUD operations for the **TemplateFile** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TemplateFiles
+    * const templateFiles = await prisma.templateFile.findMany()
+    * ```
+    */
+  get templateFile(): Prisma.TemplateFileDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.chatMessage`: Exposes CRUD operations for the **ChatMessage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ChatMessages
+    * const chatMessages = await prisma.chatMessage.findMany()
+    * ```
+    */
+  get chatMessage(): Prisma.ChatMessageDelegate<ExtArgs, ClientOptions>;
+}
+
+export namespace Prisma {
+  export import DMMF = runtime.DMMF
+
+  export type PrismaPromise<T> = $Public.PrismaPromise<T>
+
+  /**
+   * Validator
+   */
+  export import validator = runtime.Public.validator
+
+  /**
+   * Prisma Errors
+   */
+  export import PrismaClientKnownRequestError = runtime.PrismaClientKnownRequestError
+  export import PrismaClientUnknownRequestError = runtime.PrismaClientUnknownRequestError
+  export import PrismaClientRustPanicError = runtime.PrismaClientRustPanicError
+  export import PrismaClientInitializationError = runtime.PrismaClientInitializationError
+  export import PrismaClientValidationError = runtime.PrismaClientValidationError
+
+  /**
+   * Re-export of sql-template-tag
+   */
+  export import sql = runtime.sqltag
+  export import empty = runtime.empty
+  export import join = runtime.join
+  export import raw = runtime.raw
+  export import Sql = runtime.Sql
+
+
+
+  /**
+   * Decimal.js
+   */
+  export import Decimal = runtime.Decimal
+
+  export type DecimalJsLike = runtime.DecimalJsLike
+
+  /**
+   * Metrics
+   */
+  export type Metrics = runtime.Metrics
+  export type Metric<T> = runtime.Metric<T>
+  export type MetricHistogram = runtime.MetricHistogram
+  export type MetricHistogramBucket = runtime.MetricHistogramBucket
+
+  /**
+  * Extensions
+  */
+  export import Extension = $Extensions.UserArgs
+  export import getExtensionContext = runtime.Extensions.getExtensionContext
+  export import Args = $Public.Args
+  export import Payload = $Public.Payload
+  export import Result = $Public.Result
+  export import Exact = $Public.Exact
+
+  /**
+   * Prisma Client JS version: 6.13.0
+   * Query Engine version: 361e86d0ea4987e9f53a565309b3eed797a6bcbd
+   */
+  export type PrismaVersion = {
+    client: string
+  }
+
+  export const prismaVersion: PrismaVersion
+
+  /**
+   * Utility Types
+   */
+
+
+  export import JsonObject = runtime.JsonObject
+  export import JsonArray = runtime.JsonArray
+  export import JsonValue = runtime.JsonValue
+  export import InputJsonObject = runtime.InputJsonObject
+  export import InputJsonArray = runtime.InputJsonArray
+  export import InputJsonValue = runtime.InputJsonValue
+
+  /**
+   * Types of the values used to represent different kinds of `null` values when working with JSON fields.
+   *
+   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+   */
+  namespace NullTypes {
+    /**
+    * Type of `Prisma.DbNull`.
+    *
+    * You cannot use other instances of this class. Please use the `Prisma.DbNull` value.
+    *
+    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+    */
+    class DbNull {
+      private DbNull: never
+      private constructor()
+    }
+
+    /**
+    * Type of `Prisma.JsonNull`.
+    *
+    * You cannot use other instances of this class. Please use the `Prisma.JsonNull` value.
+    *
+    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+    */
+    class JsonNull {
+      private JsonNull: never
+      private constructor()
+    }
+
+    /**
+    * Type of `Prisma.AnyNull`.
+    *
+    * You cannot use other instances of this class. Please use the `Prisma.AnyNull` value.
+    *
+    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+    */
+    class AnyNull {
+      private AnyNull: never
+      private constructor()
+    }
+  }
+
+  /**
+   * Helper for filtering JSON entries that have `null` on the database (empty on the db)
+   *
+   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+   */
+  export const DbNull: NullTypes.DbNull
+
+  /**
+   * Helper for filtering JSON entries that have JSON `null` values (not empty on the db)
+   *
+   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+   */
+  export const JsonNull: NullTypes.JsonNull
+
+  /**
+   * Helper for filtering JSON entries that are `Prisma.DbNull` or `Prisma.JsonNull`
+   *
+   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+   */
+  export const AnyNull: NullTypes.AnyNull
+
+  type SelectAndInclude = {
+    select: any
+    include: any
+  }
+
+  type SelectAndOmit = {
+    select: any
+    omit: any
+  }
+
+  /**
+   * Get the type of the value, that the Promise holds.
+   */
+  export type PromiseType<T extends PromiseLike<any>> = T extends PromiseLike<infer U> ? U : T;
+
+  /**
+   * Get the return type of a function which returns a Promise.
+   */
+  export type PromiseReturnType<T extends (...args: any) => $Utils.JsPromise<any>> = PromiseType<ReturnType<T>>
+
+  /**
+   * From T, pick a set of properties whose keys are in the union K
+   */
+  type Prisma__Pick<T, K extends keyof T> = {
+      [P in K]: T[P];
+  };
+
+
+  export type Enumerable<T> = T | Array<T>;
+
+  export type RequiredKeys<T> = {
+    [K in keyof T]-?: {} extends Prisma__Pick<T, K> ? never : K
+  }[keyof T]
+
+  export type TruthyKeys<T> = keyof {
+    [K in keyof T as T[K] extends false | undefined | null ? never : K]: K
+  }
+
+  export type TrueKeys<T> = TruthyKeys<Prisma__Pick<T, RequiredKeys<T>>>
+
+  /**
+   * Subset
+   * @desc From `T` pick properties that exist in `U`. Simple version of Intersection
+   */
+  export type Subset<T, U> = {
+    [key in keyof T]: key extends keyof U ? T[key] : never;
+  };
+
+  /**
+   * SelectSubset
+   * @desc From `T` pick properties that exist in `U`. Simple version of Intersection.
+   * Additionally, it validates, if both select and include are present. If the case, it errors.
+   */
+  export type SelectSubset<T, U> = {
+    [key in keyof T]: key extends keyof U ? T[key] : never
+  } &
+    (T extends SelectAndInclude
+      ? 'Please either choose `select` or `include`.'
+      : T extends SelectAndOmit
+        ? 'Please either choose `select` or `omit`.'
+        : {})
+
+  /**
+   * Subset + Intersection
+   * @desc From `T` pick properties that exist in `U` and intersect `K`
+   */
+  export type SubsetIntersection<T, U, K> = {
+    [key in keyof T]: key extends keyof U ? T[key] : never
+  } &
+    K
+
+  type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
+
+  /**
+   * XOR is needed to have a real mutually exclusive union type
+   * https://stackoverflow.com/questions/42123407/does-typescript-support-mutually-exclusive-types
+   */
+  type XOR<T, U> =
+    T extends object ?
+    U extends object ?
+      (Without<T, U> & U) | (Without<U, T> & T)
+    : U : T
+
+
+  /**
+   * Is T a Record?
+   */
+  type IsObject<T extends any> = T extends Array<any>
+  ? False
+  : T extends Date
+  ? False
+  : T extends Uint8Array
+  ? False
+  : T extends BigInt
+  ? False
+  : T extends object
+  ? True
+  : False
+
+
+  /**
+   * If it's T[], return T
+   */
+  export type UnEnumerate<T extends unknown> = T extends Array<infer U> ? U : T
+
+  /**
+   * From ts-toolbelt
+   */
+
+  type __Either<O extends object, K extends Key> = Omit<O, K> &
+    {
+      // Merge all but K
+      [P in K]: Prisma__Pick<O, P & keyof O> // With K possibilities
+    }[K]
+
+  type EitherStrict<O extends object, K extends Key> = Strict<__Either<O, K>>
+
+  type EitherLoose<O extends object, K extends Key> = ComputeRaw<__Either<O, K>>
+
+  type _Either<
+    O extends object,
+    K extends Key,
+    strict extends Boolean
+  > = {
+    1: EitherStrict<O, K>
+    0: EitherLoose<O, K>
+  }[strict]
+
+  type Either<
+    O extends object,
+    K extends Key,
+    strict extends Boolean = 1
+  > = O extends unknown ? _Either<O, K, strict> : never
+
+  export type Union = any
+
+  type PatchUndefined<O extends object, O1 extends object> = {
+    [K in keyof O]: O[K] extends undefined ? At<O1, K> : O[K]
+  } & {}
+
+  /** Helper Types for "Merge" **/
+  export type IntersectOf<U extends Union> = (
+    U extends unknown ? (k: U) => void : never
+  ) extends (k: infer I) => void
+    ? I
+    : never
+
+  export type Overwrite<O extends object, O1 extends object> = {
+      [K in keyof O]: K extends keyof O1 ? O1[K] : O[K];
+  } & {};
+
+  type _Merge<U extends object> = IntersectOf<Overwrite<U, {
+      [K in keyof U]-?: At<U, K>;
+  }>>;
+
+  type Key = string | number | symbol;
+  type AtBasic<O extends object, K extends Key> = K extends keyof O ? O[K] : never;
+  type AtStrict<O extends object, K extends Key> = O[K & keyof O];
+  type AtLoose<O extends object, K extends Key> = O extends unknown ? AtStrict<O, K> : never;
+  export type At<O extends object, K extends Key, strict extends Boolean = 1> = {
+      1: AtStrict<O, K>;
+      0: AtLoose<O, K>;
+  }[strict];
+
+  export type ComputeRaw<A extends any> = A extends Function ? A : {
+    [K in keyof A]: A[K];
+  } & {};
+
+  export type OptionalFlat<O> = {
+    [K in keyof O]?: O[K];
+  } & {};
+
+  type _Record<K extends keyof any, T> = {
+    [P in K]: T;
+  };
+
+  // cause typescript not to expand types and preserve names
+  type NoExpand<T> = T extends unknown ? T : never;
+
+  // this type assumes the passed object is entirely optional
+  type AtLeast<O extends object, K extends string> = NoExpand<
+    O extends unknown
+    ? | (K extends keyof O ? { [P in K]: O[P] } & O : O)
+      | {[P in keyof O as P extends K ? P : never]-?: O[P]} & O
+    : never>;
+
+  type _Strict<U, _U = U> = U extends unknown ? U & OptionalFlat<_Record<Exclude<Keys<_U>, keyof U>, never>> : never;
+
+  export type Strict<U extends object> = ComputeRaw<_Strict<U>>;
+  /** End Helper Types for "Merge" **/
+
+  export type Merge<U extends object> = ComputeRaw<_Merge<Strict<U>>>;
+
+  /**
+  A [[Boolean]]
+  */
+  export type Boolean = True | False
+
+  // /**
+  // 1
+  // */
+  export type True = 1
+
+  /**
+  0
+  */
+  export type False = 0
+
+  export type Not<B extends Boolean> = {
+    0: 1
+    1: 0
+  }[B]
+
+  export type Extends<A1 extends any, A2 extends any> = [A1] extends [never]
+    ? 0 // anything `never` is false
+    : A1 extends A2
+    ? 1
+    : 0
+
+  export type Has<U extends Union, U1 extends Union> = Not<
+    Extends<Exclude<U1, U>, U1>
+  >
+
+  export type Or<B1 extends Boolean, B2 extends Boolean> = {
+    0: {
+      0: 0
+      1: 1
+    }
+    1: {
+      0: 1
+      1: 1
+    }
+  }[B1][B2]
+
+  export type Keys<U extends Union> = U extends unknown ? keyof U : never
+
+  type Cast<A, B> = A extends B ? A : B;
+
+  export const type: unique symbol;
+
+
+
+  /**
+   * Used by group by
+   */
+
+  export type GetScalarType<T, O> = O extends object ? {
+    [P in keyof T]: P extends keyof O
+      ? O[P]
+      : never
+  } : never
+
+  type FieldPaths<
+    T,
+    U = Omit<T, '_avg' | '_sum' | '_count' | '_min' | '_max'>
+  > = IsObject<T> extends True ? U : T
+
+  type GetHavingFields<T> = {
+    [K in keyof T]: Or<
+      Or<Extends<'OR', K>, Extends<'AND', K>>,
+      Extends<'NOT', K>
+    > extends True
+      ? // infer is only needed to not hit TS limit
+        // based on the brilliant idea of Pierre-Antoine Mills
+        // https://github.com/microsoft/TypeScript/issues/30188#issuecomment-478938437
+        T[K] extends infer TK
+        ? GetHavingFields<UnEnumerate<TK> extends object ? Merge<UnEnumerate<TK>> : never>
+        : never
+      : {} extends FieldPaths<T[K]>
+      ? never
+      : K
+  }[keyof T]
+
+  /**
+   * Convert tuple to union
+   */
+  type _TupleToUnion<T> = T extends (infer E)[] ? E : never
+  type TupleToUnion<K extends readonly any[]> = _TupleToUnion<K>
+  type MaybeTupleToUnion<T> = T extends any[] ? TupleToUnion<T> : T
+
+  /**
+   * Like `Pick`, but additionally can also accept an array of keys
+   */
+  type PickEnumerable<T, K extends Enumerable<keyof T> | keyof T> = Prisma__Pick<T, MaybeTupleToUnion<K>>
+
+  /**
+   * Exclude all keys with underscores
+   */
+  type ExcludeUnderscoreKeys<T extends string> = T extends `_${string}` ? never : T
+
+
+  export type FieldRef<Model, FieldType> = runtime.FieldRef<Model, FieldType>
+
+  type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRef<Model, FieldType>
+
+
+  export const ModelName: {
+    User: 'User',
+    Account: 'Account',
+    Playground: 'Playground',
+    StarMark: 'StarMark',
+    TemplateFile: 'TemplateFile',
+    ChatMessage: 'ChatMessage'
+  };
+
+  export type ModelName = (typeof ModelName)[keyof typeof ModelName]
+
+
+  export type Datasources = {
+    db?: Datasource
+  }
+
+  interface TypeMapCb<ClientOptions = {}> extends $Utils.Fn<{extArgs: $Extensions.InternalArgs }, $Utils.Record<string, any>> {
+    returns: Prisma.TypeMap<this['params']['extArgs'], ClientOptions extends { omit: infer OmitOptions } ? OmitOptions : {}>
+  }
+
+  export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> = {
+    globalOmitOptions: {
+      omit: GlobalOmitOptions
+    }
+    meta: {
+      modelProps: "user" | "account" | "playground" | "starMark" | "templateFile" | "chatMessage"
+      txIsolationLevel: never
+    }
+    model: {
+      User: {
+        payload: Prisma.$UserPayload<ExtArgs>
+        fields: Prisma.UserFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          findFirst: {
+            args: Prisma.UserFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          findMany: {
+            args: Prisma.UserFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
+          }
+          create: {
+            args: Prisma.UserCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          createMany: {
+            args: Prisma.UserCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.UserDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          update: {
+            args: Prisma.UserUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.UserUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          aggregate: {
+            args: Prisma.UserAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUser>
+          }
+          groupBy: {
+            args: Prisma.UserGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.UserFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.UserAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.UserCountArgs<ExtArgs>
+            result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Account: {
+        payload: Prisma.$AccountPayload<ExtArgs>
+        fields: Prisma.AccountFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AccountFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AccountFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountPayload>
+          }
+          findFirst: {
+            args: Prisma.AccountFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AccountFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountPayload>
+          }
+          findMany: {
+            args: Prisma.AccountFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountPayload>[]
+          }
+          create: {
+            args: Prisma.AccountCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountPayload>
+          }
+          createMany: {
+            args: Prisma.AccountCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.AccountDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountPayload>
+          }
+          update: {
+            args: Prisma.AccountUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountPayload>
+          }
+          deleteMany: {
+            args: Prisma.AccountDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AccountUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AccountUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountPayload>
+          }
+          aggregate: {
+            args: Prisma.AccountAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAccount>
+          }
+          groupBy: {
+            args: Prisma.AccountGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AccountGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.AccountFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.AccountAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.AccountCountArgs<ExtArgs>
+            result: $Utils.Optional<AccountCountAggregateOutputType> | number
+          }
+        }
+      }
+      Playground: {
+        payload: Prisma.$PlaygroundPayload<ExtArgs>
+        fields: Prisma.PlaygroundFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PlaygroundFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaygroundPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PlaygroundFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaygroundPayload>
+          }
+          findFirst: {
+            args: Prisma.PlaygroundFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaygroundPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PlaygroundFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaygroundPayload>
+          }
+          findMany: {
+            args: Prisma.PlaygroundFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaygroundPayload>[]
+          }
+          create: {
+            args: Prisma.PlaygroundCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaygroundPayload>
+          }
+          createMany: {
+            args: Prisma.PlaygroundCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.PlaygroundDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaygroundPayload>
+          }
+          update: {
+            args: Prisma.PlaygroundUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaygroundPayload>
+          }
+          deleteMany: {
+            args: Prisma.PlaygroundDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PlaygroundUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PlaygroundUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlaygroundPayload>
+          }
+          aggregate: {
+            args: Prisma.PlaygroundAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePlayground>
+          }
+          groupBy: {
+            args: Prisma.PlaygroundGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PlaygroundGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.PlaygroundFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.PlaygroundAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.PlaygroundCountArgs<ExtArgs>
+            result: $Utils.Optional<PlaygroundCountAggregateOutputType> | number
+          }
+        }
+      }
+      StarMark: {
+        payload: Prisma.$StarMarkPayload<ExtArgs>
+        fields: Prisma.StarMarkFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StarMarkFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StarMarkPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StarMarkFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StarMarkPayload>
+          }
+          findFirst: {
+            args: Prisma.StarMarkFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StarMarkPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StarMarkFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StarMarkPayload>
+          }
+          findMany: {
+            args: Prisma.StarMarkFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StarMarkPayload>[]
+          }
+          create: {
+            args: Prisma.StarMarkCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StarMarkPayload>
+          }
+          createMany: {
+            args: Prisma.StarMarkCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.StarMarkDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StarMarkPayload>
+          }
+          update: {
+            args: Prisma.StarMarkUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StarMarkPayload>
+          }
+          deleteMany: {
+            args: Prisma.StarMarkDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StarMarkUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.StarMarkUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StarMarkPayload>
+          }
+          aggregate: {
+            args: Prisma.StarMarkAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStarMark>
+          }
+          groupBy: {
+            args: Prisma.StarMarkGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StarMarkGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.StarMarkFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.StarMarkAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.StarMarkCountArgs<ExtArgs>
+            result: $Utils.Optional<StarMarkCountAggregateOutputType> | number
+          }
+        }
+      }
+      TemplateFile: {
+        payload: Prisma.$TemplateFilePayload<ExtArgs>
+        fields: Prisma.TemplateFileFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TemplateFileFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateFilePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TemplateFileFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateFilePayload>
+          }
+          findFirst: {
+            args: Prisma.TemplateFileFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateFilePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TemplateFileFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateFilePayload>
+          }
+          findMany: {
+            args: Prisma.TemplateFileFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateFilePayload>[]
+          }
+          create: {
+            args: Prisma.TemplateFileCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateFilePayload>
+          }
+          createMany: {
+            args: Prisma.TemplateFileCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.TemplateFileDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateFilePayload>
+          }
+          update: {
+            args: Prisma.TemplateFileUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateFilePayload>
+          }
+          deleteMany: {
+            args: Prisma.TemplateFileDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TemplateFileUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.TemplateFileUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TemplateFilePayload>
+          }
+          aggregate: {
+            args: Prisma.TemplateFileAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTemplateFile>
+          }
+          groupBy: {
+            args: Prisma.TemplateFileGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TemplateFileGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.TemplateFileFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.TemplateFileAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.TemplateFileCountArgs<ExtArgs>
+            result: $Utils.Optional<TemplateFileCountAggregateOutputType> | number
+          }
+        }
+      }
+      ChatMessage: {
+        payload: Prisma.$ChatMessagePayload<ExtArgs>
+        fields: Prisma.ChatMessageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ChatMessageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChatMessagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ChatMessageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChatMessagePayload>
+          }
+          findFirst: {
+            args: Prisma.ChatMessageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChatMessagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ChatMessageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChatMessagePayload>
+          }
+          findMany: {
+            args: Prisma.ChatMessageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChatMessagePayload>[]
+          }
+          create: {
+            args: Prisma.ChatMessageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChatMessagePayload>
+          }
+          createMany: {
+            args: Prisma.ChatMessageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ChatMessageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChatMessagePayload>
+          }
+          update: {
+            args: Prisma.ChatMessageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChatMessagePayload>
+          }
+          deleteMany: {
+            args: Prisma.ChatMessageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ChatMessageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ChatMessageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChatMessagePayload>
+          }
+          aggregate: {
+            args: Prisma.ChatMessageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateChatMessage>
+          }
+          groupBy: {
+            args: Prisma.ChatMessageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ChatMessageGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ChatMessageFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ChatMessageAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.ChatMessageCountArgs<ExtArgs>
+            result: $Utils.Optional<ChatMessageCountAggregateOutputType> | number
+          }
+        }
+      }
+    }
+  } & {
+    other: {
+      payload: any
+      operations: {
+        $runCommandRaw: {
+          args: Prisma.InputJsonObject,
+          result: Prisma.JsonObject
+        }
+      }
+    }
+  }
+  export const defineExtension: $Extensions.ExtendsHook<"define", Prisma.TypeMapCb, $Extensions.DefaultArgs>
+  export type DefaultPrismaClient = PrismaClient
+  export type ErrorFormat = 'pretty' | 'colorless' | 'minimal'
+  export interface PrismaClientOptions {
+    /**
+     * Overwrites the datasource url from your schema.prisma file
+     */
+    datasources?: Datasources
+    /**
+     * Overwrites the datasource url from your schema.prisma file
+     */
+    datasourceUrl?: string
+    /**
+     * @default "colorless"
+     */
+    errorFormat?: ErrorFormat
+    /**
+     * @example
+     * ```
+     * // Shorthand for `emit: 'stdout'`
+     * log: ['query', 'info', 'warn', 'error']
+     * 
+     * // Emit as events only
+     * log: [
+     *   { emit: 'event', level: 'query' },
+     *   { emit: 'event', level: 'info' },
+     *   { emit: 'event', level: 'warn' }
+     *   { emit: 'event', level: 'error' }
+     * ]
+     * 
+     * / Emit as events and log to stdout
+     * og: [
+     *  { emit: 'stdout', level: 'query' },
+     *  { emit: 'stdout', level: 'info' },
+     *  { emit: 'stdout', level: 'warn' }
+     *  { emit: 'stdout', level: 'error' }
+     * 
+     * ```
+     * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
+     */
+    log?: (LogLevel | LogDefinition)[]
+    /**
+     * The default values for transactionOptions
+     * maxWait ?= 2000
+     * timeout ?= 5000
+     */
+    transactionOptions?: {
+      maxWait?: number
+      timeout?: number
+    }
+    /**
+     * Global configuration for omitting model fields by default.
+     * 
+     * @example
+     * ```
+     * const prisma = new PrismaClient({
+     *   omit: {
+     *     user: {
+     *       password: true
+     *     }
+     *   }
+     * })
+     * ```
+     */
+    omit?: Prisma.GlobalOmitConfig
+  }
+  export type GlobalOmitConfig = {
+    user?: UserOmit
+    account?: AccountOmit
+    playground?: PlaygroundOmit
+    starMark?: StarMarkOmit
+    templateFile?: TemplateFileOmit
+    chatMessage?: ChatMessageOmit
+  }
+
+  /* Types for Logging */
+  export type LogLevel = 'info' | 'query' | 'warn' | 'error'
+  export type LogDefinition = {
+    level: LogLevel
+    emit: 'stdout' | 'event'
+  }
+
+  export type CheckIsLogLevel<T> = T extends LogLevel ? T : never;
+
+  export type GetLogType<T> = CheckIsLogLevel<
+    T extends LogDefinition ? T['level'] : T
+  >;
+
+  export type GetEvents<T extends any[]> = T extends Array<LogLevel | LogDefinition>
+    ? GetLogType<T[number]>
+    : never;
+
+  export type QueryEvent = {
+    timestamp: Date
+    query: string
+    params: string
+    duration: number
+    target: string
+  }
+
+  export type LogEvent = {
+    timestamp: Date
+    message: string
+    target: string
+  }
+  /* End Types for Logging */
+
+
+  export type PrismaAction =
+    | 'findUnique'
+    | 'findUniqueOrThrow'
+    | 'findMany'
+    | 'findFirst'
+    | 'findFirstOrThrow'
+    | 'create'
+    | 'createMany'
+    | 'createManyAndReturn'
+    | 'update'
+    | 'updateMany'
+    | 'updateManyAndReturn'
+    | 'upsert'
+    | 'delete'
+    | 'deleteMany'
+    | 'executeRaw'
+    | 'queryRaw'
+    | 'aggregate'
+    | 'count'
+    | 'runCommandRaw'
+    | 'findRaw'
+    | 'groupBy'
+
+  /**
+   * These options are being passed into the middleware as "params"
+   */
+  export type MiddlewareParams = {
+    model?: ModelName
+    action: PrismaAction
+    args: any
+    dataPath: string[]
+    runInTransaction: boolean
+  }
+
+  /**
+   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
+   */
+  export type Middleware<T = any> = (
+    params: MiddlewareParams,
+    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
+  ) => $Utils.JsPromise<T>
+
+  // tested in getLogLevel.test.ts
+  export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
+
+  /**
+   * `PrismaClient` proxy available in interactive transactions.
+   */
+  export type TransactionClient = Omit<Prisma.DefaultPrismaClient, runtime.ITXClientDenyList>
+
+  export type Datasource = {
+    url?: string
+  }
+
+  /**
+   * Count Types
+   */
+
+
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    accounts: number
+    myPlaground: number
+    staredPlayground: number
+    chatMessages: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    accounts?: boolean | UserCountOutputTypeCountAccountsArgs
+    myPlaground?: boolean | UserCountOutputTypeCountMyPlagroundArgs
+    staredPlayground?: boolean | UserCountOutputTypeCountStaredPlaygroundArgs
+    chatMessages?: boolean | UserCountOutputTypeCountChatMessagesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AccountWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMyPlagroundArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlaygroundWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountStaredPlaygroundArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StarMarkWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountChatMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChatMessageWhereInput
+  }
+
+
+  /**
+   * Count Type PlaygroundCountOutputType
+   */
+
+  export type PlaygroundCountOutputType = {
+    Starmark: number
+    templateFiles: number
+  }
+
+  export type PlaygroundCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Starmark?: boolean | PlaygroundCountOutputTypeCountStarmarkArgs
+    templateFiles?: boolean | PlaygroundCountOutputTypeCountTemplateFilesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PlaygroundCountOutputType without action
+   */
+  export type PlaygroundCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlaygroundCountOutputType
+     */
+    select?: PlaygroundCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PlaygroundCountOutputType without action
+   */
+  export type PlaygroundCountOutputTypeCountStarmarkArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StarMarkWhereInput
+  }
+
+  /**
+   * PlaygroundCountOutputType without action
+   */
+  export type PlaygroundCountOutputTypeCountTemplateFilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TemplateFileWhereInput
+  }
+
+
+  /**
+   * Models
+   */
+
+  /**
+   * Model User
+   */
+
+  export type AggregateUser = {
+    _count: UserCountAggregateOutputType | null
+    _min: UserMinAggregateOutputType | null
+    _max: UserMaxAggregateOutputType | null
+  }
+
+  export type UserMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    email: string | null
+    emailVerified: Date | null
+    image: string | null
+    role: $Enums.UserRole | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    email: string | null
+    emailVerified: Date | null
+    image: string | null
+    role: $Enums.UserRole | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserCountAggregateOutputType = {
+    id: number
+    name: number
+    email: number
+    emailVerified: number
+    image: number
+    role: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserMinAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    emailVerified?: true
+    image?: true
+    role?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserMaxAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    emailVerified?: true
+    image?: true
+    role?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserCountAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    emailVerified?: true
+    image?: true
+    role?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which User to aggregate.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Users
+    **/
+    _count?: true | UserCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserMaxAggregateInputType
+  }
+
+  export type GetUserAggregateType<T extends UserAggregateArgs> = {
+        [P in keyof T & keyof AggregateUser]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUser[P]>
+      : GetScalarType<T[P], AggregateUser[P]>
+  }
+
+
+
+
+  export type UserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithAggregationInput | UserOrderByWithAggregationInput[]
+    by: UserScalarFieldEnum[] | UserScalarFieldEnum
+    having?: UserScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserCountAggregateInputType | true
+    _min?: UserMinAggregateInputType
+    _max?: UserMaxAggregateInputType
+  }
+
+  export type UserGroupByOutputType = {
+    id: string
+    name: string | null
+    email: string
+    emailVerified: Date | null
+    image: string | null
+    role: $Enums.UserRole
+    createdAt: Date
+    updatedAt: Date
+    _count: UserCountAggregateOutputType | null
+    _min: UserMinAggregateOutputType | null
+    _max: UserMaxAggregateOutputType | null
+  }
+
+  type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserGroupByOutputType[P]>
+            : GetScalarType<T[P], UserGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    emailVerified?: boolean
+    image?: boolean
+    role?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    accounts?: boolean | User$accountsArgs<ExtArgs>
+    myPlaground?: boolean | User$myPlagroundArgs<ExtArgs>
+    staredPlayground?: boolean | User$staredPlaygroundArgs<ExtArgs>
+    chatMessages?: boolean | User$chatMessagesArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["user"]>
+
+
+
+  export type UserSelectScalar = {
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    emailVerified?: boolean
+    image?: boolean
+    role?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    accounts?: boolean | User$accountsArgs<ExtArgs>
+    myPlaground?: boolean | User$myPlagroundArgs<ExtArgs>
+    staredPlayground?: boolean | User$staredPlaygroundArgs<ExtArgs>
+    chatMessages?: boolean | User$chatMessagesArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "User"
+    objects: {
+      accounts: Prisma.$AccountPayload<ExtArgs>[]
+      myPlaground: Prisma.$PlaygroundPayload<ExtArgs>[]
+      staredPlayground: Prisma.$StarMarkPayload<ExtArgs>[]
+      chatMessages: Prisma.$ChatMessagePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string | null
+      email: string
+      emailVerified: Date | null
+      image: string | null
+      role: $Enums.UserRole
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["user"]>
+    composites: {}
+  }
+
+  type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = $Result.GetResult<Prisma.$UserPayload, S>
+
+  type UserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserCountAggregateInputType | true
+    }
+
+  export interface UserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['User'], meta: { name: 'User' } }
+    /**
+     * Find zero or one User that matches the filter.
+     * @param {UserFindUniqueArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserFindUniqueArgs>(args: SelectSubset<T, UserFindUniqueArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one User that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserFindUniqueOrThrowArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserFindUniqueOrThrowArgs>(args: SelectSubset<T, UserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first User that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindFirstArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserFindFirstArgs>(args?: SelectSubset<T, UserFindFirstArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first User that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindFirstOrThrowArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserFindFirstOrThrowArgs>(args?: SelectSubset<T, UserFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Users that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Users
+     * const users = await prisma.user.findMany()
+     * 
+     * // Get first 10 Users
+     * const users = await prisma.user.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserFindManyArgs>(args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a User.
+     * @param {UserCreateArgs} args - Arguments to create a User.
+     * @example
+     * // Create one User
+     * const User = await prisma.user.create({
+     *   data: {
+     *     // ... data to create a User
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserCreateArgs>(args: SelectSubset<T, UserCreateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Users.
+     * @param {UserCreateManyArgs} args - Arguments to create many Users.
+     * @example
+     * // Create many Users
+     * const user = await prisma.user.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserCreateManyArgs>(args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a User.
+     * @param {UserDeleteArgs} args - Arguments to delete one User.
+     * @example
+     * // Delete one User
+     * const User = await prisma.user.delete({
+     *   where: {
+     *     // ... filter to delete one User
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserDeleteArgs>(args: SelectSubset<T, UserDeleteArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one User.
+     * @param {UserUpdateArgs} args - Arguments to update one User.
+     * @example
+     * // Update one User
+     * const user = await prisma.user.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserUpdateArgs>(args: SelectSubset<T, UserUpdateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Users.
+     * @param {UserDeleteManyArgs} args - Arguments to filter Users to delete.
+     * @example
+     * // Delete a few Users
+     * const { count } = await prisma.user.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserDeleteManyArgs>(args?: SelectSubset<T, UserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Users
+     * const user = await prisma.user.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserUpdateManyArgs>(args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one User.
+     * @param {UserUpsertArgs} args - Arguments to update or create a User.
+     * @example
+     * // Update or create a User
+     * const user = await prisma.user.upsert({
+     *   create: {
+     *     // ... data to create a User
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the User we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserUpsertArgs>(args: SelectSubset<T, UserUpsertArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Users that matches the filter.
+     * @param {UserFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const user = await prisma.user.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: UserFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a User.
+     * @param {UserAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const user = await prisma.user.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: UserAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserCountArgs} args - Arguments to filter Users to count.
+     * @example
+     * // Count the number of Users
+     * const count = await prisma.user.count({
+     *   where: {
+     *     // ... the filter for the Users we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserCountArgs>(
+      args?: Subset<T, UserCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a User.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserAggregateArgs>(args: Subset<T, UserAggregateArgs>): Prisma.PrismaPromise<GetUserAggregateType<T>>
+
+    /**
+     * Group by User.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserGroupByArgs['orderBy'] }
+        : { orderBy?: UserGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the User model
+   */
+  readonly fields: UserFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for User.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    myPlaground<T extends User$myPlagroundArgs<ExtArgs> = {}>(args?: Subset<T, User$myPlagroundArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlaygroundPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    staredPlayground<T extends User$staredPlaygroundArgs<ExtArgs> = {}>(args?: Subset<T, User$staredPlaygroundArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StarMarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    chatMessages<T extends User$chatMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the User model
+   */
+  interface UserFieldRefs {
+    readonly id: FieldRef<"User", 'String'>
+    readonly name: FieldRef<"User", 'String'>
+    readonly email: FieldRef<"User", 'String'>
+    readonly emailVerified: FieldRef<"User", 'DateTime'>
+    readonly image: FieldRef<"User", 'String'>
+    readonly role: FieldRef<"User", 'UserRole'>
+    readonly createdAt: FieldRef<"User", 'DateTime'>
+    readonly updatedAt: FieldRef<"User", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * User findUnique
+   */
+  export type UserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User findUniqueOrThrow
+   */
+  export type UserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User findFirst
+   */
+  export type UserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Users.
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Users.
+     */
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * User findFirstOrThrow
+   */
+  export type UserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Users.
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Users.
+     */
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * User findMany
+   */
+  export type UserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which Users to fetch.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Users.
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * User create
+   */
+  export type UserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * The data needed to create a User.
+     */
+    data: XOR<UserCreateInput, UserUncheckedCreateInput>
+  }
+
+  /**
+   * User createMany
+   */
+  export type UserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Users.
+     */
+    data: UserCreateManyInput | UserCreateManyInput[]
+  }
+
+  /**
+   * User update
+   */
+  export type UserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * The data needed to update a User.
+     */
+    data: XOR<UserUpdateInput, UserUncheckedUpdateInput>
+    /**
+     * Choose, which User to update.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User updateMany
+   */
+  export type UserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Users.
+     */
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
+    /**
+     * Filter which Users to update
+     */
+    where?: UserWhereInput
+    /**
+     * Limit how many Users to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * User upsert
+   */
+  export type UserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * The filter to search for the User to update in case it exists.
+     */
+    where: UserWhereUniqueInput
+    /**
+     * In case the User found by the `where` argument doesn't exist, create a new User with this data.
+     */
+    create: XOR<UserCreateInput, UserUncheckedCreateInput>
+    /**
+     * In case the User was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserUpdateInput, UserUncheckedUpdateInput>
+  }
+
+  /**
+   * User delete
+   */
+  export type UserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter which User to delete.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User deleteMany
+   */
+  export type UserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Users to delete
+     */
+    where?: UserWhereInput
+    /**
+     * Limit how many Users to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * User findRaw
+   */
+  export type UserFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * User aggregateRaw
+   */
+  export type UserAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * User.accounts
+   */
+  export type User$accountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Account
+     */
+    select?: AccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Account
+     */
+    omit?: AccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountInclude<ExtArgs> | null
+    where?: AccountWhereInput
+    orderBy?: AccountOrderByWithRelationInput | AccountOrderByWithRelationInput[]
+    cursor?: AccountWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AccountScalarFieldEnum | AccountScalarFieldEnum[]
+  }
+
+  /**
+   * User.myPlaground
+   */
+  export type User$myPlagroundArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playground
+     */
+    select?: PlaygroundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playground
+     */
+    omit?: PlaygroundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaygroundInclude<ExtArgs> | null
+    where?: PlaygroundWhereInput
+    orderBy?: PlaygroundOrderByWithRelationInput | PlaygroundOrderByWithRelationInput[]
+    cursor?: PlaygroundWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PlaygroundScalarFieldEnum | PlaygroundScalarFieldEnum[]
+  }
+
+  /**
+   * User.staredPlayground
+   */
+  export type User$staredPlaygroundArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarMark
+     */
+    select?: StarMarkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarMark
+     */
+    omit?: StarMarkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarMarkInclude<ExtArgs> | null
+    where?: StarMarkWhereInput
+    orderBy?: StarMarkOrderByWithRelationInput | StarMarkOrderByWithRelationInput[]
+    cursor?: StarMarkWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StarMarkScalarFieldEnum | StarMarkScalarFieldEnum[]
+  }
+
+  /**
+   * User.chatMessages
+   */
+  export type User$chatMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatMessage
+     */
+    select?: ChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChatMessage
+     */
+    omit?: ChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChatMessageInclude<ExtArgs> | null
+    where?: ChatMessageWhereInput
+    orderBy?: ChatMessageOrderByWithRelationInput | ChatMessageOrderByWithRelationInput[]
+    cursor?: ChatMessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChatMessageScalarFieldEnum | ChatMessageScalarFieldEnum[]
+  }
+
+  /**
+   * User without action
+   */
+  export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Account
+   */
+
+  export type AggregateAccount = {
+    _count: AccountCountAggregateOutputType | null
+    _avg: AccountAvgAggregateOutputType | null
+    _sum: AccountSumAggregateOutputType | null
+    _min: AccountMinAggregateOutputType | null
+    _max: AccountMaxAggregateOutputType | null
+  }
+
+  export type AccountAvgAggregateOutputType = {
+    expiresAt: number | null
+  }
+
+  export type AccountSumAggregateOutputType = {
+    expiresAt: number | null
+  }
+
+  export type AccountMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    type: string | null
+    provider: string | null
+    providerAccountId: string | null
+    refreshToken: string | null
+    accessToken: string | null
+    expiresAt: number | null
+    tokenType: string | null
+    scope: string | null
+    idToken: string | null
+    sessionState: string | null
+  }
+
+  export type AccountMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    type: string | null
+    provider: string | null
+    providerAccountId: string | null
+    refreshToken: string | null
+    accessToken: string | null
+    expiresAt: number | null
+    tokenType: string | null
+    scope: string | null
+    idToken: string | null
+    sessionState: string | null
+  }
+
+  export type AccountCountAggregateOutputType = {
+    id: number
+    userId: number
+    type: number
+    provider: number
+    providerAccountId: number
+    refreshToken: number
+    accessToken: number
+    expiresAt: number
+    tokenType: number
+    scope: number
+    idToken: number
+    sessionState: number
+    _all: number
+  }
+
+
+  export type AccountAvgAggregateInputType = {
+    expiresAt?: true
+  }
+
+  export type AccountSumAggregateInputType = {
+    expiresAt?: true
+  }
+
+  export type AccountMinAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    provider?: true
+    providerAccountId?: true
+    refreshToken?: true
+    accessToken?: true
+    expiresAt?: true
+    tokenType?: true
+    scope?: true
+    idToken?: true
+    sessionState?: true
+  }
+
+  export type AccountMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    provider?: true
+    providerAccountId?: true
+    refreshToken?: true
+    accessToken?: true
+    expiresAt?: true
+    tokenType?: true
+    scope?: true
+    idToken?: true
+    sessionState?: true
+  }
+
+  export type AccountCountAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    provider?: true
+    providerAccountId?: true
+    refreshToken?: true
+    accessToken?: true
+    expiresAt?: true
+    tokenType?: true
+    scope?: true
+    idToken?: true
+    sessionState?: true
+    _all?: true
+  }
+
+  export type AccountAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Account to aggregate.
+     */
+    where?: AccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Accounts to fetch.
+     */
+    orderBy?: AccountOrderByWithRelationInput | AccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Accounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Accounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Accounts
+    **/
+    _count?: true | AccountCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AccountAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AccountSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AccountMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AccountMaxAggregateInputType
+  }
+
+  export type GetAccountAggregateType<T extends AccountAggregateArgs> = {
+        [P in keyof T & keyof AggregateAccount]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAccount[P]>
+      : GetScalarType<T[P], AggregateAccount[P]>
+  }
+
+
+
+
+  export type AccountGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AccountWhereInput
+    orderBy?: AccountOrderByWithAggregationInput | AccountOrderByWithAggregationInput[]
+    by: AccountScalarFieldEnum[] | AccountScalarFieldEnum
+    having?: AccountScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AccountCountAggregateInputType | true
+    _avg?: AccountAvgAggregateInputType
+    _sum?: AccountSumAggregateInputType
+    _min?: AccountMinAggregateInputType
+    _max?: AccountMaxAggregateInputType
+  }
+
+  export type AccountGroupByOutputType = {
+    id: string
+    userId: string
+    type: string
+    provider: string
+    providerAccountId: string
+    refreshToken: string | null
+    accessToken: string | null
+    expiresAt: number | null
+    tokenType: string | null
+    scope: string | null
+    idToken: string | null
+    sessionState: string | null
+    _count: AccountCountAggregateOutputType | null
+    _avg: AccountAvgAggregateOutputType | null
+    _sum: AccountSumAggregateOutputType | null
+    _min: AccountMinAggregateOutputType | null
+    _max: AccountMaxAggregateOutputType | null
+  }
+
+  type GetAccountGroupByPayload<T extends AccountGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AccountGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AccountGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AccountGroupByOutputType[P]>
+            : GetScalarType<T[P], AccountGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AccountSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    provider?: boolean
+    providerAccountId?: boolean
+    refreshToken?: boolean
+    accessToken?: boolean
+    expiresAt?: boolean
+    tokenType?: boolean
+    scope?: boolean
+    idToken?: boolean
+    sessionState?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["account"]>
+
+
+
+  export type AccountSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    provider?: boolean
+    providerAccountId?: boolean
+    refreshToken?: boolean
+    accessToken?: boolean
+    expiresAt?: boolean
+    tokenType?: boolean
+    scope?: boolean
+    idToken?: boolean
+    sessionState?: boolean
+  }
+
+  export type AccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "type" | "provider" | "providerAccountId" | "refreshToken" | "accessToken" | "expiresAt" | "tokenType" | "scope" | "idToken" | "sessionState", ExtArgs["result"]["account"]>
+  export type AccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $AccountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Account"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      type: string
+      provider: string
+      providerAccountId: string
+      refreshToken: string | null
+      accessToken: string | null
+      expiresAt: number | null
+      tokenType: string | null
+      scope: string | null
+      idToken: string | null
+      sessionState: string | null
+    }, ExtArgs["result"]["account"]>
+    composites: {}
+  }
+
+  type AccountGetPayload<S extends boolean | null | undefined | AccountDefaultArgs> = $Result.GetResult<Prisma.$AccountPayload, S>
+
+  type AccountCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AccountFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AccountCountAggregateInputType | true
+    }
+
+  export interface AccountDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Account'], meta: { name: 'Account' } }
+    /**
+     * Find zero or one Account that matches the filter.
+     * @param {AccountFindUniqueArgs} args - Arguments to find a Account
+     * @example
+     * // Get one Account
+     * const account = await prisma.account.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AccountFindUniqueArgs>(args: SelectSubset<T, AccountFindUniqueArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Account that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AccountFindUniqueOrThrowArgs} args - Arguments to find a Account
+     * @example
+     * // Get one Account
+     * const account = await prisma.account.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AccountFindUniqueOrThrowArgs>(args: SelectSubset<T, AccountFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Account that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountFindFirstArgs} args - Arguments to find a Account
+     * @example
+     * // Get one Account
+     * const account = await prisma.account.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AccountFindFirstArgs>(args?: SelectSubset<T, AccountFindFirstArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Account that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountFindFirstOrThrowArgs} args - Arguments to find a Account
+     * @example
+     * // Get one Account
+     * const account = await prisma.account.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AccountFindFirstOrThrowArgs>(args?: SelectSubset<T, AccountFindFirstOrThrowArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Accounts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Accounts
+     * const accounts = await prisma.account.findMany()
+     * 
+     * // Get first 10 Accounts
+     * const accounts = await prisma.account.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const accountWithIdOnly = await prisma.account.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AccountFindManyArgs>(args?: SelectSubset<T, AccountFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Account.
+     * @param {AccountCreateArgs} args - Arguments to create a Account.
+     * @example
+     * // Create one Account
+     * const Account = await prisma.account.create({
+     *   data: {
+     *     // ... data to create a Account
+     *   }
+     * })
+     * 
+     */
+    create<T extends AccountCreateArgs>(args: SelectSubset<T, AccountCreateArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Accounts.
+     * @param {AccountCreateManyArgs} args - Arguments to create many Accounts.
+     * @example
+     * // Create many Accounts
+     * const account = await prisma.account.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AccountCreateManyArgs>(args?: SelectSubset<T, AccountCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Account.
+     * @param {AccountDeleteArgs} args - Arguments to delete one Account.
+     * @example
+     * // Delete one Account
+     * const Account = await prisma.account.delete({
+     *   where: {
+     *     // ... filter to delete one Account
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AccountDeleteArgs>(args: SelectSubset<T, AccountDeleteArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Account.
+     * @param {AccountUpdateArgs} args - Arguments to update one Account.
+     * @example
+     * // Update one Account
+     * const account = await prisma.account.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AccountUpdateArgs>(args: SelectSubset<T, AccountUpdateArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Accounts.
+     * @param {AccountDeleteManyArgs} args - Arguments to filter Accounts to delete.
+     * @example
+     * // Delete a few Accounts
+     * const { count } = await prisma.account.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AccountDeleteManyArgs>(args?: SelectSubset<T, AccountDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Accounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Accounts
+     * const account = await prisma.account.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AccountUpdateManyArgs>(args: SelectSubset<T, AccountUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Account.
+     * @param {AccountUpsertArgs} args - Arguments to update or create a Account.
+     * @example
+     * // Update or create a Account
+     * const account = await prisma.account.upsert({
+     *   create: {
+     *     // ... data to create a Account
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Account we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AccountUpsertArgs>(args: SelectSubset<T, AccountUpsertArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Accounts that matches the filter.
+     * @param {AccountFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const account = await prisma.account.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: AccountFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Account.
+     * @param {AccountAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const account = await prisma.account.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: AccountAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Accounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountCountArgs} args - Arguments to filter Accounts to count.
+     * @example
+     * // Count the number of Accounts
+     * const count = await prisma.account.count({
+     *   where: {
+     *     // ... the filter for the Accounts we want to count
+     *   }
+     * })
+    **/
+    count<T extends AccountCountArgs>(
+      args?: Subset<T, AccountCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AccountCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Account.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AccountAggregateArgs>(args: Subset<T, AccountAggregateArgs>): Prisma.PrismaPromise<GetAccountAggregateType<T>>
+
+    /**
+     * Group by Account.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AccountGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AccountGroupByArgs['orderBy'] }
+        : { orderBy?: AccountGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AccountGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAccountGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Account model
+   */
+  readonly fields: AccountFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Account.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AccountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Account model
+   */
+  interface AccountFieldRefs {
+    readonly id: FieldRef<"Account", 'String'>
+    readonly userId: FieldRef<"Account", 'String'>
+    readonly type: FieldRef<"Account", 'String'>
+    readonly provider: FieldRef<"Account", 'String'>
+    readonly providerAccountId: FieldRef<"Account", 'String'>
+    readonly refreshToken: FieldRef<"Account", 'String'>
+    readonly accessToken: FieldRef<"Account", 'String'>
+    readonly expiresAt: FieldRef<"Account", 'Int'>
+    readonly tokenType: FieldRef<"Account", 'String'>
+    readonly scope: FieldRef<"Account", 'String'>
+    readonly idToken: FieldRef<"Account", 'String'>
+    readonly sessionState: FieldRef<"Account", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Account findUnique
+   */
+  export type AccountFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Account
+     */
+    select?: AccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Account
+     */
+    omit?: AccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountInclude<ExtArgs> | null
+    /**
+     * Filter, which Account to fetch.
+     */
+    where: AccountWhereUniqueInput
+  }
+
+  /**
+   * Account findUniqueOrThrow
+   */
+  export type AccountFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Account
+     */
+    select?: AccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Account
+     */
+    omit?: AccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountInclude<ExtArgs> | null
+    /**
+     * Filter, which Account to fetch.
+     */
+    where: AccountWhereUniqueInput
+  }
+
+  /**
+   * Account findFirst
+   */
+  export type AccountFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Account
+     */
+    select?: AccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Account
+     */
+    omit?: AccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountInclude<ExtArgs> | null
+    /**
+     * Filter, which Account to fetch.
+     */
+    where?: AccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Accounts to fetch.
+     */
+    orderBy?: AccountOrderByWithRelationInput | AccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Accounts.
+     */
+    cursor?: AccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Accounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Accounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Accounts.
+     */
+    distinct?: AccountScalarFieldEnum | AccountScalarFieldEnum[]
+  }
+
+  /**
+   * Account findFirstOrThrow
+   */
+  export type AccountFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Account
+     */
+    select?: AccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Account
+     */
+    omit?: AccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountInclude<ExtArgs> | null
+    /**
+     * Filter, which Account to fetch.
+     */
+    where?: AccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Accounts to fetch.
+     */
+    orderBy?: AccountOrderByWithRelationInput | AccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Accounts.
+     */
+    cursor?: AccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Accounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Accounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Accounts.
+     */
+    distinct?: AccountScalarFieldEnum | AccountScalarFieldEnum[]
+  }
+
+  /**
+   * Account findMany
+   */
+  export type AccountFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Account
+     */
+    select?: AccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Account
+     */
+    omit?: AccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountInclude<ExtArgs> | null
+    /**
+     * Filter, which Accounts to fetch.
+     */
+    where?: AccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Accounts to fetch.
+     */
+    orderBy?: AccountOrderByWithRelationInput | AccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Accounts.
+     */
+    cursor?: AccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Accounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Accounts.
+     */
+    skip?: number
+    distinct?: AccountScalarFieldEnum | AccountScalarFieldEnum[]
+  }
+
+  /**
+   * Account create
+   */
+  export type AccountCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Account
+     */
+    select?: AccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Account
+     */
+    omit?: AccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Account.
+     */
+    data: XOR<AccountCreateInput, AccountUncheckedCreateInput>
+  }
+
+  /**
+   * Account createMany
+   */
+  export type AccountCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Accounts.
+     */
+    data: AccountCreateManyInput | AccountCreateManyInput[]
+  }
+
+  /**
+   * Account update
+   */
+  export type AccountUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Account
+     */
+    select?: AccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Account
+     */
+    omit?: AccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Account.
+     */
+    data: XOR<AccountUpdateInput, AccountUncheckedUpdateInput>
+    /**
+     * Choose, which Account to update.
+     */
+    where: AccountWhereUniqueInput
+  }
+
+  /**
+   * Account updateMany
+   */
+  export type AccountUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Accounts.
+     */
+    data: XOR<AccountUpdateManyMutationInput, AccountUncheckedUpdateManyInput>
+    /**
+     * Filter which Accounts to update
+     */
+    where?: AccountWhereInput
+    /**
+     * Limit how many Accounts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Account upsert
+   */
+  export type AccountUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Account
+     */
+    select?: AccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Account
+     */
+    omit?: AccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Account to update in case it exists.
+     */
+    where: AccountWhereUniqueInput
+    /**
+     * In case the Account found by the `where` argument doesn't exist, create a new Account with this data.
+     */
+    create: XOR<AccountCreateInput, AccountUncheckedCreateInput>
+    /**
+     * In case the Account was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AccountUpdateInput, AccountUncheckedUpdateInput>
+  }
+
+  /**
+   * Account delete
+   */
+  export type AccountDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Account
+     */
+    select?: AccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Account
+     */
+    omit?: AccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountInclude<ExtArgs> | null
+    /**
+     * Filter which Account to delete.
+     */
+    where: AccountWhereUniqueInput
+  }
+
+  /**
+   * Account deleteMany
+   */
+  export type AccountDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Accounts to delete
+     */
+    where?: AccountWhereInput
+    /**
+     * Limit how many Accounts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Account findRaw
+   */
+  export type AccountFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Account aggregateRaw
+   */
+  export type AccountAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Account without action
+   */
+  export type AccountDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Account
+     */
+    select?: AccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Account
+     */
+    omit?: AccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Playground
+   */
+
+  export type AggregatePlayground = {
+    _count: PlaygroundCountAggregateOutputType | null
+    _min: PlaygroundMinAggregateOutputType | null
+    _max: PlaygroundMaxAggregateOutputType | null
+  }
+
+  export type PlaygroundMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    template: $Enums.Templates | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    userId: string | null
+  }
+
+  export type PlaygroundMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    template: $Enums.Templates | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    userId: string | null
+  }
+
+  export type PlaygroundCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    template: number
+    createdAt: number
+    updatedAt: number
+    userId: number
+    _all: number
+  }
+
+
+  export type PlaygroundMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    template?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+  }
+
+  export type PlaygroundMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    template?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+  }
+
+  export type PlaygroundCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    template?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+    _all?: true
+  }
+
+  export type PlaygroundAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Playground to aggregate.
+     */
+    where?: PlaygroundWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Playgrounds to fetch.
+     */
+    orderBy?: PlaygroundOrderByWithRelationInput | PlaygroundOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlaygroundWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Playgrounds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Playgrounds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Playgrounds
+    **/
+    _count?: true | PlaygroundCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlaygroundMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlaygroundMaxAggregateInputType
+  }
+
+  export type GetPlaygroundAggregateType<T extends PlaygroundAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlayground]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlayground[P]>
+      : GetScalarType<T[P], AggregatePlayground[P]>
+  }
+
+
+
+
+  export type PlaygroundGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlaygroundWhereInput
+    orderBy?: PlaygroundOrderByWithAggregationInput | PlaygroundOrderByWithAggregationInput[]
+    by: PlaygroundScalarFieldEnum[] | PlaygroundScalarFieldEnum
+    having?: PlaygroundScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlaygroundCountAggregateInputType | true
+    _min?: PlaygroundMinAggregateInputType
+    _max?: PlaygroundMaxAggregateInputType
+  }
+
+  export type PlaygroundGroupByOutputType = {
+    id: string
+    title: string
+    description: string | null
+    template: $Enums.Templates
+    createdAt: Date
+    updatedAt: Date
+    userId: string
+    _count: PlaygroundCountAggregateOutputType | null
+    _min: PlaygroundMinAggregateOutputType | null
+    _max: PlaygroundMaxAggregateOutputType | null
+  }
+
+  type GetPlaygroundGroupByPayload<T extends PlaygroundGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PlaygroundGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlaygroundGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlaygroundGroupByOutputType[P]>
+            : GetScalarType<T[P], PlaygroundGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlaygroundSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    template?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    Starmark?: boolean | Playground$StarmarkArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    templateFiles?: boolean | Playground$templateFilesArgs<ExtArgs>
+    _count?: boolean | PlaygroundCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["playground"]>
+
+
+
+  export type PlaygroundSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    template?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+  }
+
+  export type PlaygroundOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "template" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["playground"]>
+  export type PlaygroundInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Starmark?: boolean | Playground$StarmarkArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    templateFiles?: boolean | Playground$templateFilesArgs<ExtArgs>
+    _count?: boolean | PlaygroundCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $PlaygroundPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Playground"
+    objects: {
+      Starmark: Prisma.$StarMarkPayload<ExtArgs>[]
+      user: Prisma.$UserPayload<ExtArgs>
+      templateFiles: Prisma.$TemplateFilePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string | null
+      template: $Enums.Templates
+      createdAt: Date
+      updatedAt: Date
+      userId: string
+    }, ExtArgs["result"]["playground"]>
+    composites: {}
+  }
+
+  type PlaygroundGetPayload<S extends boolean | null | undefined | PlaygroundDefaultArgs> = $Result.GetResult<Prisma.$PlaygroundPayload, S>
+
+  type PlaygroundCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PlaygroundFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PlaygroundCountAggregateInputType | true
+    }
+
+  export interface PlaygroundDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Playground'], meta: { name: 'Playground' } }
+    /**
+     * Find zero or one Playground that matches the filter.
+     * @param {PlaygroundFindUniqueArgs} args - Arguments to find a Playground
+     * @example
+     * // Get one Playground
+     * const playground = await prisma.playground.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PlaygroundFindUniqueArgs>(args: SelectSubset<T, PlaygroundFindUniqueArgs<ExtArgs>>): Prisma__PlaygroundClient<$Result.GetResult<Prisma.$PlaygroundPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Playground that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PlaygroundFindUniqueOrThrowArgs} args - Arguments to find a Playground
+     * @example
+     * // Get one Playground
+     * const playground = await prisma.playground.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PlaygroundFindUniqueOrThrowArgs>(args: SelectSubset<T, PlaygroundFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlaygroundClient<$Result.GetResult<Prisma.$PlaygroundPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Playground that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaygroundFindFirstArgs} args - Arguments to find a Playground
+     * @example
+     * // Get one Playground
+     * const playground = await prisma.playground.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PlaygroundFindFirstArgs>(args?: SelectSubset<T, PlaygroundFindFirstArgs<ExtArgs>>): Prisma__PlaygroundClient<$Result.GetResult<Prisma.$PlaygroundPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Playground that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaygroundFindFirstOrThrowArgs} args - Arguments to find a Playground
+     * @example
+     * // Get one Playground
+     * const playground = await prisma.playground.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PlaygroundFindFirstOrThrowArgs>(args?: SelectSubset<T, PlaygroundFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlaygroundClient<$Result.GetResult<Prisma.$PlaygroundPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Playgrounds that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaygroundFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Playgrounds
+     * const playgrounds = await prisma.playground.findMany()
+     * 
+     * // Get first 10 Playgrounds
+     * const playgrounds = await prisma.playground.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const playgroundWithIdOnly = await prisma.playground.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PlaygroundFindManyArgs>(args?: SelectSubset<T, PlaygroundFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlaygroundPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Playground.
+     * @param {PlaygroundCreateArgs} args - Arguments to create a Playground.
+     * @example
+     * // Create one Playground
+     * const Playground = await prisma.playground.create({
+     *   data: {
+     *     // ... data to create a Playground
+     *   }
+     * })
+     * 
+     */
+    create<T extends PlaygroundCreateArgs>(args: SelectSubset<T, PlaygroundCreateArgs<ExtArgs>>): Prisma__PlaygroundClient<$Result.GetResult<Prisma.$PlaygroundPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Playgrounds.
+     * @param {PlaygroundCreateManyArgs} args - Arguments to create many Playgrounds.
+     * @example
+     * // Create many Playgrounds
+     * const playground = await prisma.playground.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PlaygroundCreateManyArgs>(args?: SelectSubset<T, PlaygroundCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Playground.
+     * @param {PlaygroundDeleteArgs} args - Arguments to delete one Playground.
+     * @example
+     * // Delete one Playground
+     * const Playground = await prisma.playground.delete({
+     *   where: {
+     *     // ... filter to delete one Playground
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PlaygroundDeleteArgs>(args: SelectSubset<T, PlaygroundDeleteArgs<ExtArgs>>): Prisma__PlaygroundClient<$Result.GetResult<Prisma.$PlaygroundPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Playground.
+     * @param {PlaygroundUpdateArgs} args - Arguments to update one Playground.
+     * @example
+     * // Update one Playground
+     * const playground = await prisma.playground.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PlaygroundUpdateArgs>(args: SelectSubset<T, PlaygroundUpdateArgs<ExtArgs>>): Prisma__PlaygroundClient<$Result.GetResult<Prisma.$PlaygroundPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Playgrounds.
+     * @param {PlaygroundDeleteManyArgs} args - Arguments to filter Playgrounds to delete.
+     * @example
+     * // Delete a few Playgrounds
+     * const { count } = await prisma.playground.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PlaygroundDeleteManyArgs>(args?: SelectSubset<T, PlaygroundDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Playgrounds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaygroundUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Playgrounds
+     * const playground = await prisma.playground.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PlaygroundUpdateManyArgs>(args: SelectSubset<T, PlaygroundUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Playground.
+     * @param {PlaygroundUpsertArgs} args - Arguments to update or create a Playground.
+     * @example
+     * // Update or create a Playground
+     * const playground = await prisma.playground.upsert({
+     *   create: {
+     *     // ... data to create a Playground
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Playground we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PlaygroundUpsertArgs>(args: SelectSubset<T, PlaygroundUpsertArgs<ExtArgs>>): Prisma__PlaygroundClient<$Result.GetResult<Prisma.$PlaygroundPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Playgrounds that matches the filter.
+     * @param {PlaygroundFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const playground = await prisma.playground.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: PlaygroundFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Playground.
+     * @param {PlaygroundAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const playground = await prisma.playground.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: PlaygroundAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Playgrounds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaygroundCountArgs} args - Arguments to filter Playgrounds to count.
+     * @example
+     * // Count the number of Playgrounds
+     * const count = await prisma.playground.count({
+     *   where: {
+     *     // ... the filter for the Playgrounds we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlaygroundCountArgs>(
+      args?: Subset<T, PlaygroundCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlaygroundCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Playground.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaygroundAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlaygroundAggregateArgs>(args: Subset<T, PlaygroundAggregateArgs>): Prisma.PrismaPromise<GetPlaygroundAggregateType<T>>
+
+    /**
+     * Group by Playground.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlaygroundGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlaygroundGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlaygroundGroupByArgs['orderBy'] }
+        : { orderBy?: PlaygroundGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlaygroundGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlaygroundGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Playground model
+   */
+  readonly fields: PlaygroundFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Playground.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PlaygroundClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    Starmark<T extends Playground$StarmarkArgs<ExtArgs> = {}>(args?: Subset<T, Playground$StarmarkArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StarMarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    templateFiles<T extends Playground$templateFilesArgs<ExtArgs> = {}>(args?: Subset<T, Playground$templateFilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TemplateFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Playground model
+   */
+  interface PlaygroundFieldRefs {
+    readonly id: FieldRef<"Playground", 'String'>
+    readonly title: FieldRef<"Playground", 'String'>
+    readonly description: FieldRef<"Playground", 'String'>
+    readonly template: FieldRef<"Playground", 'Templates'>
+    readonly createdAt: FieldRef<"Playground", 'DateTime'>
+    readonly updatedAt: FieldRef<"Playground", 'DateTime'>
+    readonly userId: FieldRef<"Playground", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Playground findUnique
+   */
+  export type PlaygroundFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playground
+     */
+    select?: PlaygroundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playground
+     */
+    omit?: PlaygroundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaygroundInclude<ExtArgs> | null
+    /**
+     * Filter, which Playground to fetch.
+     */
+    where: PlaygroundWhereUniqueInput
+  }
+
+  /**
+   * Playground findUniqueOrThrow
+   */
+  export type PlaygroundFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playground
+     */
+    select?: PlaygroundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playground
+     */
+    omit?: PlaygroundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaygroundInclude<ExtArgs> | null
+    /**
+     * Filter, which Playground to fetch.
+     */
+    where: PlaygroundWhereUniqueInput
+  }
+
+  /**
+   * Playground findFirst
+   */
+  export type PlaygroundFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playground
+     */
+    select?: PlaygroundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playground
+     */
+    omit?: PlaygroundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaygroundInclude<ExtArgs> | null
+    /**
+     * Filter, which Playground to fetch.
+     */
+    where?: PlaygroundWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Playgrounds to fetch.
+     */
+    orderBy?: PlaygroundOrderByWithRelationInput | PlaygroundOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Playgrounds.
+     */
+    cursor?: PlaygroundWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Playgrounds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Playgrounds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Playgrounds.
+     */
+    distinct?: PlaygroundScalarFieldEnum | PlaygroundScalarFieldEnum[]
+  }
+
+  /**
+   * Playground findFirstOrThrow
+   */
+  export type PlaygroundFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playground
+     */
+    select?: PlaygroundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playground
+     */
+    omit?: PlaygroundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaygroundInclude<ExtArgs> | null
+    /**
+     * Filter, which Playground to fetch.
+     */
+    where?: PlaygroundWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Playgrounds to fetch.
+     */
+    orderBy?: PlaygroundOrderByWithRelationInput | PlaygroundOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Playgrounds.
+     */
+    cursor?: PlaygroundWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Playgrounds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Playgrounds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Playgrounds.
+     */
+    distinct?: PlaygroundScalarFieldEnum | PlaygroundScalarFieldEnum[]
+  }
+
+  /**
+   * Playground findMany
+   */
+  export type PlaygroundFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playground
+     */
+    select?: PlaygroundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playground
+     */
+    omit?: PlaygroundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaygroundInclude<ExtArgs> | null
+    /**
+     * Filter, which Playgrounds to fetch.
+     */
+    where?: PlaygroundWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Playgrounds to fetch.
+     */
+    orderBy?: PlaygroundOrderByWithRelationInput | PlaygroundOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Playgrounds.
+     */
+    cursor?: PlaygroundWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Playgrounds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Playgrounds.
+     */
+    skip?: number
+    distinct?: PlaygroundScalarFieldEnum | PlaygroundScalarFieldEnum[]
+  }
+
+  /**
+   * Playground create
+   */
+  export type PlaygroundCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playground
+     */
+    select?: PlaygroundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playground
+     */
+    omit?: PlaygroundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaygroundInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Playground.
+     */
+    data: XOR<PlaygroundCreateInput, PlaygroundUncheckedCreateInput>
+  }
+
+  /**
+   * Playground createMany
+   */
+  export type PlaygroundCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Playgrounds.
+     */
+    data: PlaygroundCreateManyInput | PlaygroundCreateManyInput[]
+  }
+
+  /**
+   * Playground update
+   */
+  export type PlaygroundUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playground
+     */
+    select?: PlaygroundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playground
+     */
+    omit?: PlaygroundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaygroundInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Playground.
+     */
+    data: XOR<PlaygroundUpdateInput, PlaygroundUncheckedUpdateInput>
+    /**
+     * Choose, which Playground to update.
+     */
+    where: PlaygroundWhereUniqueInput
+  }
+
+  /**
+   * Playground updateMany
+   */
+  export type PlaygroundUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Playgrounds.
+     */
+    data: XOR<PlaygroundUpdateManyMutationInput, PlaygroundUncheckedUpdateManyInput>
+    /**
+     * Filter which Playgrounds to update
+     */
+    where?: PlaygroundWhereInput
+    /**
+     * Limit how many Playgrounds to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Playground upsert
+   */
+  export type PlaygroundUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playground
+     */
+    select?: PlaygroundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playground
+     */
+    omit?: PlaygroundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaygroundInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Playground to update in case it exists.
+     */
+    where: PlaygroundWhereUniqueInput
+    /**
+     * In case the Playground found by the `where` argument doesn't exist, create a new Playground with this data.
+     */
+    create: XOR<PlaygroundCreateInput, PlaygroundUncheckedCreateInput>
+    /**
+     * In case the Playground was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlaygroundUpdateInput, PlaygroundUncheckedUpdateInput>
+  }
+
+  /**
+   * Playground delete
+   */
+  export type PlaygroundDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playground
+     */
+    select?: PlaygroundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playground
+     */
+    omit?: PlaygroundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaygroundInclude<ExtArgs> | null
+    /**
+     * Filter which Playground to delete.
+     */
+    where: PlaygroundWhereUniqueInput
+  }
+
+  /**
+   * Playground deleteMany
+   */
+  export type PlaygroundDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Playgrounds to delete
+     */
+    where?: PlaygroundWhereInput
+    /**
+     * Limit how many Playgrounds to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Playground findRaw
+   */
+  export type PlaygroundFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Playground aggregateRaw
+   */
+  export type PlaygroundAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Playground.Starmark
+   */
+  export type Playground$StarmarkArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarMark
+     */
+    select?: StarMarkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarMark
+     */
+    omit?: StarMarkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarMarkInclude<ExtArgs> | null
+    where?: StarMarkWhereInput
+    orderBy?: StarMarkOrderByWithRelationInput | StarMarkOrderByWithRelationInput[]
+    cursor?: StarMarkWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StarMarkScalarFieldEnum | StarMarkScalarFieldEnum[]
+  }
+
+  /**
+   * Playground.templateFiles
+   */
+  export type Playground$templateFilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFile
+     */
+    select?: TemplateFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFile
+     */
+    omit?: TemplateFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFileInclude<ExtArgs> | null
+    where?: TemplateFileWhereInput
+    orderBy?: TemplateFileOrderByWithRelationInput | TemplateFileOrderByWithRelationInput[]
+    cursor?: TemplateFileWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TemplateFileScalarFieldEnum | TemplateFileScalarFieldEnum[]
+  }
+
+  /**
+   * Playground without action
+   */
+  export type PlaygroundDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playground
+     */
+    select?: PlaygroundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playground
+     */
+    omit?: PlaygroundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaygroundInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model StarMark
+   */
+
+  export type AggregateStarMark = {
+    _count: StarMarkCountAggregateOutputType | null
+    _min: StarMarkMinAggregateOutputType | null
+    _max: StarMarkMaxAggregateOutputType | null
+  }
+
+  export type StarMarkMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    playgroundId: string | null
+    isMarked: boolean | null
+    createdAt: Date | null
+  }
+
+  export type StarMarkMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    playgroundId: string | null
+    isMarked: boolean | null
+    createdAt: Date | null
+  }
+
+  export type StarMarkCountAggregateOutputType = {
+    id: number
+    userId: number
+    playgroundId: number
+    isMarked: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type StarMarkMinAggregateInputType = {
+    id?: true
+    userId?: true
+    playgroundId?: true
+    isMarked?: true
+    createdAt?: true
+  }
+
+  export type StarMarkMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    playgroundId?: true
+    isMarked?: true
+    createdAt?: true
+  }
+
+  export type StarMarkCountAggregateInputType = {
+    id?: true
+    userId?: true
+    playgroundId?: true
+    isMarked?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type StarMarkAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StarMark to aggregate.
+     */
+    where?: StarMarkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StarMarks to fetch.
+     */
+    orderBy?: StarMarkOrderByWithRelationInput | StarMarkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StarMarkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StarMarks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StarMarks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StarMarks
+    **/
+    _count?: true | StarMarkCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StarMarkMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StarMarkMaxAggregateInputType
+  }
+
+  export type GetStarMarkAggregateType<T extends StarMarkAggregateArgs> = {
+        [P in keyof T & keyof AggregateStarMark]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStarMark[P]>
+      : GetScalarType<T[P], AggregateStarMark[P]>
+  }
+
+
+
+
+  export type StarMarkGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StarMarkWhereInput
+    orderBy?: StarMarkOrderByWithAggregationInput | StarMarkOrderByWithAggregationInput[]
+    by: StarMarkScalarFieldEnum[] | StarMarkScalarFieldEnum
+    having?: StarMarkScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StarMarkCountAggregateInputType | true
+    _min?: StarMarkMinAggregateInputType
+    _max?: StarMarkMaxAggregateInputType
+  }
+
+  export type StarMarkGroupByOutputType = {
+    id: string
+    userId: string
+    playgroundId: string
+    isMarked: boolean
+    createdAt: Date
+    _count: StarMarkCountAggregateOutputType | null
+    _min: StarMarkMinAggregateOutputType | null
+    _max: StarMarkMaxAggregateOutputType | null
+  }
+
+  type GetStarMarkGroupByPayload<T extends StarMarkGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StarMarkGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StarMarkGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StarMarkGroupByOutputType[P]>
+            : GetScalarType<T[P], StarMarkGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StarMarkSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    playgroundId?: boolean
+    isMarked?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    playground?: boolean | PlaygroundDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["starMark"]>
+
+
+
+  export type StarMarkSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    playgroundId?: boolean
+    isMarked?: boolean
+    createdAt?: boolean
+  }
+
+  export type StarMarkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "playgroundId" | "isMarked" | "createdAt", ExtArgs["result"]["starMark"]>
+  export type StarMarkInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    playground?: boolean | PlaygroundDefaultArgs<ExtArgs>
+  }
+
+  export type $StarMarkPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StarMark"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      playground: Prisma.$PlaygroundPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      playgroundId: string
+      isMarked: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["starMark"]>
+    composites: {}
+  }
+
+  type StarMarkGetPayload<S extends boolean | null | undefined | StarMarkDefaultArgs> = $Result.GetResult<Prisma.$StarMarkPayload, S>
+
+  type StarMarkCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<StarMarkFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: StarMarkCountAggregateInputType | true
+    }
+
+  export interface StarMarkDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StarMark'], meta: { name: 'StarMark' } }
+    /**
+     * Find zero or one StarMark that matches the filter.
+     * @param {StarMarkFindUniqueArgs} args - Arguments to find a StarMark
+     * @example
+     * // Get one StarMark
+     * const starMark = await prisma.starMark.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StarMarkFindUniqueArgs>(args: SelectSubset<T, StarMarkFindUniqueArgs<ExtArgs>>): Prisma__StarMarkClient<$Result.GetResult<Prisma.$StarMarkPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one StarMark that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {StarMarkFindUniqueOrThrowArgs} args - Arguments to find a StarMark
+     * @example
+     * // Get one StarMark
+     * const starMark = await prisma.starMark.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StarMarkFindUniqueOrThrowArgs>(args: SelectSubset<T, StarMarkFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StarMarkClient<$Result.GetResult<Prisma.$StarMarkPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first StarMark that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StarMarkFindFirstArgs} args - Arguments to find a StarMark
+     * @example
+     * // Get one StarMark
+     * const starMark = await prisma.starMark.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StarMarkFindFirstArgs>(args?: SelectSubset<T, StarMarkFindFirstArgs<ExtArgs>>): Prisma__StarMarkClient<$Result.GetResult<Prisma.$StarMarkPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first StarMark that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StarMarkFindFirstOrThrowArgs} args - Arguments to find a StarMark
+     * @example
+     * // Get one StarMark
+     * const starMark = await prisma.starMark.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StarMarkFindFirstOrThrowArgs>(args?: SelectSubset<T, StarMarkFindFirstOrThrowArgs<ExtArgs>>): Prisma__StarMarkClient<$Result.GetResult<Prisma.$StarMarkPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more StarMarks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StarMarkFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StarMarks
+     * const starMarks = await prisma.starMark.findMany()
+     * 
+     * // Get first 10 StarMarks
+     * const starMarks = await prisma.starMark.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const starMarkWithIdOnly = await prisma.starMark.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StarMarkFindManyArgs>(args?: SelectSubset<T, StarMarkFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StarMarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a StarMark.
+     * @param {StarMarkCreateArgs} args - Arguments to create a StarMark.
+     * @example
+     * // Create one StarMark
+     * const StarMark = await prisma.starMark.create({
+     *   data: {
+     *     // ... data to create a StarMark
+     *   }
+     * })
+     * 
+     */
+    create<T extends StarMarkCreateArgs>(args: SelectSubset<T, StarMarkCreateArgs<ExtArgs>>): Prisma__StarMarkClient<$Result.GetResult<Prisma.$StarMarkPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many StarMarks.
+     * @param {StarMarkCreateManyArgs} args - Arguments to create many StarMarks.
+     * @example
+     * // Create many StarMarks
+     * const starMark = await prisma.starMark.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StarMarkCreateManyArgs>(args?: SelectSubset<T, StarMarkCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a StarMark.
+     * @param {StarMarkDeleteArgs} args - Arguments to delete one StarMark.
+     * @example
+     * // Delete one StarMark
+     * const StarMark = await prisma.starMark.delete({
+     *   where: {
+     *     // ... filter to delete one StarMark
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StarMarkDeleteArgs>(args: SelectSubset<T, StarMarkDeleteArgs<ExtArgs>>): Prisma__StarMarkClient<$Result.GetResult<Prisma.$StarMarkPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one StarMark.
+     * @param {StarMarkUpdateArgs} args - Arguments to update one StarMark.
+     * @example
+     * // Update one StarMark
+     * const starMark = await prisma.starMark.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StarMarkUpdateArgs>(args: SelectSubset<T, StarMarkUpdateArgs<ExtArgs>>): Prisma__StarMarkClient<$Result.GetResult<Prisma.$StarMarkPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more StarMarks.
+     * @param {StarMarkDeleteManyArgs} args - Arguments to filter StarMarks to delete.
+     * @example
+     * // Delete a few StarMarks
+     * const { count } = await prisma.starMark.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StarMarkDeleteManyArgs>(args?: SelectSubset<T, StarMarkDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StarMarks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StarMarkUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StarMarks
+     * const starMark = await prisma.starMark.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StarMarkUpdateManyArgs>(args: SelectSubset<T, StarMarkUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one StarMark.
+     * @param {StarMarkUpsertArgs} args - Arguments to update or create a StarMark.
+     * @example
+     * // Update or create a StarMark
+     * const starMark = await prisma.starMark.upsert({
+     *   create: {
+     *     // ... data to create a StarMark
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StarMark we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StarMarkUpsertArgs>(args: SelectSubset<T, StarMarkUpsertArgs<ExtArgs>>): Prisma__StarMarkClient<$Result.GetResult<Prisma.$StarMarkPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more StarMarks that matches the filter.
+     * @param {StarMarkFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const starMark = await prisma.starMark.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: StarMarkFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a StarMark.
+     * @param {StarMarkAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const starMark = await prisma.starMark.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: StarMarkAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of StarMarks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StarMarkCountArgs} args - Arguments to filter StarMarks to count.
+     * @example
+     * // Count the number of StarMarks
+     * const count = await prisma.starMark.count({
+     *   where: {
+     *     // ... the filter for the StarMarks we want to count
+     *   }
+     * })
+    **/
+    count<T extends StarMarkCountArgs>(
+      args?: Subset<T, StarMarkCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StarMarkCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StarMark.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StarMarkAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StarMarkAggregateArgs>(args: Subset<T, StarMarkAggregateArgs>): Prisma.PrismaPromise<GetStarMarkAggregateType<T>>
+
+    /**
+     * Group by StarMark.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StarMarkGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StarMarkGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StarMarkGroupByArgs['orderBy'] }
+        : { orderBy?: StarMarkGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StarMarkGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStarMarkGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StarMark model
+   */
+  readonly fields: StarMarkFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StarMark.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StarMarkClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    playground<T extends PlaygroundDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlaygroundDefaultArgs<ExtArgs>>): Prisma__PlaygroundClient<$Result.GetResult<Prisma.$PlaygroundPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StarMark model
+   */
+  interface StarMarkFieldRefs {
+    readonly id: FieldRef<"StarMark", 'String'>
+    readonly userId: FieldRef<"StarMark", 'String'>
+    readonly playgroundId: FieldRef<"StarMark", 'String'>
+    readonly isMarked: FieldRef<"StarMark", 'Boolean'>
+    readonly createdAt: FieldRef<"StarMark", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StarMark findUnique
+   */
+  export type StarMarkFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarMark
+     */
+    select?: StarMarkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarMark
+     */
+    omit?: StarMarkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarMarkInclude<ExtArgs> | null
+    /**
+     * Filter, which StarMark to fetch.
+     */
+    where: StarMarkWhereUniqueInput
+  }
+
+  /**
+   * StarMark findUniqueOrThrow
+   */
+  export type StarMarkFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarMark
+     */
+    select?: StarMarkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarMark
+     */
+    omit?: StarMarkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarMarkInclude<ExtArgs> | null
+    /**
+     * Filter, which StarMark to fetch.
+     */
+    where: StarMarkWhereUniqueInput
+  }
+
+  /**
+   * StarMark findFirst
+   */
+  export type StarMarkFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarMark
+     */
+    select?: StarMarkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarMark
+     */
+    omit?: StarMarkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarMarkInclude<ExtArgs> | null
+    /**
+     * Filter, which StarMark to fetch.
+     */
+    where?: StarMarkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StarMarks to fetch.
+     */
+    orderBy?: StarMarkOrderByWithRelationInput | StarMarkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StarMarks.
+     */
+    cursor?: StarMarkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StarMarks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StarMarks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StarMarks.
+     */
+    distinct?: StarMarkScalarFieldEnum | StarMarkScalarFieldEnum[]
+  }
+
+  /**
+   * StarMark findFirstOrThrow
+   */
+  export type StarMarkFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarMark
+     */
+    select?: StarMarkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarMark
+     */
+    omit?: StarMarkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarMarkInclude<ExtArgs> | null
+    /**
+     * Filter, which StarMark to fetch.
+     */
+    where?: StarMarkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StarMarks to fetch.
+     */
+    orderBy?: StarMarkOrderByWithRelationInput | StarMarkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StarMarks.
+     */
+    cursor?: StarMarkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StarMarks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StarMarks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StarMarks.
+     */
+    distinct?: StarMarkScalarFieldEnum | StarMarkScalarFieldEnum[]
+  }
+
+  /**
+   * StarMark findMany
+   */
+  export type StarMarkFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarMark
+     */
+    select?: StarMarkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarMark
+     */
+    omit?: StarMarkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarMarkInclude<ExtArgs> | null
+    /**
+     * Filter, which StarMarks to fetch.
+     */
+    where?: StarMarkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StarMarks to fetch.
+     */
+    orderBy?: StarMarkOrderByWithRelationInput | StarMarkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StarMarks.
+     */
+    cursor?: StarMarkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StarMarks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StarMarks.
+     */
+    skip?: number
+    distinct?: StarMarkScalarFieldEnum | StarMarkScalarFieldEnum[]
+  }
+
+  /**
+   * StarMark create
+   */
+  export type StarMarkCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarMark
+     */
+    select?: StarMarkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarMark
+     */
+    omit?: StarMarkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarMarkInclude<ExtArgs> | null
+    /**
+     * The data needed to create a StarMark.
+     */
+    data: XOR<StarMarkCreateInput, StarMarkUncheckedCreateInput>
+  }
+
+  /**
+   * StarMark createMany
+   */
+  export type StarMarkCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StarMarks.
+     */
+    data: StarMarkCreateManyInput | StarMarkCreateManyInput[]
+  }
+
+  /**
+   * StarMark update
+   */
+  export type StarMarkUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarMark
+     */
+    select?: StarMarkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarMark
+     */
+    omit?: StarMarkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarMarkInclude<ExtArgs> | null
+    /**
+     * The data needed to update a StarMark.
+     */
+    data: XOR<StarMarkUpdateInput, StarMarkUncheckedUpdateInput>
+    /**
+     * Choose, which StarMark to update.
+     */
+    where: StarMarkWhereUniqueInput
+  }
+
+  /**
+   * StarMark updateMany
+   */
+  export type StarMarkUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StarMarks.
+     */
+    data: XOR<StarMarkUpdateManyMutationInput, StarMarkUncheckedUpdateManyInput>
+    /**
+     * Filter which StarMarks to update
+     */
+    where?: StarMarkWhereInput
+    /**
+     * Limit how many StarMarks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * StarMark upsert
+   */
+  export type StarMarkUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarMark
+     */
+    select?: StarMarkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarMark
+     */
+    omit?: StarMarkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarMarkInclude<ExtArgs> | null
+    /**
+     * The filter to search for the StarMark to update in case it exists.
+     */
+    where: StarMarkWhereUniqueInput
+    /**
+     * In case the StarMark found by the `where` argument doesn't exist, create a new StarMark with this data.
+     */
+    create: XOR<StarMarkCreateInput, StarMarkUncheckedCreateInput>
+    /**
+     * In case the StarMark was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StarMarkUpdateInput, StarMarkUncheckedUpdateInput>
+  }
+
+  /**
+   * StarMark delete
+   */
+  export type StarMarkDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarMark
+     */
+    select?: StarMarkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarMark
+     */
+    omit?: StarMarkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarMarkInclude<ExtArgs> | null
+    /**
+     * Filter which StarMark to delete.
+     */
+    where: StarMarkWhereUniqueInput
+  }
+
+  /**
+   * StarMark deleteMany
+   */
+  export type StarMarkDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StarMarks to delete
+     */
+    where?: StarMarkWhereInput
+    /**
+     * Limit how many StarMarks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * StarMark findRaw
+   */
+  export type StarMarkFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * StarMark aggregateRaw
+   */
+  export type StarMarkAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * StarMark without action
+   */
+  export type StarMarkDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarMark
+     */
+    select?: StarMarkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarMark
+     */
+    omit?: StarMarkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarMarkInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TemplateFile
+   */
+
+  export type AggregateTemplateFile = {
+    _count: TemplateFileCountAggregateOutputType | null
+    _min: TemplateFileMinAggregateOutputType | null
+    _max: TemplateFileMaxAggregateOutputType | null
+  }
+
+  export type TemplateFileMinAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    playgroundId: string | null
+  }
+
+  export type TemplateFileMaxAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    playgroundId: string | null
+  }
+
+  export type TemplateFileCountAggregateOutputType = {
+    id: number
+    content: number
+    createdAt: number
+    updatedAt: number
+    playgroundId: number
+    _all: number
+  }
+
+
+  export type TemplateFileMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    playgroundId?: true
+  }
+
+  export type TemplateFileMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    playgroundId?: true
+  }
+
+  export type TemplateFileCountAggregateInputType = {
+    id?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+    playgroundId?: true
+    _all?: true
+  }
+
+  export type TemplateFileAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TemplateFile to aggregate.
+     */
+    where?: TemplateFileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TemplateFiles to fetch.
+     */
+    orderBy?: TemplateFileOrderByWithRelationInput | TemplateFileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TemplateFileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TemplateFiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TemplateFiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TemplateFiles
+    **/
+    _count?: true | TemplateFileCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TemplateFileMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TemplateFileMaxAggregateInputType
+  }
+
+  export type GetTemplateFileAggregateType<T extends TemplateFileAggregateArgs> = {
+        [P in keyof T & keyof AggregateTemplateFile]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTemplateFile[P]>
+      : GetScalarType<T[P], AggregateTemplateFile[P]>
+  }
+
+
+
+
+  export type TemplateFileGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TemplateFileWhereInput
+    orderBy?: TemplateFileOrderByWithAggregationInput | TemplateFileOrderByWithAggregationInput[]
+    by: TemplateFileScalarFieldEnum[] | TemplateFileScalarFieldEnum
+    having?: TemplateFileScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TemplateFileCountAggregateInputType | true
+    _min?: TemplateFileMinAggregateInputType
+    _max?: TemplateFileMaxAggregateInputType
+  }
+
+  export type TemplateFileGroupByOutputType = {
+    id: string
+    content: JsonValue
+    createdAt: Date
+    updatedAt: Date
+    playgroundId: string
+    _count: TemplateFileCountAggregateOutputType | null
+    _min: TemplateFileMinAggregateOutputType | null
+    _max: TemplateFileMaxAggregateOutputType | null
+  }
+
+  type GetTemplateFileGroupByPayload<T extends TemplateFileGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TemplateFileGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TemplateFileGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TemplateFileGroupByOutputType[P]>
+            : GetScalarType<T[P], TemplateFileGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TemplateFileSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    playgroundId?: boolean
+    playground?: boolean | PlaygroundDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["templateFile"]>
+
+
+
+  export type TemplateFileSelectScalar = {
+    id?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    playgroundId?: boolean
+  }
+
+  export type TemplateFileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "createdAt" | "updatedAt" | "playgroundId", ExtArgs["result"]["templateFile"]>
+  export type TemplateFileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    playground?: boolean | PlaygroundDefaultArgs<ExtArgs>
+  }
+
+  export type $TemplateFilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TemplateFile"
+    objects: {
+      playground: Prisma.$PlaygroundPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      content: Prisma.JsonValue
+      createdAt: Date
+      updatedAt: Date
+      playgroundId: string
+    }, ExtArgs["result"]["templateFile"]>
+    composites: {}
+  }
+
+  type TemplateFileGetPayload<S extends boolean | null | undefined | TemplateFileDefaultArgs> = $Result.GetResult<Prisma.$TemplateFilePayload, S>
+
+  type TemplateFileCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TemplateFileFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TemplateFileCountAggregateInputType | true
+    }
+
+  export interface TemplateFileDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TemplateFile'], meta: { name: 'TemplateFile' } }
+    /**
+     * Find zero or one TemplateFile that matches the filter.
+     * @param {TemplateFileFindUniqueArgs} args - Arguments to find a TemplateFile
+     * @example
+     * // Get one TemplateFile
+     * const templateFile = await prisma.templateFile.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TemplateFileFindUniqueArgs>(args: SelectSubset<T, TemplateFileFindUniqueArgs<ExtArgs>>): Prisma__TemplateFileClient<$Result.GetResult<Prisma.$TemplateFilePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TemplateFile that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TemplateFileFindUniqueOrThrowArgs} args - Arguments to find a TemplateFile
+     * @example
+     * // Get one TemplateFile
+     * const templateFile = await prisma.templateFile.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TemplateFileFindUniqueOrThrowArgs>(args: SelectSubset<T, TemplateFileFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TemplateFileClient<$Result.GetResult<Prisma.$TemplateFilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TemplateFile that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateFileFindFirstArgs} args - Arguments to find a TemplateFile
+     * @example
+     * // Get one TemplateFile
+     * const templateFile = await prisma.templateFile.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TemplateFileFindFirstArgs>(args?: SelectSubset<T, TemplateFileFindFirstArgs<ExtArgs>>): Prisma__TemplateFileClient<$Result.GetResult<Prisma.$TemplateFilePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TemplateFile that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateFileFindFirstOrThrowArgs} args - Arguments to find a TemplateFile
+     * @example
+     * // Get one TemplateFile
+     * const templateFile = await prisma.templateFile.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TemplateFileFindFirstOrThrowArgs>(args?: SelectSubset<T, TemplateFileFindFirstOrThrowArgs<ExtArgs>>): Prisma__TemplateFileClient<$Result.GetResult<Prisma.$TemplateFilePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TemplateFiles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateFileFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TemplateFiles
+     * const templateFiles = await prisma.templateFile.findMany()
+     * 
+     * // Get first 10 TemplateFiles
+     * const templateFiles = await prisma.templateFile.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const templateFileWithIdOnly = await prisma.templateFile.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TemplateFileFindManyArgs>(args?: SelectSubset<T, TemplateFileFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TemplateFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TemplateFile.
+     * @param {TemplateFileCreateArgs} args - Arguments to create a TemplateFile.
+     * @example
+     * // Create one TemplateFile
+     * const TemplateFile = await prisma.templateFile.create({
+     *   data: {
+     *     // ... data to create a TemplateFile
+     *   }
+     * })
+     * 
+     */
+    create<T extends TemplateFileCreateArgs>(args: SelectSubset<T, TemplateFileCreateArgs<ExtArgs>>): Prisma__TemplateFileClient<$Result.GetResult<Prisma.$TemplateFilePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TemplateFiles.
+     * @param {TemplateFileCreateManyArgs} args - Arguments to create many TemplateFiles.
+     * @example
+     * // Create many TemplateFiles
+     * const templateFile = await prisma.templateFile.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TemplateFileCreateManyArgs>(args?: SelectSubset<T, TemplateFileCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a TemplateFile.
+     * @param {TemplateFileDeleteArgs} args - Arguments to delete one TemplateFile.
+     * @example
+     * // Delete one TemplateFile
+     * const TemplateFile = await prisma.templateFile.delete({
+     *   where: {
+     *     // ... filter to delete one TemplateFile
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TemplateFileDeleteArgs>(args: SelectSubset<T, TemplateFileDeleteArgs<ExtArgs>>): Prisma__TemplateFileClient<$Result.GetResult<Prisma.$TemplateFilePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TemplateFile.
+     * @param {TemplateFileUpdateArgs} args - Arguments to update one TemplateFile.
+     * @example
+     * // Update one TemplateFile
+     * const templateFile = await prisma.templateFile.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TemplateFileUpdateArgs>(args: SelectSubset<T, TemplateFileUpdateArgs<ExtArgs>>): Prisma__TemplateFileClient<$Result.GetResult<Prisma.$TemplateFilePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TemplateFiles.
+     * @param {TemplateFileDeleteManyArgs} args - Arguments to filter TemplateFiles to delete.
+     * @example
+     * // Delete a few TemplateFiles
+     * const { count } = await prisma.templateFile.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TemplateFileDeleteManyArgs>(args?: SelectSubset<T, TemplateFileDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TemplateFiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateFileUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TemplateFiles
+     * const templateFile = await prisma.templateFile.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TemplateFileUpdateManyArgs>(args: SelectSubset<T, TemplateFileUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TemplateFile.
+     * @param {TemplateFileUpsertArgs} args - Arguments to update or create a TemplateFile.
+     * @example
+     * // Update or create a TemplateFile
+     * const templateFile = await prisma.templateFile.upsert({
+     *   create: {
+     *     // ... data to create a TemplateFile
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TemplateFile we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TemplateFileUpsertArgs>(args: SelectSubset<T, TemplateFileUpsertArgs<ExtArgs>>): Prisma__TemplateFileClient<$Result.GetResult<Prisma.$TemplateFilePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TemplateFiles that matches the filter.
+     * @param {TemplateFileFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const templateFile = await prisma.templateFile.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: TemplateFileFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a TemplateFile.
+     * @param {TemplateFileAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const templateFile = await prisma.templateFile.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: TemplateFileAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of TemplateFiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateFileCountArgs} args - Arguments to filter TemplateFiles to count.
+     * @example
+     * // Count the number of TemplateFiles
+     * const count = await prisma.templateFile.count({
+     *   where: {
+     *     // ... the filter for the TemplateFiles we want to count
+     *   }
+     * })
+    **/
+    count<T extends TemplateFileCountArgs>(
+      args?: Subset<T, TemplateFileCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TemplateFileCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TemplateFile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateFileAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TemplateFileAggregateArgs>(args: Subset<T, TemplateFileAggregateArgs>): Prisma.PrismaPromise<GetTemplateFileAggregateType<T>>
+
+    /**
+     * Group by TemplateFile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TemplateFileGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TemplateFileGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TemplateFileGroupByArgs['orderBy'] }
+        : { orderBy?: TemplateFileGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TemplateFileGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTemplateFileGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TemplateFile model
+   */
+  readonly fields: TemplateFileFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TemplateFile.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TemplateFileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    playground<T extends PlaygroundDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlaygroundDefaultArgs<ExtArgs>>): Prisma__PlaygroundClient<$Result.GetResult<Prisma.$PlaygroundPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TemplateFile model
+   */
+  interface TemplateFileFieldRefs {
+    readonly id: FieldRef<"TemplateFile", 'String'>
+    readonly content: FieldRef<"TemplateFile", 'Json'>
+    readonly createdAt: FieldRef<"TemplateFile", 'DateTime'>
+    readonly updatedAt: FieldRef<"TemplateFile", 'DateTime'>
+    readonly playgroundId: FieldRef<"TemplateFile", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TemplateFile findUnique
+   */
+  export type TemplateFileFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFile
+     */
+    select?: TemplateFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFile
+     */
+    omit?: TemplateFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFileInclude<ExtArgs> | null
+    /**
+     * Filter, which TemplateFile to fetch.
+     */
+    where: TemplateFileWhereUniqueInput
+  }
+
+  /**
+   * TemplateFile findUniqueOrThrow
+   */
+  export type TemplateFileFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFile
+     */
+    select?: TemplateFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFile
+     */
+    omit?: TemplateFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFileInclude<ExtArgs> | null
+    /**
+     * Filter, which TemplateFile to fetch.
+     */
+    where: TemplateFileWhereUniqueInput
+  }
+
+  /**
+   * TemplateFile findFirst
+   */
+  export type TemplateFileFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFile
+     */
+    select?: TemplateFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFile
+     */
+    omit?: TemplateFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFileInclude<ExtArgs> | null
+    /**
+     * Filter, which TemplateFile to fetch.
+     */
+    where?: TemplateFileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TemplateFiles to fetch.
+     */
+    orderBy?: TemplateFileOrderByWithRelationInput | TemplateFileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TemplateFiles.
+     */
+    cursor?: TemplateFileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TemplateFiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TemplateFiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TemplateFiles.
+     */
+    distinct?: TemplateFileScalarFieldEnum | TemplateFileScalarFieldEnum[]
+  }
+
+  /**
+   * TemplateFile findFirstOrThrow
+   */
+  export type TemplateFileFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFile
+     */
+    select?: TemplateFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFile
+     */
+    omit?: TemplateFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFileInclude<ExtArgs> | null
+    /**
+     * Filter, which TemplateFile to fetch.
+     */
+    where?: TemplateFileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TemplateFiles to fetch.
+     */
+    orderBy?: TemplateFileOrderByWithRelationInput | TemplateFileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TemplateFiles.
+     */
+    cursor?: TemplateFileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TemplateFiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TemplateFiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TemplateFiles.
+     */
+    distinct?: TemplateFileScalarFieldEnum | TemplateFileScalarFieldEnum[]
+  }
+
+  /**
+   * TemplateFile findMany
+   */
+  export type TemplateFileFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFile
+     */
+    select?: TemplateFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFile
+     */
+    omit?: TemplateFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFileInclude<ExtArgs> | null
+    /**
+     * Filter, which TemplateFiles to fetch.
+     */
+    where?: TemplateFileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TemplateFiles to fetch.
+     */
+    orderBy?: TemplateFileOrderByWithRelationInput | TemplateFileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TemplateFiles.
+     */
+    cursor?: TemplateFileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TemplateFiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TemplateFiles.
+     */
+    skip?: number
+    distinct?: TemplateFileScalarFieldEnum | TemplateFileScalarFieldEnum[]
+  }
+
+  /**
+   * TemplateFile create
+   */
+  export type TemplateFileCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFile
+     */
+    select?: TemplateFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFile
+     */
+    omit?: TemplateFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFileInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TemplateFile.
+     */
+    data: XOR<TemplateFileCreateInput, TemplateFileUncheckedCreateInput>
+  }
+
+  /**
+   * TemplateFile createMany
+   */
+  export type TemplateFileCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TemplateFiles.
+     */
+    data: TemplateFileCreateManyInput | TemplateFileCreateManyInput[]
+  }
+
+  /**
+   * TemplateFile update
+   */
+  export type TemplateFileUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFile
+     */
+    select?: TemplateFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFile
+     */
+    omit?: TemplateFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFileInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TemplateFile.
+     */
+    data: XOR<TemplateFileUpdateInput, TemplateFileUncheckedUpdateInput>
+    /**
+     * Choose, which TemplateFile to update.
+     */
+    where: TemplateFileWhereUniqueInput
+  }
+
+  /**
+   * TemplateFile updateMany
+   */
+  export type TemplateFileUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TemplateFiles.
+     */
+    data: XOR<TemplateFileUpdateManyMutationInput, TemplateFileUncheckedUpdateManyInput>
+    /**
+     * Filter which TemplateFiles to update
+     */
+    where?: TemplateFileWhereInput
+    /**
+     * Limit how many TemplateFiles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TemplateFile upsert
+   */
+  export type TemplateFileUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFile
+     */
+    select?: TemplateFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFile
+     */
+    omit?: TemplateFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFileInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TemplateFile to update in case it exists.
+     */
+    where: TemplateFileWhereUniqueInput
+    /**
+     * In case the TemplateFile found by the `where` argument doesn't exist, create a new TemplateFile with this data.
+     */
+    create: XOR<TemplateFileCreateInput, TemplateFileUncheckedCreateInput>
+    /**
+     * In case the TemplateFile was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TemplateFileUpdateInput, TemplateFileUncheckedUpdateInput>
+  }
+
+  /**
+   * TemplateFile delete
+   */
+  export type TemplateFileDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFile
+     */
+    select?: TemplateFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFile
+     */
+    omit?: TemplateFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFileInclude<ExtArgs> | null
+    /**
+     * Filter which TemplateFile to delete.
+     */
+    where: TemplateFileWhereUniqueInput
+  }
+
+  /**
+   * TemplateFile deleteMany
+   */
+  export type TemplateFileDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TemplateFiles to delete
+     */
+    where?: TemplateFileWhereInput
+    /**
+     * Limit how many TemplateFiles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TemplateFile findRaw
+   */
+  export type TemplateFileFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * TemplateFile aggregateRaw
+   */
+  export type TemplateFileAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * TemplateFile without action
+   */
+  export type TemplateFileDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TemplateFile
+     */
+    select?: TemplateFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TemplateFile
+     */
+    omit?: TemplateFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TemplateFileInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ChatMessage
+   */
+
+  export type AggregateChatMessage = {
+    _count: ChatMessageCountAggregateOutputType | null
+    _min: ChatMessageMinAggregateOutputType | null
+    _max: ChatMessageMaxAggregateOutputType | null
+  }
+
+  export type ChatMessageMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    role: string | null
+    content: string | null
+    createdAt: Date | null
+  }
+
+  export type ChatMessageMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    role: string | null
+    content: string | null
+    createdAt: Date | null
+  }
+
+  export type ChatMessageCountAggregateOutputType = {
+    id: number
+    userId: number
+    role: number
+    content: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ChatMessageMinAggregateInputType = {
+    id?: true
+    userId?: true
+    role?: true
+    content?: true
+    createdAt?: true
+  }
+
+  export type ChatMessageMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    role?: true
+    content?: true
+    createdAt?: true
+  }
+
+  export type ChatMessageCountAggregateInputType = {
+    id?: true
+    userId?: true
+    role?: true
+    content?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ChatMessageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChatMessage to aggregate.
+     */
+    where?: ChatMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChatMessages to fetch.
+     */
+    orderBy?: ChatMessageOrderByWithRelationInput | ChatMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ChatMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChatMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChatMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ChatMessages
+    **/
+    _count?: true | ChatMessageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ChatMessageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ChatMessageMaxAggregateInputType
+  }
+
+  export type GetChatMessageAggregateType<T extends ChatMessageAggregateArgs> = {
+        [P in keyof T & keyof AggregateChatMessage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateChatMessage[P]>
+      : GetScalarType<T[P], AggregateChatMessage[P]>
+  }
+
+
+
+
+  export type ChatMessageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChatMessageWhereInput
+    orderBy?: ChatMessageOrderByWithAggregationInput | ChatMessageOrderByWithAggregationInput[]
+    by: ChatMessageScalarFieldEnum[] | ChatMessageScalarFieldEnum
+    having?: ChatMessageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ChatMessageCountAggregateInputType | true
+    _min?: ChatMessageMinAggregateInputType
+    _max?: ChatMessageMaxAggregateInputType
+  }
+
+  export type ChatMessageGroupByOutputType = {
+    id: string
+    userId: string
+    role: string
+    content: string
+    createdAt: Date
+    _count: ChatMessageCountAggregateOutputType | null
+    _min: ChatMessageMinAggregateOutputType | null
+    _max: ChatMessageMaxAggregateOutputType | null
+  }
+
+  type GetChatMessageGroupByPayload<T extends ChatMessageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ChatMessageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ChatMessageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ChatMessageGroupByOutputType[P]>
+            : GetScalarType<T[P], ChatMessageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ChatMessageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    role?: boolean
+    content?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["chatMessage"]>
+
+
+
+  export type ChatMessageSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    role?: boolean
+    content?: boolean
+    createdAt?: boolean
+  }
+
+  export type ChatMessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "role" | "content" | "createdAt", ExtArgs["result"]["chatMessage"]>
+  export type ChatMessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $ChatMessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ChatMessage"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      role: string
+      content: string
+      createdAt: Date
+    }, ExtArgs["result"]["chatMessage"]>
+    composites: {}
+  }
+
+  type ChatMessageGetPayload<S extends boolean | null | undefined | ChatMessageDefaultArgs> = $Result.GetResult<Prisma.$ChatMessagePayload, S>
+
+  type ChatMessageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ChatMessageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ChatMessageCountAggregateInputType | true
+    }
+
+  export interface ChatMessageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ChatMessage'], meta: { name: 'ChatMessage' } }
+    /**
+     * Find zero or one ChatMessage that matches the filter.
+     * @param {ChatMessageFindUniqueArgs} args - Arguments to find a ChatMessage
+     * @example
+     * // Get one ChatMessage
+     * const chatMessage = await prisma.chatMessage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ChatMessageFindUniqueArgs>(args: SelectSubset<T, ChatMessageFindUniqueArgs<ExtArgs>>): Prisma__ChatMessageClient<$Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ChatMessage that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ChatMessageFindUniqueOrThrowArgs} args - Arguments to find a ChatMessage
+     * @example
+     * // Get one ChatMessage
+     * const chatMessage = await prisma.chatMessage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ChatMessageFindUniqueOrThrowArgs>(args: SelectSubset<T, ChatMessageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ChatMessageClient<$Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ChatMessage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatMessageFindFirstArgs} args - Arguments to find a ChatMessage
+     * @example
+     * // Get one ChatMessage
+     * const chatMessage = await prisma.chatMessage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ChatMessageFindFirstArgs>(args?: SelectSubset<T, ChatMessageFindFirstArgs<ExtArgs>>): Prisma__ChatMessageClient<$Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ChatMessage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatMessageFindFirstOrThrowArgs} args - Arguments to find a ChatMessage
+     * @example
+     * // Get one ChatMessage
+     * const chatMessage = await prisma.chatMessage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ChatMessageFindFirstOrThrowArgs>(args?: SelectSubset<T, ChatMessageFindFirstOrThrowArgs<ExtArgs>>): Prisma__ChatMessageClient<$Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ChatMessages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatMessageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ChatMessages
+     * const chatMessages = await prisma.chatMessage.findMany()
+     * 
+     * // Get first 10 ChatMessages
+     * const chatMessages = await prisma.chatMessage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const chatMessageWithIdOnly = await prisma.chatMessage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ChatMessageFindManyArgs>(args?: SelectSubset<T, ChatMessageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ChatMessage.
+     * @param {ChatMessageCreateArgs} args - Arguments to create a ChatMessage.
+     * @example
+     * // Create one ChatMessage
+     * const ChatMessage = await prisma.chatMessage.create({
+     *   data: {
+     *     // ... data to create a ChatMessage
+     *   }
+     * })
+     * 
+     */
+    create<T extends ChatMessageCreateArgs>(args: SelectSubset<T, ChatMessageCreateArgs<ExtArgs>>): Prisma__ChatMessageClient<$Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ChatMessages.
+     * @param {ChatMessageCreateManyArgs} args - Arguments to create many ChatMessages.
+     * @example
+     * // Create many ChatMessages
+     * const chatMessage = await prisma.chatMessage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ChatMessageCreateManyArgs>(args?: SelectSubset<T, ChatMessageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ChatMessage.
+     * @param {ChatMessageDeleteArgs} args - Arguments to delete one ChatMessage.
+     * @example
+     * // Delete one ChatMessage
+     * const ChatMessage = await prisma.chatMessage.delete({
+     *   where: {
+     *     // ... filter to delete one ChatMessage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ChatMessageDeleteArgs>(args: SelectSubset<T, ChatMessageDeleteArgs<ExtArgs>>): Prisma__ChatMessageClient<$Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ChatMessage.
+     * @param {ChatMessageUpdateArgs} args - Arguments to update one ChatMessage.
+     * @example
+     * // Update one ChatMessage
+     * const chatMessage = await prisma.chatMessage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ChatMessageUpdateArgs>(args: SelectSubset<T, ChatMessageUpdateArgs<ExtArgs>>): Prisma__ChatMessageClient<$Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ChatMessages.
+     * @param {ChatMessageDeleteManyArgs} args - Arguments to filter ChatMessages to delete.
+     * @example
+     * // Delete a few ChatMessages
+     * const { count } = await prisma.chatMessage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ChatMessageDeleteManyArgs>(args?: SelectSubset<T, ChatMessageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ChatMessages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatMessageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ChatMessages
+     * const chatMessage = await prisma.chatMessage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ChatMessageUpdateManyArgs>(args: SelectSubset<T, ChatMessageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ChatMessage.
+     * @param {ChatMessageUpsertArgs} args - Arguments to update or create a ChatMessage.
+     * @example
+     * // Update or create a ChatMessage
+     * const chatMessage = await prisma.chatMessage.upsert({
+     *   create: {
+     *     // ... data to create a ChatMessage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ChatMessage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ChatMessageUpsertArgs>(args: SelectSubset<T, ChatMessageUpsertArgs<ExtArgs>>): Prisma__ChatMessageClient<$Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ChatMessages that matches the filter.
+     * @param {ChatMessageFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const chatMessage = await prisma.chatMessage.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: ChatMessageFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a ChatMessage.
+     * @param {ChatMessageAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const chatMessage = await prisma.chatMessage.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: ChatMessageAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of ChatMessages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatMessageCountArgs} args - Arguments to filter ChatMessages to count.
+     * @example
+     * // Count the number of ChatMessages
+     * const count = await prisma.chatMessage.count({
+     *   where: {
+     *     // ... the filter for the ChatMessages we want to count
+     *   }
+     * })
+    **/
+    count<T extends ChatMessageCountArgs>(
+      args?: Subset<T, ChatMessageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ChatMessageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ChatMessage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatMessageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ChatMessageAggregateArgs>(args: Subset<T, ChatMessageAggregateArgs>): Prisma.PrismaPromise<GetChatMessageAggregateType<T>>
+
+    /**
+     * Group by ChatMessage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatMessageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ChatMessageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ChatMessageGroupByArgs['orderBy'] }
+        : { orderBy?: ChatMessageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ChatMessageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetChatMessageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ChatMessage model
+   */
+  readonly fields: ChatMessageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ChatMessage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ChatMessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ChatMessage model
+   */
+  interface ChatMessageFieldRefs {
+    readonly id: FieldRef<"ChatMessage", 'String'>
+    readonly userId: FieldRef<"ChatMessage", 'String'>
+    readonly role: FieldRef<"ChatMessage", 'String'>
+    readonly content: FieldRef<"ChatMessage", 'String'>
+    readonly createdAt: FieldRef<"ChatMessage", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ChatMessage findUnique
+   */
+  export type ChatMessageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatMessage
+     */
+    select?: ChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChatMessage
+     */
+    omit?: ChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChatMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which ChatMessage to fetch.
+     */
+    where: ChatMessageWhereUniqueInput
+  }
+
+  /**
+   * ChatMessage findUniqueOrThrow
+   */
+  export type ChatMessageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatMessage
+     */
+    select?: ChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChatMessage
+     */
+    omit?: ChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChatMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which ChatMessage to fetch.
+     */
+    where: ChatMessageWhereUniqueInput
+  }
+
+  /**
+   * ChatMessage findFirst
+   */
+  export type ChatMessageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatMessage
+     */
+    select?: ChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChatMessage
+     */
+    omit?: ChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChatMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which ChatMessage to fetch.
+     */
+    where?: ChatMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChatMessages to fetch.
+     */
+    orderBy?: ChatMessageOrderByWithRelationInput | ChatMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChatMessages.
+     */
+    cursor?: ChatMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChatMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChatMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChatMessages.
+     */
+    distinct?: ChatMessageScalarFieldEnum | ChatMessageScalarFieldEnum[]
+  }
+
+  /**
+   * ChatMessage findFirstOrThrow
+   */
+  export type ChatMessageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatMessage
+     */
+    select?: ChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChatMessage
+     */
+    omit?: ChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChatMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which ChatMessage to fetch.
+     */
+    where?: ChatMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChatMessages to fetch.
+     */
+    orderBy?: ChatMessageOrderByWithRelationInput | ChatMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChatMessages.
+     */
+    cursor?: ChatMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChatMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChatMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChatMessages.
+     */
+    distinct?: ChatMessageScalarFieldEnum | ChatMessageScalarFieldEnum[]
+  }
+
+  /**
+   * ChatMessage findMany
+   */
+  export type ChatMessageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatMessage
+     */
+    select?: ChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChatMessage
+     */
+    omit?: ChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChatMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which ChatMessages to fetch.
+     */
+    where?: ChatMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChatMessages to fetch.
+     */
+    orderBy?: ChatMessageOrderByWithRelationInput | ChatMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ChatMessages.
+     */
+    cursor?: ChatMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChatMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChatMessages.
+     */
+    skip?: number
+    distinct?: ChatMessageScalarFieldEnum | ChatMessageScalarFieldEnum[]
+  }
+
+  /**
+   * ChatMessage create
+   */
+  export type ChatMessageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatMessage
+     */
+    select?: ChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChatMessage
+     */
+    omit?: ChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChatMessageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ChatMessage.
+     */
+    data: XOR<ChatMessageCreateInput, ChatMessageUncheckedCreateInput>
+  }
+
+  /**
+   * ChatMessage createMany
+   */
+  export type ChatMessageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ChatMessages.
+     */
+    data: ChatMessageCreateManyInput | ChatMessageCreateManyInput[]
+  }
+
+  /**
+   * ChatMessage update
+   */
+  export type ChatMessageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatMessage
+     */
+    select?: ChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChatMessage
+     */
+    omit?: ChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChatMessageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ChatMessage.
+     */
+    data: XOR<ChatMessageUpdateInput, ChatMessageUncheckedUpdateInput>
+    /**
+     * Choose, which ChatMessage to update.
+     */
+    where: ChatMessageWhereUniqueInput
+  }
+
+  /**
+   * ChatMessage updateMany
+   */
+  export type ChatMessageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ChatMessages.
+     */
+    data: XOR<ChatMessageUpdateManyMutationInput, ChatMessageUncheckedUpdateManyInput>
+    /**
+     * Filter which ChatMessages to update
+     */
+    where?: ChatMessageWhereInput
+    /**
+     * Limit how many ChatMessages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ChatMessage upsert
+   */
+  export type ChatMessageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatMessage
+     */
+    select?: ChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChatMessage
+     */
+    omit?: ChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChatMessageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ChatMessage to update in case it exists.
+     */
+    where: ChatMessageWhereUniqueInput
+    /**
+     * In case the ChatMessage found by the `where` argument doesn't exist, create a new ChatMessage with this data.
+     */
+    create: XOR<ChatMessageCreateInput, ChatMessageUncheckedCreateInput>
+    /**
+     * In case the ChatMessage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ChatMessageUpdateInput, ChatMessageUncheckedUpdateInput>
+  }
+
+  /**
+   * ChatMessage delete
+   */
+  export type ChatMessageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatMessage
+     */
+    select?: ChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChatMessage
+     */
+    omit?: ChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChatMessageInclude<ExtArgs> | null
+    /**
+     * Filter which ChatMessage to delete.
+     */
+    where: ChatMessageWhereUniqueInput
+  }
+
+  /**
+   * ChatMessage deleteMany
+   */
+  export type ChatMessageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChatMessages to delete
+     */
+    where?: ChatMessageWhereInput
+    /**
+     * Limit how many ChatMessages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ChatMessage findRaw
+   */
+  export type ChatMessageFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * ChatMessage aggregateRaw
+   */
+  export type ChatMessageAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * ChatMessage without action
+   */
+  export type ChatMessageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatMessage
+     */
+    select?: ChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChatMessage
+     */
+    omit?: ChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChatMessageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Enums
+   */
+
+  export const UserScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    email: 'email',
+    emailVerified: 'emailVerified',
+    image: 'image',
+    role: 'role',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const AccountScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    type: 'type',
+    provider: 'provider',
+    providerAccountId: 'providerAccountId',
+    refreshToken: 'refreshToken',
+    accessToken: 'accessToken',
+    expiresAt: 'expiresAt',
+    tokenType: 'tokenType',
+    scope: 'scope',
+    idToken: 'idToken',
+    sessionState: 'sessionState'
+  };
+
+  export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
+
+
+  export const PlaygroundScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    template: 'template',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    userId: 'userId'
+  };
+
+  export type PlaygroundScalarFieldEnum = (typeof PlaygroundScalarFieldEnum)[keyof typeof PlaygroundScalarFieldEnum]
+
+
+  export const StarMarkScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    playgroundId: 'playgroundId',
+    isMarked: 'isMarked',
+    createdAt: 'createdAt'
+  };
+
+  export type StarMarkScalarFieldEnum = (typeof StarMarkScalarFieldEnum)[keyof typeof StarMarkScalarFieldEnum]
+
+
+  export const TemplateFileScalarFieldEnum: {
+    id: 'id',
+    content: 'content',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    playgroundId: 'playgroundId'
+  };
+
+  export type TemplateFileScalarFieldEnum = (typeof TemplateFileScalarFieldEnum)[keyof typeof TemplateFileScalarFieldEnum]
+
+
+  export const ChatMessageScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    role: 'role',
+    content: 'content',
+    createdAt: 'createdAt'
+  };
+
+  export type ChatMessageScalarFieldEnum = (typeof ChatMessageScalarFieldEnum)[keyof typeof ChatMessageScalarFieldEnum]
+
+
+  export const SortOrder: {
+    asc: 'asc',
+    desc: 'desc'
+  };
+
+  export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const QueryMode: {
+    default: 'default',
+    insensitive: 'insensitive'
+  };
+
+  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  /**
+   * Field references
+   */
+
+
+  /**
+   * Reference to a field of type 'String'
+   */
+  export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+    
+
+
+  /**
+   * Reference to a field of type 'String[]'
+   */
+  export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserRole'
+   */
+  export type EnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserRole[]'
+   */
+  export type ListEnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Templates'
+   */
+  export type EnumTemplatesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Templates'>
+    
+
+
+  /**
+   * Reference to a field of type 'Templates[]'
+   */
+  export type ListEnumTemplatesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Templates[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+  /**
+   * Deep Input Types
+   */
+
+
+  export type UserWhereInput = {
+    AND?: UserWhereInput | UserWhereInput[]
+    OR?: UserWhereInput[]
+    NOT?: UserWhereInput | UserWhereInput[]
+    id?: StringFilter<"User"> | string
+    name?: StringNullableFilter<"User"> | string | null
+    email?: StringFilter<"User"> | string
+    emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
+    image?: StringNullableFilter<"User"> | string | null
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
+    accounts?: AccountListRelationFilter
+    myPlaground?: PlaygroundListRelationFilter
+    staredPlayground?: StarMarkListRelationFilter
+    chatMessages?: ChatMessageListRelationFilter
+  }
+
+  export type UserOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    emailVerified?: SortOrder
+    image?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    accounts?: AccountOrderByRelationAggregateInput
+    myPlaground?: PlaygroundOrderByRelationAggregateInput
+    staredPlayground?: StarMarkOrderByRelationAggregateInput
+    chatMessages?: ChatMessageOrderByRelationAggregateInput
+  }
+
+  export type UserWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    email?: string
+    AND?: UserWhereInput | UserWhereInput[]
+    OR?: UserWhereInput[]
+    NOT?: UserWhereInput | UserWhereInput[]
+    name?: StringNullableFilter<"User"> | string | null
+    emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
+    image?: StringNullableFilter<"User"> | string | null
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
+    accounts?: AccountListRelationFilter
+    myPlaground?: PlaygroundListRelationFilter
+    staredPlayground?: StarMarkListRelationFilter
+    chatMessages?: ChatMessageListRelationFilter
+  }, "id" | "email">
+
+  export type UserOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    emailVerified?: SortOrder
+    image?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserCountOrderByAggregateInput
+    _max?: UserMaxOrderByAggregateInput
+    _min?: UserMinOrderByAggregateInput
+  }
+
+  export type UserScalarWhereWithAggregatesInput = {
+    AND?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
+    OR?: UserScalarWhereWithAggregatesInput[]
+    NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"User"> | string
+    name?: StringNullableWithAggregatesFilter<"User"> | string | null
+    email?: StringWithAggregatesFilter<"User"> | string
+    emailVerified?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    image?: StringNullableWithAggregatesFilter<"User"> | string | null
+    role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
+    createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type AccountWhereInput = {
+    AND?: AccountWhereInput | AccountWhereInput[]
+    OR?: AccountWhereInput[]
+    NOT?: AccountWhereInput | AccountWhereInput[]
+    id?: StringFilter<"Account"> | string
+    userId?: StringFilter<"Account"> | string
+    type?: StringFilter<"Account"> | string
+    provider?: StringFilter<"Account"> | string
+    providerAccountId?: StringFilter<"Account"> | string
+    refreshToken?: StringNullableFilter<"Account"> | string | null
+    accessToken?: StringNullableFilter<"Account"> | string | null
+    expiresAt?: IntNullableFilter<"Account"> | number | null
+    tokenType?: StringNullableFilter<"Account"> | string | null
+    scope?: StringNullableFilter<"Account"> | string | null
+    idToken?: StringNullableFilter<"Account"> | string | null
+    sessionState?: StringNullableFilter<"Account"> | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type AccountOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    provider?: SortOrder
+    providerAccountId?: SortOrder
+    refreshToken?: SortOrder
+    accessToken?: SortOrder
+    expiresAt?: SortOrder
+    tokenType?: SortOrder
+    scope?: SortOrder
+    idToken?: SortOrder
+    sessionState?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type AccountWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    provider_providerAccountId?: AccountProviderProviderAccountIdCompoundUniqueInput
+    AND?: AccountWhereInput | AccountWhereInput[]
+    OR?: AccountWhereInput[]
+    NOT?: AccountWhereInput | AccountWhereInput[]
+    userId?: StringFilter<"Account"> | string
+    type?: StringFilter<"Account"> | string
+    provider?: StringFilter<"Account"> | string
+    providerAccountId?: StringFilter<"Account"> | string
+    refreshToken?: StringNullableFilter<"Account"> | string | null
+    accessToken?: StringNullableFilter<"Account"> | string | null
+    expiresAt?: IntNullableFilter<"Account"> | number | null
+    tokenType?: StringNullableFilter<"Account"> | string | null
+    scope?: StringNullableFilter<"Account"> | string | null
+    idToken?: StringNullableFilter<"Account"> | string | null
+    sessionState?: StringNullableFilter<"Account"> | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "provider_providerAccountId">
+
+  export type AccountOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    provider?: SortOrder
+    providerAccountId?: SortOrder
+    refreshToken?: SortOrder
+    accessToken?: SortOrder
+    expiresAt?: SortOrder
+    tokenType?: SortOrder
+    scope?: SortOrder
+    idToken?: SortOrder
+    sessionState?: SortOrder
+    _count?: AccountCountOrderByAggregateInput
+    _avg?: AccountAvgOrderByAggregateInput
+    _max?: AccountMaxOrderByAggregateInput
+    _min?: AccountMinOrderByAggregateInput
+    _sum?: AccountSumOrderByAggregateInput
+  }
+
+  export type AccountScalarWhereWithAggregatesInput = {
+    AND?: AccountScalarWhereWithAggregatesInput | AccountScalarWhereWithAggregatesInput[]
+    OR?: AccountScalarWhereWithAggregatesInput[]
+    NOT?: AccountScalarWhereWithAggregatesInput | AccountScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Account"> | string
+    userId?: StringWithAggregatesFilter<"Account"> | string
+    type?: StringWithAggregatesFilter<"Account"> | string
+    provider?: StringWithAggregatesFilter<"Account"> | string
+    providerAccountId?: StringWithAggregatesFilter<"Account"> | string
+    refreshToken?: StringNullableWithAggregatesFilter<"Account"> | string | null
+    accessToken?: StringNullableWithAggregatesFilter<"Account"> | string | null
+    expiresAt?: IntNullableWithAggregatesFilter<"Account"> | number | null
+    tokenType?: StringNullableWithAggregatesFilter<"Account"> | string | null
+    scope?: StringNullableWithAggregatesFilter<"Account"> | string | null
+    idToken?: StringNullableWithAggregatesFilter<"Account"> | string | null
+    sessionState?: StringNullableWithAggregatesFilter<"Account"> | string | null
+  }
+
+  export type PlaygroundWhereInput = {
+    AND?: PlaygroundWhereInput | PlaygroundWhereInput[]
+    OR?: PlaygroundWhereInput[]
+    NOT?: PlaygroundWhereInput | PlaygroundWhereInput[]
+    id?: StringFilter<"Playground"> | string
+    title?: StringFilter<"Playground"> | string
+    description?: StringNullableFilter<"Playground"> | string | null
+    template?: EnumTemplatesFilter<"Playground"> | $Enums.Templates
+    createdAt?: DateTimeFilter<"Playground"> | Date | string
+    updatedAt?: DateTimeFilter<"Playground"> | Date | string
+    userId?: StringFilter<"Playground"> | string
+    Starmark?: StarMarkListRelationFilter
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    templateFiles?: TemplateFileListRelationFilter
+  }
+
+  export type PlaygroundOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    template?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    Starmark?: StarMarkOrderByRelationAggregateInput
+    user?: UserOrderByWithRelationInput
+    templateFiles?: TemplateFileOrderByRelationAggregateInput
+  }
+
+  export type PlaygroundWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PlaygroundWhereInput | PlaygroundWhereInput[]
+    OR?: PlaygroundWhereInput[]
+    NOT?: PlaygroundWhereInput | PlaygroundWhereInput[]
+    title?: StringFilter<"Playground"> | string
+    description?: StringNullableFilter<"Playground"> | string | null
+    template?: EnumTemplatesFilter<"Playground"> | $Enums.Templates
+    createdAt?: DateTimeFilter<"Playground"> | Date | string
+    updatedAt?: DateTimeFilter<"Playground"> | Date | string
+    userId?: StringFilter<"Playground"> | string
+    Starmark?: StarMarkListRelationFilter
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    templateFiles?: TemplateFileListRelationFilter
+  }, "id">
+
+  export type PlaygroundOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    template?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    _count?: PlaygroundCountOrderByAggregateInput
+    _max?: PlaygroundMaxOrderByAggregateInput
+    _min?: PlaygroundMinOrderByAggregateInput
+  }
+
+  export type PlaygroundScalarWhereWithAggregatesInput = {
+    AND?: PlaygroundScalarWhereWithAggregatesInput | PlaygroundScalarWhereWithAggregatesInput[]
+    OR?: PlaygroundScalarWhereWithAggregatesInput[]
+    NOT?: PlaygroundScalarWhereWithAggregatesInput | PlaygroundScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Playground"> | string
+    title?: StringWithAggregatesFilter<"Playground"> | string
+    description?: StringNullableWithAggregatesFilter<"Playground"> | string | null
+    template?: EnumTemplatesWithAggregatesFilter<"Playground"> | $Enums.Templates
+    createdAt?: DateTimeWithAggregatesFilter<"Playground"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Playground"> | Date | string
+    userId?: StringWithAggregatesFilter<"Playground"> | string
+  }
+
+  export type StarMarkWhereInput = {
+    AND?: StarMarkWhereInput | StarMarkWhereInput[]
+    OR?: StarMarkWhereInput[]
+    NOT?: StarMarkWhereInput | StarMarkWhereInput[]
+    id?: StringFilter<"StarMark"> | string
+    userId?: StringFilter<"StarMark"> | string
+    playgroundId?: StringFilter<"StarMark"> | string
+    isMarked?: BoolFilter<"StarMark"> | boolean
+    createdAt?: DateTimeFilter<"StarMark"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    playground?: XOR<PlaygroundScalarRelationFilter, PlaygroundWhereInput>
+  }
+
+  export type StarMarkOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    playgroundId?: SortOrder
+    isMarked?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    playground?: PlaygroundOrderByWithRelationInput
+  }
+
+  export type StarMarkWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_playgroundId?: StarMarkUserIdPlaygroundIdCompoundUniqueInput
+    AND?: StarMarkWhereInput | StarMarkWhereInput[]
+    OR?: StarMarkWhereInput[]
+    NOT?: StarMarkWhereInput | StarMarkWhereInput[]
+    userId?: StringFilter<"StarMark"> | string
+    playgroundId?: StringFilter<"StarMark"> | string
+    isMarked?: BoolFilter<"StarMark"> | boolean
+    createdAt?: DateTimeFilter<"StarMark"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    playground?: XOR<PlaygroundScalarRelationFilter, PlaygroundWhereInput>
+  }, "id" | "userId_playgroundId">
+
+  export type StarMarkOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    playgroundId?: SortOrder
+    isMarked?: SortOrder
+    createdAt?: SortOrder
+    _count?: StarMarkCountOrderByAggregateInput
+    _max?: StarMarkMaxOrderByAggregateInput
+    _min?: StarMarkMinOrderByAggregateInput
+  }
+
+  export type StarMarkScalarWhereWithAggregatesInput = {
+    AND?: StarMarkScalarWhereWithAggregatesInput | StarMarkScalarWhereWithAggregatesInput[]
+    OR?: StarMarkScalarWhereWithAggregatesInput[]
+    NOT?: StarMarkScalarWhereWithAggregatesInput | StarMarkScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"StarMark"> | string
+    userId?: StringWithAggregatesFilter<"StarMark"> | string
+    playgroundId?: StringWithAggregatesFilter<"StarMark"> | string
+    isMarked?: BoolWithAggregatesFilter<"StarMark"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"StarMark"> | Date | string
+  }
+
+  export type TemplateFileWhereInput = {
+    AND?: TemplateFileWhereInput | TemplateFileWhereInput[]
+    OR?: TemplateFileWhereInput[]
+    NOT?: TemplateFileWhereInput | TemplateFileWhereInput[]
+    id?: StringFilter<"TemplateFile"> | string
+    content?: JsonFilter<"TemplateFile">
+    createdAt?: DateTimeFilter<"TemplateFile"> | Date | string
+    updatedAt?: DateTimeFilter<"TemplateFile"> | Date | string
+    playgroundId?: StringFilter<"TemplateFile"> | string
+    playground?: XOR<PlaygroundScalarRelationFilter, PlaygroundWhereInput>
+  }
+
+  export type TemplateFileOrderByWithRelationInput = {
+    id?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    playgroundId?: SortOrder
+    playground?: PlaygroundOrderByWithRelationInput
+  }
+
+  export type TemplateFileWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    playgroundId?: string
+    AND?: TemplateFileWhereInput | TemplateFileWhereInput[]
+    OR?: TemplateFileWhereInput[]
+    NOT?: TemplateFileWhereInput | TemplateFileWhereInput[]
+    content?: JsonFilter<"TemplateFile">
+    createdAt?: DateTimeFilter<"TemplateFile"> | Date | string
+    updatedAt?: DateTimeFilter<"TemplateFile"> | Date | string
+    playground?: XOR<PlaygroundScalarRelationFilter, PlaygroundWhereInput>
+  }, "id" | "playgroundId">
+
+  export type TemplateFileOrderByWithAggregationInput = {
+    id?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    playgroundId?: SortOrder
+    _count?: TemplateFileCountOrderByAggregateInput
+    _max?: TemplateFileMaxOrderByAggregateInput
+    _min?: TemplateFileMinOrderByAggregateInput
+  }
+
+  export type TemplateFileScalarWhereWithAggregatesInput = {
+    AND?: TemplateFileScalarWhereWithAggregatesInput | TemplateFileScalarWhereWithAggregatesInput[]
+    OR?: TemplateFileScalarWhereWithAggregatesInput[]
+    NOT?: TemplateFileScalarWhereWithAggregatesInput | TemplateFileScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TemplateFile"> | string
+    content?: JsonWithAggregatesFilter<"TemplateFile">
+    createdAt?: DateTimeWithAggregatesFilter<"TemplateFile"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TemplateFile"> | Date | string
+    playgroundId?: StringWithAggregatesFilter<"TemplateFile"> | string
+  }
+
+  export type ChatMessageWhereInput = {
+    AND?: ChatMessageWhereInput | ChatMessageWhereInput[]
+    OR?: ChatMessageWhereInput[]
+    NOT?: ChatMessageWhereInput | ChatMessageWhereInput[]
+    id?: StringFilter<"ChatMessage"> | string
+    userId?: StringFilter<"ChatMessage"> | string
+    role?: StringFilter<"ChatMessage"> | string
+    content?: StringFilter<"ChatMessage"> | string
+    createdAt?: DateTimeFilter<"ChatMessage"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type ChatMessageOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    role?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type ChatMessageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ChatMessageWhereInput | ChatMessageWhereInput[]
+    OR?: ChatMessageWhereInput[]
+    NOT?: ChatMessageWhereInput | ChatMessageWhereInput[]
+    userId?: StringFilter<"ChatMessage"> | string
+    role?: StringFilter<"ChatMessage"> | string
+    content?: StringFilter<"ChatMessage"> | string
+    createdAt?: DateTimeFilter<"ChatMessage"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type ChatMessageOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    role?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    _count?: ChatMessageCountOrderByAggregateInput
+    _max?: ChatMessageMaxOrderByAggregateInput
+    _min?: ChatMessageMinOrderByAggregateInput
+  }
+
+  export type ChatMessageScalarWhereWithAggregatesInput = {
+    AND?: ChatMessageScalarWhereWithAggregatesInput | ChatMessageScalarWhereWithAggregatesInput[]
+    OR?: ChatMessageScalarWhereWithAggregatesInput[]
+    NOT?: ChatMessageScalarWhereWithAggregatesInput | ChatMessageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ChatMessage"> | string
+    userId?: StringWithAggregatesFilter<"ChatMessage"> | string
+    role?: StringWithAggregatesFilter<"ChatMessage"> | string
+    content?: StringWithAggregatesFilter<"ChatMessage"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ChatMessage"> | Date | string
+  }
+
+  export type UserCreateInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    myPlaground?: PlaygroundCreateNestedManyWithoutUserInput
+    staredPlayground?: StarMarkCreateNestedManyWithoutUserInput
+    chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    myPlaground?: PlaygroundUncheckedCreateNestedManyWithoutUserInput
+    staredPlayground?: StarMarkUncheckedCreateNestedManyWithoutUserInput
+    chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUpdateInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    myPlaground?: PlaygroundUpdateManyWithoutUserNestedInput
+    staredPlayground?: StarMarkUpdateManyWithoutUserNestedInput
+    chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    myPlaground?: PlaygroundUncheckedUpdateManyWithoutUserNestedInput
+    staredPlayground?: StarMarkUncheckedUpdateManyWithoutUserNestedInput
+    chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateManyInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserUpdateManyMutationInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUncheckedUpdateManyInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountCreateInput = {
+    id?: string
+    type: string
+    provider: string
+    providerAccountId: string
+    refreshToken?: string | null
+    accessToken?: string | null
+    expiresAt?: number | null
+    tokenType?: string | null
+    scope?: string | null
+    idToken?: string | null
+    sessionState?: string | null
+    user: UserCreateNestedOneWithoutAccountsInput
+  }
+
+  export type AccountUncheckedCreateInput = {
+    id?: string
+    userId: string
+    type: string
+    provider: string
+    providerAccountId: string
+    refreshToken?: string | null
+    accessToken?: string | null
+    expiresAt?: number | null
+    tokenType?: string | null
+    scope?: string | null
+    idToken?: string | null
+    sessionState?: string | null
+  }
+
+  export type AccountUpdateInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    providerAccountId?: StringFieldUpdateOperationsInput | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    expiresAt?: NullableIntFieldUpdateOperationsInput | number | null
+    tokenType?: NullableStringFieldUpdateOperationsInput | string | null
+    scope?: NullableStringFieldUpdateOperationsInput | string | null
+    idToken?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionState?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutAccountsNestedInput
+  }
+
+  export type AccountUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    providerAccountId?: StringFieldUpdateOperationsInput | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    expiresAt?: NullableIntFieldUpdateOperationsInput | number | null
+    tokenType?: NullableStringFieldUpdateOperationsInput | string | null
+    scope?: NullableStringFieldUpdateOperationsInput | string | null
+    idToken?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionState?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AccountCreateManyInput = {
+    id?: string
+    userId: string
+    type: string
+    provider: string
+    providerAccountId: string
+    refreshToken?: string | null
+    accessToken?: string | null
+    expiresAt?: number | null
+    tokenType?: string | null
+    scope?: string | null
+    idToken?: string | null
+    sessionState?: string | null
+  }
+
+  export type AccountUpdateManyMutationInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    providerAccountId?: StringFieldUpdateOperationsInput | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    expiresAt?: NullableIntFieldUpdateOperationsInput | number | null
+    tokenType?: NullableStringFieldUpdateOperationsInput | string | null
+    scope?: NullableStringFieldUpdateOperationsInput | string | null
+    idToken?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionState?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AccountUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    providerAccountId?: StringFieldUpdateOperationsInput | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    expiresAt?: NullableIntFieldUpdateOperationsInput | number | null
+    tokenType?: NullableStringFieldUpdateOperationsInput | string | null
+    scope?: NullableStringFieldUpdateOperationsInput | string | null
+    idToken?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionState?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PlaygroundCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    template?: $Enums.Templates
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Starmark?: StarMarkCreateNestedManyWithoutPlaygroundInput
+    user: UserCreateNestedOneWithoutMyPlagroundInput
+    templateFiles?: TemplateFileCreateNestedManyWithoutPlaygroundInput
+  }
+
+  export type PlaygroundUncheckedCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    template?: $Enums.Templates
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    Starmark?: StarMarkUncheckedCreateNestedManyWithoutPlaygroundInput
+    templateFiles?: TemplateFileUncheckedCreateNestedManyWithoutPlaygroundInput
+  }
+
+  export type PlaygroundUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    template?: EnumTemplatesFieldUpdateOperationsInput | $Enums.Templates
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Starmark?: StarMarkUpdateManyWithoutPlaygroundNestedInput
+    user?: UserUpdateOneRequiredWithoutMyPlagroundNestedInput
+    templateFiles?: TemplateFileUpdateManyWithoutPlaygroundNestedInput
+  }
+
+  export type PlaygroundUncheckedUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    template?: EnumTemplatesFieldUpdateOperationsInput | $Enums.Templates
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    Starmark?: StarMarkUncheckedUpdateManyWithoutPlaygroundNestedInput
+    templateFiles?: TemplateFileUncheckedUpdateManyWithoutPlaygroundNestedInput
+  }
+
+  export type PlaygroundCreateManyInput = {
+    id?: string
+    title: string
+    description?: string | null
+    template?: $Enums.Templates
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+  }
+
+  export type PlaygroundUpdateManyMutationInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    template?: EnumTemplatesFieldUpdateOperationsInput | $Enums.Templates
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlaygroundUncheckedUpdateManyInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    template?: EnumTemplatesFieldUpdateOperationsInput | $Enums.Templates
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type StarMarkCreateInput = {
+    id?: string
+    isMarked: boolean
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutStaredPlaygroundInput
+    playground: PlaygroundCreateNestedOneWithoutStarmarkInput
+  }
+
+  export type StarMarkUncheckedCreateInput = {
+    id?: string
+    userId: string
+    playgroundId: string
+    isMarked: boolean
+    createdAt?: Date | string
+  }
+
+  export type StarMarkUpdateInput = {
+    isMarked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutStaredPlaygroundNestedInput
+    playground?: PlaygroundUpdateOneRequiredWithoutStarmarkNestedInput
+  }
+
+  export type StarMarkUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    playgroundId?: StringFieldUpdateOperationsInput | string
+    isMarked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StarMarkCreateManyInput = {
+    id?: string
+    userId: string
+    playgroundId: string
+    isMarked: boolean
+    createdAt?: Date | string
+  }
+
+  export type StarMarkUpdateManyMutationInput = {
+    isMarked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StarMarkUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    playgroundId?: StringFieldUpdateOperationsInput | string
+    isMarked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TemplateFileCreateInput = {
+    id?: string
+    content: InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    playground: PlaygroundCreateNestedOneWithoutTemplateFilesInput
+  }
+
+  export type TemplateFileUncheckedCreateInput = {
+    id?: string
+    content: InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    playgroundId: string
+  }
+
+  export type TemplateFileUpdateInput = {
+    content?: InputJsonValue | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    playground?: PlaygroundUpdateOneRequiredWithoutTemplateFilesNestedInput
+  }
+
+  export type TemplateFileUncheckedUpdateInput = {
+    content?: InputJsonValue | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    playgroundId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TemplateFileCreateManyInput = {
+    id?: string
+    content: InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    playgroundId: string
+  }
+
+  export type TemplateFileUpdateManyMutationInput = {
+    content?: InputJsonValue | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TemplateFileUncheckedUpdateManyInput = {
+    content?: InputJsonValue | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    playgroundId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ChatMessageCreateInput = {
+    id?: string
+    role: string
+    content: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutChatMessagesInput
+  }
+
+  export type ChatMessageUncheckedCreateInput = {
+    id?: string
+    userId: string
+    role: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type ChatMessageUpdateInput = {
+    role?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutChatMessagesNestedInput
+  }
+
+  export type ChatMessageUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChatMessageCreateManyInput = {
+    id?: string
+    userId: string
+    role: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type ChatMessageUpdateManyMutationInput = {
+    role?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChatMessageUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    isSet?: boolean
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+    isSet?: boolean
+  }
+
+  export type EnumUserRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type AccountListRelationFilter = {
+    every?: AccountWhereInput
+    some?: AccountWhereInput
+    none?: AccountWhereInput
+  }
+
+  export type PlaygroundListRelationFilter = {
+    every?: PlaygroundWhereInput
+    some?: PlaygroundWhereInput
+    none?: PlaygroundWhereInput
+  }
+
+  export type StarMarkListRelationFilter = {
+    every?: StarMarkWhereInput
+    some?: StarMarkWhereInput
+    none?: StarMarkWhereInput
+  }
+
+  export type ChatMessageListRelationFilter = {
+    every?: ChatMessageWhereInput
+    some?: ChatMessageWhereInput
+    none?: ChatMessageWhereInput
+  }
+
+  export type AccountOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PlaygroundOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StarMarkOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ChatMessageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    emailVerified?: SortOrder
+    image?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    emailVerified?: SortOrder
+    image?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    emailVerified?: SortOrder
+    image?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type EnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserRoleFilter<$PrismaModel>
+    _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type AccountProviderProviderAccountIdCompoundUniqueInput = {
+    provider: string
+    providerAccountId: string
+  }
+
+  export type AccountCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    provider?: SortOrder
+    providerAccountId?: SortOrder
+    refreshToken?: SortOrder
+    accessToken?: SortOrder
+    expiresAt?: SortOrder
+    tokenType?: SortOrder
+    scope?: SortOrder
+    idToken?: SortOrder
+    sessionState?: SortOrder
+  }
+
+  export type AccountAvgOrderByAggregateInput = {
+    expiresAt?: SortOrder
+  }
+
+  export type AccountMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    provider?: SortOrder
+    providerAccountId?: SortOrder
+    refreshToken?: SortOrder
+    accessToken?: SortOrder
+    expiresAt?: SortOrder
+    tokenType?: SortOrder
+    scope?: SortOrder
+    idToken?: SortOrder
+    sessionState?: SortOrder
+  }
+
+  export type AccountMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    provider?: SortOrder
+    providerAccountId?: SortOrder
+    refreshToken?: SortOrder
+    accessToken?: SortOrder
+    expiresAt?: SortOrder
+    tokenType?: SortOrder
+    scope?: SortOrder
+    idToken?: SortOrder
+    sessionState?: SortOrder
+  }
+
+  export type AccountSumOrderByAggregateInput = {
+    expiresAt?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type EnumTemplatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Templates | EnumTemplatesFieldRefInput<$PrismaModel>
+    in?: $Enums.Templates[] | ListEnumTemplatesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Templates[] | ListEnumTemplatesFieldRefInput<$PrismaModel>
+    not?: NestedEnumTemplatesFilter<$PrismaModel> | $Enums.Templates
+  }
+
+  export type TemplateFileListRelationFilter = {
+    every?: TemplateFileWhereInput
+    some?: TemplateFileWhereInput
+    none?: TemplateFileWhereInput
+  }
+
+  export type TemplateFileOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PlaygroundCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    template?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type PlaygroundMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    template?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type PlaygroundMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    template?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type EnumTemplatesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Templates | EnumTemplatesFieldRefInput<$PrismaModel>
+    in?: $Enums.Templates[] | ListEnumTemplatesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Templates[] | ListEnumTemplatesFieldRefInput<$PrismaModel>
+    not?: NestedEnumTemplatesWithAggregatesFilter<$PrismaModel> | $Enums.Templates
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTemplatesFilter<$PrismaModel>
+    _max?: NestedEnumTemplatesFilter<$PrismaModel>
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type PlaygroundScalarRelationFilter = {
+    is?: PlaygroundWhereInput
+    isNot?: PlaygroundWhereInput
+  }
+
+  export type StarMarkUserIdPlaygroundIdCompoundUniqueInput = {
+    userId: string
+    playgroundId: string
+  }
+
+  export type StarMarkCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    playgroundId?: SortOrder
+    isMarked?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StarMarkMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    playgroundId?: SortOrder
+    isMarked?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StarMarkMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    playgroundId?: SortOrder
+    isMarked?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+  }
+
+  export type TemplateFileCountOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    playgroundId?: SortOrder
+  }
+
+  export type TemplateFileMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    playgroundId?: SortOrder
+  }
+
+  export type TemplateFileMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    playgroundId?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type ChatMessageCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    role?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ChatMessageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    role?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ChatMessageMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    role?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AccountCreateNestedManyWithoutUserInput = {
+    create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
+    createMany?: AccountCreateManyUserInputEnvelope
+    connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+  }
+
+  export type PlaygroundCreateNestedManyWithoutUserInput = {
+    create?: XOR<PlaygroundCreateWithoutUserInput, PlaygroundUncheckedCreateWithoutUserInput> | PlaygroundCreateWithoutUserInput[] | PlaygroundUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PlaygroundCreateOrConnectWithoutUserInput | PlaygroundCreateOrConnectWithoutUserInput[]
+    createMany?: PlaygroundCreateManyUserInputEnvelope
+    connect?: PlaygroundWhereUniqueInput | PlaygroundWhereUniqueInput[]
+  }
+
+  export type StarMarkCreateNestedManyWithoutUserInput = {
+    create?: XOR<StarMarkCreateWithoutUserInput, StarMarkUncheckedCreateWithoutUserInput> | StarMarkCreateWithoutUserInput[] | StarMarkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StarMarkCreateOrConnectWithoutUserInput | StarMarkCreateOrConnectWithoutUserInput[]
+    createMany?: StarMarkCreateManyUserInputEnvelope
+    connect?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+  }
+
+  export type ChatMessageCreateNestedManyWithoutUserInput = {
+    create?: XOR<ChatMessageCreateWithoutUserInput, ChatMessageUncheckedCreateWithoutUserInput> | ChatMessageCreateWithoutUserInput[] | ChatMessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ChatMessageCreateOrConnectWithoutUserInput | ChatMessageCreateOrConnectWithoutUserInput[]
+    createMany?: ChatMessageCreateManyUserInputEnvelope
+    connect?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
+  }
+
+  export type AccountUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
+    createMany?: AccountCreateManyUserInputEnvelope
+    connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+  }
+
+  export type PlaygroundUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PlaygroundCreateWithoutUserInput, PlaygroundUncheckedCreateWithoutUserInput> | PlaygroundCreateWithoutUserInput[] | PlaygroundUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PlaygroundCreateOrConnectWithoutUserInput | PlaygroundCreateOrConnectWithoutUserInput[]
+    createMany?: PlaygroundCreateManyUserInputEnvelope
+    connect?: PlaygroundWhereUniqueInput | PlaygroundWhereUniqueInput[]
+  }
+
+  export type StarMarkUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<StarMarkCreateWithoutUserInput, StarMarkUncheckedCreateWithoutUserInput> | StarMarkCreateWithoutUserInput[] | StarMarkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StarMarkCreateOrConnectWithoutUserInput | StarMarkCreateOrConnectWithoutUserInput[]
+    createMany?: StarMarkCreateManyUserInputEnvelope
+    connect?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+  }
+
+  export type ChatMessageUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ChatMessageCreateWithoutUserInput, ChatMessageUncheckedCreateWithoutUserInput> | ChatMessageCreateWithoutUserInput[] | ChatMessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ChatMessageCreateOrConnectWithoutUserInput | ChatMessageCreateOrConnectWithoutUserInput[]
+    createMany?: ChatMessageCreateManyUserInputEnvelope
+    connect?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+    unset?: boolean
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+    unset?: boolean
+  }
+
+  export type EnumUserRoleFieldUpdateOperationsInput = {
+    set?: $Enums.UserRole
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type AccountUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
+    upsert?: AccountUpsertWithWhereUniqueWithoutUserInput | AccountUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AccountCreateManyUserInputEnvelope
+    set?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+    disconnect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+    delete?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+    connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+    update?: AccountUpdateWithWhereUniqueWithoutUserInput | AccountUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AccountUpdateManyWithWhereWithoutUserInput | AccountUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
+  }
+
+  export type PlaygroundUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PlaygroundCreateWithoutUserInput, PlaygroundUncheckedCreateWithoutUserInput> | PlaygroundCreateWithoutUserInput[] | PlaygroundUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PlaygroundCreateOrConnectWithoutUserInput | PlaygroundCreateOrConnectWithoutUserInput[]
+    upsert?: PlaygroundUpsertWithWhereUniqueWithoutUserInput | PlaygroundUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PlaygroundCreateManyUserInputEnvelope
+    set?: PlaygroundWhereUniqueInput | PlaygroundWhereUniqueInput[]
+    disconnect?: PlaygroundWhereUniqueInput | PlaygroundWhereUniqueInput[]
+    delete?: PlaygroundWhereUniqueInput | PlaygroundWhereUniqueInput[]
+    connect?: PlaygroundWhereUniqueInput | PlaygroundWhereUniqueInput[]
+    update?: PlaygroundUpdateWithWhereUniqueWithoutUserInput | PlaygroundUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PlaygroundUpdateManyWithWhereWithoutUserInput | PlaygroundUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PlaygroundScalarWhereInput | PlaygroundScalarWhereInput[]
+  }
+
+  export type StarMarkUpdateManyWithoutUserNestedInput = {
+    create?: XOR<StarMarkCreateWithoutUserInput, StarMarkUncheckedCreateWithoutUserInput> | StarMarkCreateWithoutUserInput[] | StarMarkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StarMarkCreateOrConnectWithoutUserInput | StarMarkCreateOrConnectWithoutUserInput[]
+    upsert?: StarMarkUpsertWithWhereUniqueWithoutUserInput | StarMarkUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: StarMarkCreateManyUserInputEnvelope
+    set?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+    disconnect?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+    delete?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+    connect?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+    update?: StarMarkUpdateWithWhereUniqueWithoutUserInput | StarMarkUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: StarMarkUpdateManyWithWhereWithoutUserInput | StarMarkUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: StarMarkScalarWhereInput | StarMarkScalarWhereInput[]
+  }
+
+  export type ChatMessageUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ChatMessageCreateWithoutUserInput, ChatMessageUncheckedCreateWithoutUserInput> | ChatMessageCreateWithoutUserInput[] | ChatMessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ChatMessageCreateOrConnectWithoutUserInput | ChatMessageCreateOrConnectWithoutUserInput[]
+    upsert?: ChatMessageUpsertWithWhereUniqueWithoutUserInput | ChatMessageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ChatMessageCreateManyUserInputEnvelope
+    set?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
+    disconnect?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
+    delete?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
+    connect?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
+    update?: ChatMessageUpdateWithWhereUniqueWithoutUserInput | ChatMessageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ChatMessageUpdateManyWithWhereWithoutUserInput | ChatMessageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ChatMessageScalarWhereInput | ChatMessageScalarWhereInput[]
+  }
+
+  export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
+    upsert?: AccountUpsertWithWhereUniqueWithoutUserInput | AccountUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AccountCreateManyUserInputEnvelope
+    set?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+    disconnect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+    delete?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+    connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+    update?: AccountUpdateWithWhereUniqueWithoutUserInput | AccountUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AccountUpdateManyWithWhereWithoutUserInput | AccountUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
+  }
+
+  export type PlaygroundUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PlaygroundCreateWithoutUserInput, PlaygroundUncheckedCreateWithoutUserInput> | PlaygroundCreateWithoutUserInput[] | PlaygroundUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PlaygroundCreateOrConnectWithoutUserInput | PlaygroundCreateOrConnectWithoutUserInput[]
+    upsert?: PlaygroundUpsertWithWhereUniqueWithoutUserInput | PlaygroundUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PlaygroundCreateManyUserInputEnvelope
+    set?: PlaygroundWhereUniqueInput | PlaygroundWhereUniqueInput[]
+    disconnect?: PlaygroundWhereUniqueInput | PlaygroundWhereUniqueInput[]
+    delete?: PlaygroundWhereUniqueInput | PlaygroundWhereUniqueInput[]
+    connect?: PlaygroundWhereUniqueInput | PlaygroundWhereUniqueInput[]
+    update?: PlaygroundUpdateWithWhereUniqueWithoutUserInput | PlaygroundUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PlaygroundUpdateManyWithWhereWithoutUserInput | PlaygroundUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PlaygroundScalarWhereInput | PlaygroundScalarWhereInput[]
+  }
+
+  export type StarMarkUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<StarMarkCreateWithoutUserInput, StarMarkUncheckedCreateWithoutUserInput> | StarMarkCreateWithoutUserInput[] | StarMarkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StarMarkCreateOrConnectWithoutUserInput | StarMarkCreateOrConnectWithoutUserInput[]
+    upsert?: StarMarkUpsertWithWhereUniqueWithoutUserInput | StarMarkUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: StarMarkCreateManyUserInputEnvelope
+    set?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+    disconnect?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+    delete?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+    connect?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+    update?: StarMarkUpdateWithWhereUniqueWithoutUserInput | StarMarkUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: StarMarkUpdateManyWithWhereWithoutUserInput | StarMarkUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: StarMarkScalarWhereInput | StarMarkScalarWhereInput[]
+  }
+
+  export type ChatMessageUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ChatMessageCreateWithoutUserInput, ChatMessageUncheckedCreateWithoutUserInput> | ChatMessageCreateWithoutUserInput[] | ChatMessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ChatMessageCreateOrConnectWithoutUserInput | ChatMessageCreateOrConnectWithoutUserInput[]
+    upsert?: ChatMessageUpsertWithWhereUniqueWithoutUserInput | ChatMessageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ChatMessageCreateManyUserInputEnvelope
+    set?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
+    disconnect?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
+    delete?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
+    connect?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
+    update?: ChatMessageUpdateWithWhereUniqueWithoutUserInput | ChatMessageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ChatMessageUpdateManyWithWhereWithoutUserInput | ChatMessageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ChatMessageScalarWhereInput | ChatMessageScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutAccountsInput = {
+    create?: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAccountsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+    unset?: boolean
+  }
+
+  export type UserUpdateOneRequiredWithoutAccountsNestedInput = {
+    create?: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAccountsInput
+    upsert?: UserUpsertWithoutAccountsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAccountsInput, UserUpdateWithoutAccountsInput>, UserUncheckedUpdateWithoutAccountsInput>
+  }
+
+  export type StarMarkCreateNestedManyWithoutPlaygroundInput = {
+    create?: XOR<StarMarkCreateWithoutPlaygroundInput, StarMarkUncheckedCreateWithoutPlaygroundInput> | StarMarkCreateWithoutPlaygroundInput[] | StarMarkUncheckedCreateWithoutPlaygroundInput[]
+    connectOrCreate?: StarMarkCreateOrConnectWithoutPlaygroundInput | StarMarkCreateOrConnectWithoutPlaygroundInput[]
+    createMany?: StarMarkCreateManyPlaygroundInputEnvelope
+    connect?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+  }
+
+  export type UserCreateNestedOneWithoutMyPlagroundInput = {
+    create?: XOR<UserCreateWithoutMyPlagroundInput, UserUncheckedCreateWithoutMyPlagroundInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMyPlagroundInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TemplateFileCreateNestedManyWithoutPlaygroundInput = {
+    create?: XOR<TemplateFileCreateWithoutPlaygroundInput, TemplateFileUncheckedCreateWithoutPlaygroundInput> | TemplateFileCreateWithoutPlaygroundInput[] | TemplateFileUncheckedCreateWithoutPlaygroundInput[]
+    connectOrCreate?: TemplateFileCreateOrConnectWithoutPlaygroundInput | TemplateFileCreateOrConnectWithoutPlaygroundInput[]
+    createMany?: TemplateFileCreateManyPlaygroundInputEnvelope
+    connect?: TemplateFileWhereUniqueInput | TemplateFileWhereUniqueInput[]
+  }
+
+  export type StarMarkUncheckedCreateNestedManyWithoutPlaygroundInput = {
+    create?: XOR<StarMarkCreateWithoutPlaygroundInput, StarMarkUncheckedCreateWithoutPlaygroundInput> | StarMarkCreateWithoutPlaygroundInput[] | StarMarkUncheckedCreateWithoutPlaygroundInput[]
+    connectOrCreate?: StarMarkCreateOrConnectWithoutPlaygroundInput | StarMarkCreateOrConnectWithoutPlaygroundInput[]
+    createMany?: StarMarkCreateManyPlaygroundInputEnvelope
+    connect?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+  }
+
+  export type TemplateFileUncheckedCreateNestedManyWithoutPlaygroundInput = {
+    create?: XOR<TemplateFileCreateWithoutPlaygroundInput, TemplateFileUncheckedCreateWithoutPlaygroundInput> | TemplateFileCreateWithoutPlaygroundInput[] | TemplateFileUncheckedCreateWithoutPlaygroundInput[]
+    connectOrCreate?: TemplateFileCreateOrConnectWithoutPlaygroundInput | TemplateFileCreateOrConnectWithoutPlaygroundInput[]
+    createMany?: TemplateFileCreateManyPlaygroundInputEnvelope
+    connect?: TemplateFileWhereUniqueInput | TemplateFileWhereUniqueInput[]
+  }
+
+  export type EnumTemplatesFieldUpdateOperationsInput = {
+    set?: $Enums.Templates
+  }
+
+  export type StarMarkUpdateManyWithoutPlaygroundNestedInput = {
+    create?: XOR<StarMarkCreateWithoutPlaygroundInput, StarMarkUncheckedCreateWithoutPlaygroundInput> | StarMarkCreateWithoutPlaygroundInput[] | StarMarkUncheckedCreateWithoutPlaygroundInput[]
+    connectOrCreate?: StarMarkCreateOrConnectWithoutPlaygroundInput | StarMarkCreateOrConnectWithoutPlaygroundInput[]
+    upsert?: StarMarkUpsertWithWhereUniqueWithoutPlaygroundInput | StarMarkUpsertWithWhereUniqueWithoutPlaygroundInput[]
+    createMany?: StarMarkCreateManyPlaygroundInputEnvelope
+    set?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+    disconnect?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+    delete?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+    connect?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+    update?: StarMarkUpdateWithWhereUniqueWithoutPlaygroundInput | StarMarkUpdateWithWhereUniqueWithoutPlaygroundInput[]
+    updateMany?: StarMarkUpdateManyWithWhereWithoutPlaygroundInput | StarMarkUpdateManyWithWhereWithoutPlaygroundInput[]
+    deleteMany?: StarMarkScalarWhereInput | StarMarkScalarWhereInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutMyPlagroundNestedInput = {
+    create?: XOR<UserCreateWithoutMyPlagroundInput, UserUncheckedCreateWithoutMyPlagroundInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMyPlagroundInput
+    upsert?: UserUpsertWithoutMyPlagroundInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMyPlagroundInput, UserUpdateWithoutMyPlagroundInput>, UserUncheckedUpdateWithoutMyPlagroundInput>
+  }
+
+  export type TemplateFileUpdateManyWithoutPlaygroundNestedInput = {
+    create?: XOR<TemplateFileCreateWithoutPlaygroundInput, TemplateFileUncheckedCreateWithoutPlaygroundInput> | TemplateFileCreateWithoutPlaygroundInput[] | TemplateFileUncheckedCreateWithoutPlaygroundInput[]
+    connectOrCreate?: TemplateFileCreateOrConnectWithoutPlaygroundInput | TemplateFileCreateOrConnectWithoutPlaygroundInput[]
+    upsert?: TemplateFileUpsertWithWhereUniqueWithoutPlaygroundInput | TemplateFileUpsertWithWhereUniqueWithoutPlaygroundInput[]
+    createMany?: TemplateFileCreateManyPlaygroundInputEnvelope
+    set?: TemplateFileWhereUniqueInput | TemplateFileWhereUniqueInput[]
+    disconnect?: TemplateFileWhereUniqueInput | TemplateFileWhereUniqueInput[]
+    delete?: TemplateFileWhereUniqueInput | TemplateFileWhereUniqueInput[]
+    connect?: TemplateFileWhereUniqueInput | TemplateFileWhereUniqueInput[]
+    update?: TemplateFileUpdateWithWhereUniqueWithoutPlaygroundInput | TemplateFileUpdateWithWhereUniqueWithoutPlaygroundInput[]
+    updateMany?: TemplateFileUpdateManyWithWhereWithoutPlaygroundInput | TemplateFileUpdateManyWithWhereWithoutPlaygroundInput[]
+    deleteMany?: TemplateFileScalarWhereInput | TemplateFileScalarWhereInput[]
+  }
+
+  export type StarMarkUncheckedUpdateManyWithoutPlaygroundNestedInput = {
+    create?: XOR<StarMarkCreateWithoutPlaygroundInput, StarMarkUncheckedCreateWithoutPlaygroundInput> | StarMarkCreateWithoutPlaygroundInput[] | StarMarkUncheckedCreateWithoutPlaygroundInput[]
+    connectOrCreate?: StarMarkCreateOrConnectWithoutPlaygroundInput | StarMarkCreateOrConnectWithoutPlaygroundInput[]
+    upsert?: StarMarkUpsertWithWhereUniqueWithoutPlaygroundInput | StarMarkUpsertWithWhereUniqueWithoutPlaygroundInput[]
+    createMany?: StarMarkCreateManyPlaygroundInputEnvelope
+    set?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+    disconnect?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+    delete?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+    connect?: StarMarkWhereUniqueInput | StarMarkWhereUniqueInput[]
+    update?: StarMarkUpdateWithWhereUniqueWithoutPlaygroundInput | StarMarkUpdateWithWhereUniqueWithoutPlaygroundInput[]
+    updateMany?: StarMarkUpdateManyWithWhereWithoutPlaygroundInput | StarMarkUpdateManyWithWhereWithoutPlaygroundInput[]
+    deleteMany?: StarMarkScalarWhereInput | StarMarkScalarWhereInput[]
+  }
+
+  export type TemplateFileUncheckedUpdateManyWithoutPlaygroundNestedInput = {
+    create?: XOR<TemplateFileCreateWithoutPlaygroundInput, TemplateFileUncheckedCreateWithoutPlaygroundInput> | TemplateFileCreateWithoutPlaygroundInput[] | TemplateFileUncheckedCreateWithoutPlaygroundInput[]
+    connectOrCreate?: TemplateFileCreateOrConnectWithoutPlaygroundInput | TemplateFileCreateOrConnectWithoutPlaygroundInput[]
+    upsert?: TemplateFileUpsertWithWhereUniqueWithoutPlaygroundInput | TemplateFileUpsertWithWhereUniqueWithoutPlaygroundInput[]
+    createMany?: TemplateFileCreateManyPlaygroundInputEnvelope
+    set?: TemplateFileWhereUniqueInput | TemplateFileWhereUniqueInput[]
+    disconnect?: TemplateFileWhereUniqueInput | TemplateFileWhereUniqueInput[]
+    delete?: TemplateFileWhereUniqueInput | TemplateFileWhereUniqueInput[]
+    connect?: TemplateFileWhereUniqueInput | TemplateFileWhereUniqueInput[]
+    update?: TemplateFileUpdateWithWhereUniqueWithoutPlaygroundInput | TemplateFileUpdateWithWhereUniqueWithoutPlaygroundInput[]
+    updateMany?: TemplateFileUpdateManyWithWhereWithoutPlaygroundInput | TemplateFileUpdateManyWithWhereWithoutPlaygroundInput[]
+    deleteMany?: TemplateFileScalarWhereInput | TemplateFileScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutStaredPlaygroundInput = {
+    create?: XOR<UserCreateWithoutStaredPlaygroundInput, UserUncheckedCreateWithoutStaredPlaygroundInput>
+    connectOrCreate?: UserCreateOrConnectWithoutStaredPlaygroundInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PlaygroundCreateNestedOneWithoutStarmarkInput = {
+    create?: XOR<PlaygroundCreateWithoutStarmarkInput, PlaygroundUncheckedCreateWithoutStarmarkInput>
+    connectOrCreate?: PlaygroundCreateOrConnectWithoutStarmarkInput
+    connect?: PlaygroundWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type UserUpdateOneRequiredWithoutStaredPlaygroundNestedInput = {
+    create?: XOR<UserCreateWithoutStaredPlaygroundInput, UserUncheckedCreateWithoutStaredPlaygroundInput>
+    connectOrCreate?: UserCreateOrConnectWithoutStaredPlaygroundInput
+    upsert?: UserUpsertWithoutStaredPlaygroundInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutStaredPlaygroundInput, UserUpdateWithoutStaredPlaygroundInput>, UserUncheckedUpdateWithoutStaredPlaygroundInput>
+  }
+
+  export type PlaygroundUpdateOneRequiredWithoutStarmarkNestedInput = {
+    create?: XOR<PlaygroundCreateWithoutStarmarkInput, PlaygroundUncheckedCreateWithoutStarmarkInput>
+    connectOrCreate?: PlaygroundCreateOrConnectWithoutStarmarkInput
+    upsert?: PlaygroundUpsertWithoutStarmarkInput
+    connect?: PlaygroundWhereUniqueInput
+    update?: XOR<XOR<PlaygroundUpdateToOneWithWhereWithoutStarmarkInput, PlaygroundUpdateWithoutStarmarkInput>, PlaygroundUncheckedUpdateWithoutStarmarkInput>
+  }
+
+  export type PlaygroundCreateNestedOneWithoutTemplateFilesInput = {
+    create?: XOR<PlaygroundCreateWithoutTemplateFilesInput, PlaygroundUncheckedCreateWithoutTemplateFilesInput>
+    connectOrCreate?: PlaygroundCreateOrConnectWithoutTemplateFilesInput
+    connect?: PlaygroundWhereUniqueInput
+  }
+
+  export type PlaygroundUpdateOneRequiredWithoutTemplateFilesNestedInput = {
+    create?: XOR<PlaygroundCreateWithoutTemplateFilesInput, PlaygroundUncheckedCreateWithoutTemplateFilesInput>
+    connectOrCreate?: PlaygroundCreateOrConnectWithoutTemplateFilesInput
+    upsert?: PlaygroundUpsertWithoutTemplateFilesInput
+    connect?: PlaygroundWhereUniqueInput
+    update?: XOR<XOR<PlaygroundUpdateToOneWithWhereWithoutTemplateFilesInput, PlaygroundUpdateWithoutTemplateFilesInput>, PlaygroundUncheckedUpdateWithoutTemplateFilesInput>
+  }
+
+  export type UserCreateNestedOneWithoutChatMessagesInput = {
+    create?: XOR<UserCreateWithoutChatMessagesInput, UserUncheckedCreateWithoutChatMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutChatMessagesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutChatMessagesNestedInput = {
+    create?: XOR<UserCreateWithoutChatMessagesInput, UserUncheckedCreateWithoutChatMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutChatMessagesInput
+    upsert?: UserUpsertWithoutChatMessagesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutChatMessagesInput, UserUpdateWithoutChatMessagesInput>, UserUncheckedUpdateWithoutChatMessagesInput>
+  }
+
+  export type NestedStringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    isSet?: boolean
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+    isSet?: boolean
+  }
+
+  export type NestedEnumUserRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type NestedEnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserRoleFilter<$PrismaModel>
+    _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
+  export type NestedEnumTemplatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Templates | EnumTemplatesFieldRefInput<$PrismaModel>
+    in?: $Enums.Templates[] | ListEnumTemplatesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Templates[] | ListEnumTemplatesFieldRefInput<$PrismaModel>
+    not?: NestedEnumTemplatesFilter<$PrismaModel> | $Enums.Templates
+  }
+
+  export type NestedEnumTemplatesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Templates | EnumTemplatesFieldRefInput<$PrismaModel>
+    in?: $Enums.Templates[] | ListEnumTemplatesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Templates[] | ListEnumTemplatesFieldRefInput<$PrismaModel>
+    not?: NestedEnumTemplatesWithAggregatesFilter<$PrismaModel> | $Enums.Templates
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTemplatesFilter<$PrismaModel>
+    _max?: NestedEnumTemplatesFilter<$PrismaModel>
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+  }
+
+  export type AccountCreateWithoutUserInput = {
+    id?: string
+    type: string
+    provider: string
+    providerAccountId: string
+    refreshToken?: string | null
+    accessToken?: string | null
+    expiresAt?: number | null
+    tokenType?: string | null
+    scope?: string | null
+    idToken?: string | null
+    sessionState?: string | null
+  }
+
+  export type AccountUncheckedCreateWithoutUserInput = {
+    id?: string
+    type: string
+    provider: string
+    providerAccountId: string
+    refreshToken?: string | null
+    accessToken?: string | null
+    expiresAt?: number | null
+    tokenType?: string | null
+    scope?: string | null
+    idToken?: string | null
+    sessionState?: string | null
+  }
+
+  export type AccountCreateOrConnectWithoutUserInput = {
+    where: AccountWhereUniqueInput
+    create: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput>
+  }
+
+  export type AccountCreateManyUserInputEnvelope = {
+    data: AccountCreateManyUserInput | AccountCreateManyUserInput[]
+  }
+
+  export type PlaygroundCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description?: string | null
+    template?: $Enums.Templates
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Starmark?: StarMarkCreateNestedManyWithoutPlaygroundInput
+    templateFiles?: TemplateFileCreateNestedManyWithoutPlaygroundInput
+  }
+
+  export type PlaygroundUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description?: string | null
+    template?: $Enums.Templates
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Starmark?: StarMarkUncheckedCreateNestedManyWithoutPlaygroundInput
+    templateFiles?: TemplateFileUncheckedCreateNestedManyWithoutPlaygroundInput
+  }
+
+  export type PlaygroundCreateOrConnectWithoutUserInput = {
+    where: PlaygroundWhereUniqueInput
+    create: XOR<PlaygroundCreateWithoutUserInput, PlaygroundUncheckedCreateWithoutUserInput>
+  }
+
+  export type PlaygroundCreateManyUserInputEnvelope = {
+    data: PlaygroundCreateManyUserInput | PlaygroundCreateManyUserInput[]
+  }
+
+  export type StarMarkCreateWithoutUserInput = {
+    id?: string
+    isMarked: boolean
+    createdAt?: Date | string
+    playground: PlaygroundCreateNestedOneWithoutStarmarkInput
+  }
+
+  export type StarMarkUncheckedCreateWithoutUserInput = {
+    id?: string
+    playgroundId: string
+    isMarked: boolean
+    createdAt?: Date | string
+  }
+
+  export type StarMarkCreateOrConnectWithoutUserInput = {
+    where: StarMarkWhereUniqueInput
+    create: XOR<StarMarkCreateWithoutUserInput, StarMarkUncheckedCreateWithoutUserInput>
+  }
+
+  export type StarMarkCreateManyUserInputEnvelope = {
+    data: StarMarkCreateManyUserInput | StarMarkCreateManyUserInput[]
+  }
+
+  export type ChatMessageCreateWithoutUserInput = {
+    id?: string
+    role: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type ChatMessageUncheckedCreateWithoutUserInput = {
+    id?: string
+    role: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type ChatMessageCreateOrConnectWithoutUserInput = {
+    where: ChatMessageWhereUniqueInput
+    create: XOR<ChatMessageCreateWithoutUserInput, ChatMessageUncheckedCreateWithoutUserInput>
+  }
+
+  export type ChatMessageCreateManyUserInputEnvelope = {
+    data: ChatMessageCreateManyUserInput | ChatMessageCreateManyUserInput[]
+  }
+
+  export type AccountUpsertWithWhereUniqueWithoutUserInput = {
+    where: AccountWhereUniqueInput
+    update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
+    create: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput>
+  }
+
+  export type AccountUpdateWithWhereUniqueWithoutUserInput = {
+    where: AccountWhereUniqueInput
+    data: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AccountUpdateManyWithWhereWithoutUserInput = {
+    where: AccountScalarWhereInput
+    data: XOR<AccountUpdateManyMutationInput, AccountUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AccountScalarWhereInput = {
+    AND?: AccountScalarWhereInput | AccountScalarWhereInput[]
+    OR?: AccountScalarWhereInput[]
+    NOT?: AccountScalarWhereInput | AccountScalarWhereInput[]
+    id?: StringFilter<"Account"> | string
+    userId?: StringFilter<"Account"> | string
+    type?: StringFilter<"Account"> | string
+    provider?: StringFilter<"Account"> | string
+    providerAccountId?: StringFilter<"Account"> | string
+    refreshToken?: StringNullableFilter<"Account"> | string | null
+    accessToken?: StringNullableFilter<"Account"> | string | null
+    expiresAt?: IntNullableFilter<"Account"> | number | null
+    tokenType?: StringNullableFilter<"Account"> | string | null
+    scope?: StringNullableFilter<"Account"> | string | null
+    idToken?: StringNullableFilter<"Account"> | string | null
+    sessionState?: StringNullableFilter<"Account"> | string | null
+  }
+
+  export type PlaygroundUpsertWithWhereUniqueWithoutUserInput = {
+    where: PlaygroundWhereUniqueInput
+    update: XOR<PlaygroundUpdateWithoutUserInput, PlaygroundUncheckedUpdateWithoutUserInput>
+    create: XOR<PlaygroundCreateWithoutUserInput, PlaygroundUncheckedCreateWithoutUserInput>
+  }
+
+  export type PlaygroundUpdateWithWhereUniqueWithoutUserInput = {
+    where: PlaygroundWhereUniqueInput
+    data: XOR<PlaygroundUpdateWithoutUserInput, PlaygroundUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PlaygroundUpdateManyWithWhereWithoutUserInput = {
+    where: PlaygroundScalarWhereInput
+    data: XOR<PlaygroundUpdateManyMutationInput, PlaygroundUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PlaygroundScalarWhereInput = {
+    AND?: PlaygroundScalarWhereInput | PlaygroundScalarWhereInput[]
+    OR?: PlaygroundScalarWhereInput[]
+    NOT?: PlaygroundScalarWhereInput | PlaygroundScalarWhereInput[]
+    id?: StringFilter<"Playground"> | string
+    title?: StringFilter<"Playground"> | string
+    description?: StringNullableFilter<"Playground"> | string | null
+    template?: EnumTemplatesFilter<"Playground"> | $Enums.Templates
+    createdAt?: DateTimeFilter<"Playground"> | Date | string
+    updatedAt?: DateTimeFilter<"Playground"> | Date | string
+    userId?: StringFilter<"Playground"> | string
+  }
+
+  export type StarMarkUpsertWithWhereUniqueWithoutUserInput = {
+    where: StarMarkWhereUniqueInput
+    update: XOR<StarMarkUpdateWithoutUserInput, StarMarkUncheckedUpdateWithoutUserInput>
+    create: XOR<StarMarkCreateWithoutUserInput, StarMarkUncheckedCreateWithoutUserInput>
+  }
+
+  export type StarMarkUpdateWithWhereUniqueWithoutUserInput = {
+    where: StarMarkWhereUniqueInput
+    data: XOR<StarMarkUpdateWithoutUserInput, StarMarkUncheckedUpdateWithoutUserInput>
+  }
+
+  export type StarMarkUpdateManyWithWhereWithoutUserInput = {
+    where: StarMarkScalarWhereInput
+    data: XOR<StarMarkUpdateManyMutationInput, StarMarkUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type StarMarkScalarWhereInput = {
+    AND?: StarMarkScalarWhereInput | StarMarkScalarWhereInput[]
+    OR?: StarMarkScalarWhereInput[]
+    NOT?: StarMarkScalarWhereInput | StarMarkScalarWhereInput[]
+    id?: StringFilter<"StarMark"> | string
+    userId?: StringFilter<"StarMark"> | string
+    playgroundId?: StringFilter<"StarMark"> | string
+    isMarked?: BoolFilter<"StarMark"> | boolean
+    createdAt?: DateTimeFilter<"StarMark"> | Date | string
+  }
+
+  export type ChatMessageUpsertWithWhereUniqueWithoutUserInput = {
+    where: ChatMessageWhereUniqueInput
+    update: XOR<ChatMessageUpdateWithoutUserInput, ChatMessageUncheckedUpdateWithoutUserInput>
+    create: XOR<ChatMessageCreateWithoutUserInput, ChatMessageUncheckedCreateWithoutUserInput>
+  }
+
+  export type ChatMessageUpdateWithWhereUniqueWithoutUserInput = {
+    where: ChatMessageWhereUniqueInput
+    data: XOR<ChatMessageUpdateWithoutUserInput, ChatMessageUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ChatMessageUpdateManyWithWhereWithoutUserInput = {
+    where: ChatMessageScalarWhereInput
+    data: XOR<ChatMessageUpdateManyMutationInput, ChatMessageUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ChatMessageScalarWhereInput = {
+    AND?: ChatMessageScalarWhereInput | ChatMessageScalarWhereInput[]
+    OR?: ChatMessageScalarWhereInput[]
+    NOT?: ChatMessageScalarWhereInput | ChatMessageScalarWhereInput[]
+    id?: StringFilter<"ChatMessage"> | string
+    userId?: StringFilter<"ChatMessage"> | string
+    role?: StringFilter<"ChatMessage"> | string
+    content?: StringFilter<"ChatMessage"> | string
+    createdAt?: DateTimeFilter<"ChatMessage"> | Date | string
+  }
+
+  export type UserCreateWithoutAccountsInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    myPlaground?: PlaygroundCreateNestedManyWithoutUserInput
+    staredPlayground?: StarMarkCreateNestedManyWithoutUserInput
+    chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAccountsInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    myPlaground?: PlaygroundUncheckedCreateNestedManyWithoutUserInput
+    staredPlayground?: StarMarkUncheckedCreateNestedManyWithoutUserInput
+    chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAccountsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
+  }
+
+  export type UserUpsertWithoutAccountsInput = {
+    update: XOR<UserUpdateWithoutAccountsInput, UserUncheckedUpdateWithoutAccountsInput>
+    create: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAccountsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAccountsInput, UserUncheckedUpdateWithoutAccountsInput>
+  }
+
+  export type UserUpdateWithoutAccountsInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    myPlaground?: PlaygroundUpdateManyWithoutUserNestedInput
+    staredPlayground?: StarMarkUpdateManyWithoutUserNestedInput
+    chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAccountsInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    myPlaground?: PlaygroundUncheckedUpdateManyWithoutUserNestedInput
+    staredPlayground?: StarMarkUncheckedUpdateManyWithoutUserNestedInput
+    chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type StarMarkCreateWithoutPlaygroundInput = {
+    id?: string
+    isMarked: boolean
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutStaredPlaygroundInput
+  }
+
+  export type StarMarkUncheckedCreateWithoutPlaygroundInput = {
+    id?: string
+    userId: string
+    isMarked: boolean
+    createdAt?: Date | string
+  }
+
+  export type StarMarkCreateOrConnectWithoutPlaygroundInput = {
+    where: StarMarkWhereUniqueInput
+    create: XOR<StarMarkCreateWithoutPlaygroundInput, StarMarkUncheckedCreateWithoutPlaygroundInput>
+  }
+
+  export type StarMarkCreateManyPlaygroundInputEnvelope = {
+    data: StarMarkCreateManyPlaygroundInput | StarMarkCreateManyPlaygroundInput[]
+  }
+
+  export type UserCreateWithoutMyPlagroundInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    staredPlayground?: StarMarkCreateNestedManyWithoutUserInput
+    chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMyPlagroundInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    staredPlayground?: StarMarkUncheckedCreateNestedManyWithoutUserInput
+    chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMyPlagroundInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMyPlagroundInput, UserUncheckedCreateWithoutMyPlagroundInput>
+  }
+
+  export type TemplateFileCreateWithoutPlaygroundInput = {
+    id?: string
+    content: InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TemplateFileUncheckedCreateWithoutPlaygroundInput = {
+    id?: string
+    content: InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TemplateFileCreateOrConnectWithoutPlaygroundInput = {
+    where: TemplateFileWhereUniqueInput
+    create: XOR<TemplateFileCreateWithoutPlaygroundInput, TemplateFileUncheckedCreateWithoutPlaygroundInput>
+  }
+
+  export type TemplateFileCreateManyPlaygroundInputEnvelope = {
+    data: TemplateFileCreateManyPlaygroundInput | TemplateFileCreateManyPlaygroundInput[]
+  }
+
+  export type StarMarkUpsertWithWhereUniqueWithoutPlaygroundInput = {
+    where: StarMarkWhereUniqueInput
+    update: XOR<StarMarkUpdateWithoutPlaygroundInput, StarMarkUncheckedUpdateWithoutPlaygroundInput>
+    create: XOR<StarMarkCreateWithoutPlaygroundInput, StarMarkUncheckedCreateWithoutPlaygroundInput>
+  }
+
+  export type StarMarkUpdateWithWhereUniqueWithoutPlaygroundInput = {
+    where: StarMarkWhereUniqueInput
+    data: XOR<StarMarkUpdateWithoutPlaygroundInput, StarMarkUncheckedUpdateWithoutPlaygroundInput>
+  }
+
+  export type StarMarkUpdateManyWithWhereWithoutPlaygroundInput = {
+    where: StarMarkScalarWhereInput
+    data: XOR<StarMarkUpdateManyMutationInput, StarMarkUncheckedUpdateManyWithoutPlaygroundInput>
+  }
+
+  export type UserUpsertWithoutMyPlagroundInput = {
+    update: XOR<UserUpdateWithoutMyPlagroundInput, UserUncheckedUpdateWithoutMyPlagroundInput>
+    create: XOR<UserCreateWithoutMyPlagroundInput, UserUncheckedCreateWithoutMyPlagroundInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMyPlagroundInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMyPlagroundInput, UserUncheckedUpdateWithoutMyPlagroundInput>
+  }
+
+  export type UserUpdateWithoutMyPlagroundInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    staredPlayground?: StarMarkUpdateManyWithoutUserNestedInput
+    chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMyPlagroundInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    staredPlayground?: StarMarkUncheckedUpdateManyWithoutUserNestedInput
+    chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type TemplateFileUpsertWithWhereUniqueWithoutPlaygroundInput = {
+    where: TemplateFileWhereUniqueInput
+    update: XOR<TemplateFileUpdateWithoutPlaygroundInput, TemplateFileUncheckedUpdateWithoutPlaygroundInput>
+    create: XOR<TemplateFileCreateWithoutPlaygroundInput, TemplateFileUncheckedCreateWithoutPlaygroundInput>
+  }
+
+  export type TemplateFileUpdateWithWhereUniqueWithoutPlaygroundInput = {
+    where: TemplateFileWhereUniqueInput
+    data: XOR<TemplateFileUpdateWithoutPlaygroundInput, TemplateFileUncheckedUpdateWithoutPlaygroundInput>
+  }
+
+  export type TemplateFileUpdateManyWithWhereWithoutPlaygroundInput = {
+    where: TemplateFileScalarWhereInput
+    data: XOR<TemplateFileUpdateManyMutationInput, TemplateFileUncheckedUpdateManyWithoutPlaygroundInput>
+  }
+
+  export type TemplateFileScalarWhereInput = {
+    AND?: TemplateFileScalarWhereInput | TemplateFileScalarWhereInput[]
+    OR?: TemplateFileScalarWhereInput[]
+    NOT?: TemplateFileScalarWhereInput | TemplateFileScalarWhereInput[]
+    id?: StringFilter<"TemplateFile"> | string
+    content?: JsonFilter<"TemplateFile">
+    createdAt?: DateTimeFilter<"TemplateFile"> | Date | string
+    updatedAt?: DateTimeFilter<"TemplateFile"> | Date | string
+    playgroundId?: StringFilter<"TemplateFile"> | string
+  }
+
+  export type UserCreateWithoutStaredPlaygroundInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    myPlaground?: PlaygroundCreateNestedManyWithoutUserInput
+    chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutStaredPlaygroundInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    myPlaground?: PlaygroundUncheckedCreateNestedManyWithoutUserInput
+    chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutStaredPlaygroundInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutStaredPlaygroundInput, UserUncheckedCreateWithoutStaredPlaygroundInput>
+  }
+
+  export type PlaygroundCreateWithoutStarmarkInput = {
+    id?: string
+    title: string
+    description?: string | null
+    template?: $Enums.Templates
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutMyPlagroundInput
+    templateFiles?: TemplateFileCreateNestedManyWithoutPlaygroundInput
+  }
+
+  export type PlaygroundUncheckedCreateWithoutStarmarkInput = {
+    id?: string
+    title: string
+    description?: string | null
+    template?: $Enums.Templates
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    templateFiles?: TemplateFileUncheckedCreateNestedManyWithoutPlaygroundInput
+  }
+
+  export type PlaygroundCreateOrConnectWithoutStarmarkInput = {
+    where: PlaygroundWhereUniqueInput
+    create: XOR<PlaygroundCreateWithoutStarmarkInput, PlaygroundUncheckedCreateWithoutStarmarkInput>
+  }
+
+  export type UserUpsertWithoutStaredPlaygroundInput = {
+    update: XOR<UserUpdateWithoutStaredPlaygroundInput, UserUncheckedUpdateWithoutStaredPlaygroundInput>
+    create: XOR<UserCreateWithoutStaredPlaygroundInput, UserUncheckedCreateWithoutStaredPlaygroundInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutStaredPlaygroundInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutStaredPlaygroundInput, UserUncheckedUpdateWithoutStaredPlaygroundInput>
+  }
+
+  export type UserUpdateWithoutStaredPlaygroundInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    myPlaground?: PlaygroundUpdateManyWithoutUserNestedInput
+    chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutStaredPlaygroundInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    myPlaground?: PlaygroundUncheckedUpdateManyWithoutUserNestedInput
+    chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type PlaygroundUpsertWithoutStarmarkInput = {
+    update: XOR<PlaygroundUpdateWithoutStarmarkInput, PlaygroundUncheckedUpdateWithoutStarmarkInput>
+    create: XOR<PlaygroundCreateWithoutStarmarkInput, PlaygroundUncheckedCreateWithoutStarmarkInput>
+    where?: PlaygroundWhereInput
+  }
+
+  export type PlaygroundUpdateToOneWithWhereWithoutStarmarkInput = {
+    where?: PlaygroundWhereInput
+    data: XOR<PlaygroundUpdateWithoutStarmarkInput, PlaygroundUncheckedUpdateWithoutStarmarkInput>
+  }
+
+  export type PlaygroundUpdateWithoutStarmarkInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    template?: EnumTemplatesFieldUpdateOperationsInput | $Enums.Templates
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutMyPlagroundNestedInput
+    templateFiles?: TemplateFileUpdateManyWithoutPlaygroundNestedInput
+  }
+
+  export type PlaygroundUncheckedUpdateWithoutStarmarkInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    template?: EnumTemplatesFieldUpdateOperationsInput | $Enums.Templates
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    templateFiles?: TemplateFileUncheckedUpdateManyWithoutPlaygroundNestedInput
+  }
+
+  export type PlaygroundCreateWithoutTemplateFilesInput = {
+    id?: string
+    title: string
+    description?: string | null
+    template?: $Enums.Templates
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Starmark?: StarMarkCreateNestedManyWithoutPlaygroundInput
+    user: UserCreateNestedOneWithoutMyPlagroundInput
+  }
+
+  export type PlaygroundUncheckedCreateWithoutTemplateFilesInput = {
+    id?: string
+    title: string
+    description?: string | null
+    template?: $Enums.Templates
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    Starmark?: StarMarkUncheckedCreateNestedManyWithoutPlaygroundInput
+  }
+
+  export type PlaygroundCreateOrConnectWithoutTemplateFilesInput = {
+    where: PlaygroundWhereUniqueInput
+    create: XOR<PlaygroundCreateWithoutTemplateFilesInput, PlaygroundUncheckedCreateWithoutTemplateFilesInput>
+  }
+
+  export type PlaygroundUpsertWithoutTemplateFilesInput = {
+    update: XOR<PlaygroundUpdateWithoutTemplateFilesInput, PlaygroundUncheckedUpdateWithoutTemplateFilesInput>
+    create: XOR<PlaygroundCreateWithoutTemplateFilesInput, PlaygroundUncheckedCreateWithoutTemplateFilesInput>
+    where?: PlaygroundWhereInput
+  }
+
+  export type PlaygroundUpdateToOneWithWhereWithoutTemplateFilesInput = {
+    where?: PlaygroundWhereInput
+    data: XOR<PlaygroundUpdateWithoutTemplateFilesInput, PlaygroundUncheckedUpdateWithoutTemplateFilesInput>
+  }
+
+  export type PlaygroundUpdateWithoutTemplateFilesInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    template?: EnumTemplatesFieldUpdateOperationsInput | $Enums.Templates
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Starmark?: StarMarkUpdateManyWithoutPlaygroundNestedInput
+    user?: UserUpdateOneRequiredWithoutMyPlagroundNestedInput
+  }
+
+  export type PlaygroundUncheckedUpdateWithoutTemplateFilesInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    template?: EnumTemplatesFieldUpdateOperationsInput | $Enums.Templates
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    Starmark?: StarMarkUncheckedUpdateManyWithoutPlaygroundNestedInput
+  }
+
+  export type UserCreateWithoutChatMessagesInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    myPlaground?: PlaygroundCreateNestedManyWithoutUserInput
+    staredPlayground?: StarMarkCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutChatMessagesInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    myPlaground?: PlaygroundUncheckedCreateNestedManyWithoutUserInput
+    staredPlayground?: StarMarkUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutChatMessagesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutChatMessagesInput, UserUncheckedCreateWithoutChatMessagesInput>
+  }
+
+  export type UserUpsertWithoutChatMessagesInput = {
+    update: XOR<UserUpdateWithoutChatMessagesInput, UserUncheckedUpdateWithoutChatMessagesInput>
+    create: XOR<UserCreateWithoutChatMessagesInput, UserUncheckedCreateWithoutChatMessagesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutChatMessagesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutChatMessagesInput, UserUncheckedUpdateWithoutChatMessagesInput>
+  }
+
+  export type UserUpdateWithoutChatMessagesInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    myPlaground?: PlaygroundUpdateManyWithoutUserNestedInput
+    staredPlayground?: StarMarkUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutChatMessagesInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    myPlaground?: PlaygroundUncheckedUpdateManyWithoutUserNestedInput
+    staredPlayground?: StarMarkUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type AccountCreateManyUserInput = {
+    id?: string
+    type: string
+    provider: string
+    providerAccountId: string
+    refreshToken?: string | null
+    accessToken?: string | null
+    expiresAt?: number | null
+    tokenType?: string | null
+    scope?: string | null
+    idToken?: string | null
+    sessionState?: string | null
+  }
+
+  export type PlaygroundCreateManyUserInput = {
+    id?: string
+    title: string
+    description?: string | null
+    template?: $Enums.Templates
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StarMarkCreateManyUserInput = {
+    id?: string
+    playgroundId: string
+    isMarked: boolean
+    createdAt?: Date | string
+  }
+
+  export type ChatMessageCreateManyUserInput = {
+    id?: string
+    role: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type AccountUpdateWithoutUserInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    providerAccountId?: StringFieldUpdateOperationsInput | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    expiresAt?: NullableIntFieldUpdateOperationsInput | number | null
+    tokenType?: NullableStringFieldUpdateOperationsInput | string | null
+    scope?: NullableStringFieldUpdateOperationsInput | string | null
+    idToken?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionState?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AccountUncheckedUpdateWithoutUserInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    providerAccountId?: StringFieldUpdateOperationsInput | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    expiresAt?: NullableIntFieldUpdateOperationsInput | number | null
+    tokenType?: NullableStringFieldUpdateOperationsInput | string | null
+    scope?: NullableStringFieldUpdateOperationsInput | string | null
+    idToken?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionState?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AccountUncheckedUpdateManyWithoutUserInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    providerAccountId?: StringFieldUpdateOperationsInput | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    expiresAt?: NullableIntFieldUpdateOperationsInput | number | null
+    tokenType?: NullableStringFieldUpdateOperationsInput | string | null
+    scope?: NullableStringFieldUpdateOperationsInput | string | null
+    idToken?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionState?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PlaygroundUpdateWithoutUserInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    template?: EnumTemplatesFieldUpdateOperationsInput | $Enums.Templates
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Starmark?: StarMarkUpdateManyWithoutPlaygroundNestedInput
+    templateFiles?: TemplateFileUpdateManyWithoutPlaygroundNestedInput
+  }
+
+  export type PlaygroundUncheckedUpdateWithoutUserInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    template?: EnumTemplatesFieldUpdateOperationsInput | $Enums.Templates
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Starmark?: StarMarkUncheckedUpdateManyWithoutPlaygroundNestedInput
+    templateFiles?: TemplateFileUncheckedUpdateManyWithoutPlaygroundNestedInput
+  }
+
+  export type PlaygroundUncheckedUpdateManyWithoutUserInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    template?: EnumTemplatesFieldUpdateOperationsInput | $Enums.Templates
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StarMarkUpdateWithoutUserInput = {
+    isMarked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    playground?: PlaygroundUpdateOneRequiredWithoutStarmarkNestedInput
+  }
+
+  export type StarMarkUncheckedUpdateWithoutUserInput = {
+    playgroundId?: StringFieldUpdateOperationsInput | string
+    isMarked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StarMarkUncheckedUpdateManyWithoutUserInput = {
+    playgroundId?: StringFieldUpdateOperationsInput | string
+    isMarked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChatMessageUpdateWithoutUserInput = {
+    role?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChatMessageUncheckedUpdateWithoutUserInput = {
+    role?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChatMessageUncheckedUpdateManyWithoutUserInput = {
+    role?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StarMarkCreateManyPlaygroundInput = {
+    id?: string
+    userId: string
+    isMarked: boolean
+    createdAt?: Date | string
+  }
+
+  export type TemplateFileCreateManyPlaygroundInput = {
+    id?: string
+    content: InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StarMarkUpdateWithoutPlaygroundInput = {
+    isMarked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutStaredPlaygroundNestedInput
+  }
+
+  export type StarMarkUncheckedUpdateWithoutPlaygroundInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    isMarked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StarMarkUncheckedUpdateManyWithoutPlaygroundInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    isMarked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TemplateFileUpdateWithoutPlaygroundInput = {
+    content?: InputJsonValue | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TemplateFileUncheckedUpdateWithoutPlaygroundInput = {
+    content?: InputJsonValue | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TemplateFileUncheckedUpdateManyWithoutPlaygroundInput = {
+    content?: InputJsonValue | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+
+
+  /**
+   * Batch Payload for updateMany & deleteMany & createMany
+   */
+
+  export type BatchPayload = {
+    count: number
+  }
+
+  /**
+   * DMMF
+   */
+  export const dmmf: runtime.BaseDMMF
+}
