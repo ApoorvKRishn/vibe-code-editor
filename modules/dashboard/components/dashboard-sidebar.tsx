@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
@@ -20,7 +20,6 @@ import {
   Database,
   FlameIcon,
 } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import {
   Sidebar,
   SidebarContent,
@@ -41,7 +40,7 @@ import Image from "next/image"
 interface PlaygroundData {
   id: string
   name: string
-  icon: string // Changed to string
+  icon: string
   starred: boolean
 }
 
@@ -53,8 +52,7 @@ const lucideIconMap: Record<string, LucideIcon> = {
   Compass: Compass,
   FlameIcon: FlameIcon,
   Terminal: Terminal,
-  Code2: Code2, // Include the default icon
-  // Add any other icons you might use dynamically
+  Code2: Code2,
 }
 
 export function DashboardSidebar({ initialPlaygroundData }: { initialPlaygroundData: PlaygroundData[] }) {
@@ -62,13 +60,17 @@ export function DashboardSidebar({ initialPlaygroundData }: { initialPlaygroundD
   const [starredPlaygrounds, setStarredPlaygrounds] = useState(initialPlaygroundData.filter((p) => p.starred))
   const [recentPlaygrounds, setRecentPlaygrounds] = useState(initialPlaygroundData)
 
+  useEffect(() => {
+    setStarredPlaygrounds(initialPlaygroundData.filter((p) => p.starred))
+    setRecentPlaygrounds(initialPlaygroundData)
+  }, [initialPlaygroundData])
+
   return (
-    <Sidebar variant="inset" collapsible="icon" className="border-1 border-r">
+    <Sidebar variant="inset" collapsible="icon" className="border-r">
       <SidebarHeader>
         <div className="flex items-center gap-2 px-4 py-3 justify-center">
           <Image src={"/logo.svg"} alt="logo" height={60} width={60} />
         </div>
-       
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
@@ -89,7 +91,6 @@ export function DashboardSidebar({ initialPlaygroundData }: { initialPlaygroundD
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
-          
           </SidebarMenu>
         </SidebarGroup>
 
@@ -98,17 +99,16 @@ export function DashboardSidebar({ initialPlaygroundData }: { initialPlaygroundD
             <Star className="h-4 w-4 mr-2" />
             Starred
           </SidebarGroupLabel>
-          <SidebarGroupAction title="Add starred playground">
+          <SidebarGroupAction title="Starred playgrounds">
             <Plus className="h-4 w-4" />
           </SidebarGroupAction>
           <SidebarGroupContent>
             <SidebarMenu>
-
-              {starredPlaygrounds.length === 0 && recentPlaygrounds.length === 0 ? (
-                <div className="text-center text-muted-foreground py-4 w-full">Create your playground</div>
+              {starredPlaygrounds.length === 0 ? (
+                <div className="px-4 py-2 text-xs text-muted-foreground">No starred playgrounds</div>
               ) : (
                 starredPlaygrounds.map((playground) => {
-                  const IconComponent = lucideIconMap[playground.icon] || Code2;
+                  const IconComponent = lucideIconMap[playground.icon] || Code2
                   return (
                     <SidebarMenuItem key={playground.id}>
                       <SidebarMenuButton
@@ -122,7 +122,7 @@ export function DashboardSidebar({ initialPlaygroundData }: { initialPlaygroundD
                         </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
-                  );
+                  )
                 })
               )}
             </SidebarMenu>
@@ -134,19 +134,21 @@ export function DashboardSidebar({ initialPlaygroundData }: { initialPlaygroundD
             <History className="h-4 w-4 mr-2" />
             Recent
           </SidebarGroupLabel>
-          <SidebarGroupAction title="Create new playground">
+          <SidebarGroupAction title="Recent playgrounds">
             <FolderPlus className="h-4 w-4" />
           </SidebarGroupAction>
           <SidebarGroupContent>
             <SidebarMenu>
-              {starredPlaygrounds.length === 0 && recentPlaygrounds.length === 0 ? null : (
+              {recentPlaygrounds.length === 0 ? (
+                <div className="px-4 py-2 text-xs text-muted-foreground">No recent playgrounds</div>
+              ) : (
                 recentPlaygrounds.map((playground) => {
-                  const IconComponent = lucideIconMap[playground.icon] || Code2;
+                  const IconComponent = lucideIconMap[playground.icon] || Code2
                   return (
                     <SidebarMenuItem key={playground.id}>
                       <SidebarMenuButton
                         asChild
-                        isActive={pathname === `playground/${playground.id}`}
+                        isActive={pathname === `/playground/${playground.id}`}
                         tooltip={playground.name}
                       >
                         <Link href={`/playground/${playground.id}`}>
@@ -155,7 +157,7 @@ export function DashboardSidebar({ initialPlaygroundData }: { initialPlaygroundD
                         </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
-                  );
+                  )
                 })
               )}
               <SidebarMenuItem>
@@ -172,7 +174,7 @@ export function DashboardSidebar({ initialPlaygroundData }: { initialPlaygroundD
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild tooltip="Settings">
+            <SidebarMenuButton asChild tooltip="Settings" isActive={pathname === "/settings"}>
               <Link href="/settings">
                 <Settings className="h-4 w-4" />
                 <span>Settings</span>

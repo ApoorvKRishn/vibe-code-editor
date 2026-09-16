@@ -1,8 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-
-import { StarIcon, StarOffIcon } from "lucide-react"
+import { StarIcon } from "lucide-react"
 import type React from "react"
 import { useState, useEffect, forwardRef } from "react"
 import { toast } from "sonner"
@@ -22,7 +21,6 @@ export const MarkedToggleButton = forwardRef<HTMLButtonElement, MarkedToggleButt
     }, [markedForRevision])
 
     const handleToggle = async (event: React.MouseEvent<HTMLButtonElement>) => {
-      // Call the original onClick if provided by the parent (DropdownMenuItem)
       onClick?.(event)
 
       const newMarkedState = !isMarked
@@ -30,21 +28,19 @@ export const MarkedToggleButton = forwardRef<HTMLButtonElement, MarkedToggleButt
 
       try {
         const res = await toggleStarMarked(id, newMarkedState)
-        const {success ,error , isMarked} = res;
+        const { success, error } = res
 
-    //    if ismarked true then show marked successfully otherwise show start over
-        if (isMarked && !error && success) {
-          toast.success("Added to Favorites successfully")
+        if (success && newMarkedState) {
+          toast.success("Added to Starred Playgrounds")
+        } else if (success && !newMarkedState) {
+          toast.success("Removed from Starred Playgrounds")
         } else {
-          toast.success("Removed from Favorites successfully")
+          toast.error(error || "Failed to update favorite status")
+          setIsMarked(!newMarkedState)
         }
-
-
-
       } catch (error) {
-        console.error("Failed to toggle mark for revision:", error)
-        setIsMarked(!newMarkedState) // Revert state if the update fails
-        // You might want to add a toast notification here for the user
+        console.error("Failed to toggle star:", error)
+        setIsMarked(!newMarkedState)
       }
     }
 
@@ -56,11 +52,10 @@ export const MarkedToggleButton = forwardRef<HTMLButtonElement, MarkedToggleButt
         onClick={handleToggle}
         {...props}
       >
-        {isMarked ? (
-          <StarIcon size={16} className="text-red-500 mr-2" />
-        ) : (
-          <StarOffIcon size={16} className="text-gray-500 mr-2" />
-        )}
+        <StarIcon
+          size={16}
+          className={isMarked ? "text-amber-500 fill-amber-500 mr-2" : "text-gray-400 mr-2"}
+        />
         {children || (isMarked ? "Remove Favorite" : "Add to Favorite")}
       </Button>
     )
