@@ -5,10 +5,20 @@ import authConfig from "./auth.config";
 import { db } from "./lib/db";
 import { getUserById } from "./modules/auth/actions";
 
+const baseAdapter = PrismaAdapter(db);
+const customAdapter = {
+  ...baseAdapter,
+  createUser: async (data: any) => {
+    const { emailVerified, ...rest } = data;
+    const payload = emailVerified ? { ...rest, emailVerified } : rest;
+    return baseAdapter.createUser!(payload as any);
+  },
+};
+
 export const { auth, handlers, signIn, signOut } = NextAuth({
   trustHost: true,
   secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
-  adapter: PrismaAdapter(db),
+  adapter: customAdapter,
   session: { strategy: "jwt" },
   callbacks: {
     async jwt({ token, user }) {
