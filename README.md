@@ -65,6 +65,11 @@ Preview (iframe srcdoc)┘  (built in the browser, no server call)
   save is simplest. For large projects I would store one document per file.
 - **Why debounce auto-save?** Saving on every keystroke would send hundreds of
   writes; waiting until typing pauses sends one.
+- **How does "Apply fix" work?** The AI route asks Gemini for *structured output*:
+  JSON with a `reply` (markdown explanation) and `fixedCode` (the full corrected
+  file). The Apply button writes `fixedCode` into the editor, so nothing has to be
+  parsed out of free text. If the main model is overloaded, the server retries once
+  on a lighter model.
 - **Why is the preview iframe sandboxed?** `sandbox="allow-scripts"` without
   `allow-same-origin` runs the user's JavaScript in an isolated origin, so it
   cannot read the app's cookies or call the API as the user.

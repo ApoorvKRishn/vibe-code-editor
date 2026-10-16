@@ -12,6 +12,8 @@ import { cn } from "@/lib/utils";
 interface Message {
   role: "user" | "assistant";
   content: string;
+  /** The complete corrected file, when the AI proposed a fix. */
+  fixedCode?: string | null;
 }
 
 const QUICK_ACTIONS = [
@@ -22,12 +24,6 @@ const QUICK_ACTIONS = [
     prompt: "Fix the errors in this code (use the run output if there is one).",
   },
 ];
-
-/** The code inside the first ``` fenced block of an AI reply, if any. */
-const extractCode = (markdown: string): string | null => {
-  const match = markdown.match(/```[^\n]*\n([\s\S]*?)```/);
-  return match ? match[1] : null;
-};
 
 interface AIPanelProps {
   fileName: string | null;
@@ -62,11 +58,19 @@ export function AIPanel({ fileName, code, runOutput, onApplyCode }: AIPanelProps
       const res = await fetch("/api/ai", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fileName, code, runOutput, messages: history }),
+        body: JSON.stringify({
+          fileName,
+          code,
+          runOutput,
+          messages: history.map(({ role, content }) => ({ role, content })),
+        }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "AI request failed");
-      setMessages([...history, { role: "assistant", content: data.reply }]);
+      setMessages([
+        ...history,
+        { role: "assistant", content: data.reply, fixedCode: data.fixedCode },
+      ]);
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "AI request failed");
       setMessages(messages); // drop the unanswered question
@@ -88,7 +92,7 @@ export function AIPanel({ fileName, code, runOutput, onApplyCode }: AIPanelProps
         )}
 
         {messages.map((message, i) => {
-          const fix = message.role === "assistant" ? extractCode(message.content) : null;
+          const fix = message.fixedCode ?? null;
           return (
             <div
               key={i}

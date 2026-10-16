@@ -24,9 +24,21 @@ const aiSchema = z.object({
 
 const SYSTEM_PROMPT = `You are an AI pair-programmer inside a code editor.
 You can see the user's current file and the output of their last run.
-Explain clearly and briefly. Use markdown.
-When you suggest a fix, include the COMPLETE corrected file in exactly one fenced
-code block (not just the changed lines), so the editor can apply it with one click.`;
+Answer as JSON with two fields:
+- "reply": your answer in markdown. Explain clearly and briefly.
+- "fixedCode": ONLY when you propose changes to the file, the COMPLETE corrected
+  file content as plain code (no markdown fences, no file name). Otherwise "".`;
+
+// Structured output: Gemini must return JSON in this shape, so the editor gets
+// the fixed code directly instead of having to dig it out of markdown.
+const RESPONSE_SCHEMA = {
+  type: "OBJECT",
+  properties: {
+    reply: { type: "STRING" },
+    fixedCode: { type: "STRING" },
+  },
+  required: ["reply", "fixedCode"],
+};
 
 export async function POST(req: NextRequest) {
   const session = await auth();
@@ -48,11 +60,10 @@ export async function POST(req: NextRequest) {
   // The current file and last run output are sent as context with every request,
   // so the AI always sees the latest version of the code.
   const context = [
-    `Current file: ${fileName}`,
-    "```",
+    `<file name="${fileName}">`,
     code,
-    "```",
-    runOutput ? `Output of the last run:\n\`\`\`\n${runOutput}\n\`\`\`` : "",
+    "</file>",
+    runOutput ? `<last_run_output>\n${runOutput}\n</last_run_output>` : "",
   ].join("\n");
 
   const turns = messages.slice(-10);
@@ -60,8 +71,9 @@ export async function POST(req: NextRequest) {
   turns[turns.length - 1] = { ...last, content: `${context}\n\n${last.content}` };
 
   try {
-    const reply = await askGemini(SYSTEM_PROMPT, turns);
-    return NextResponse.json({ reply });
+    const raw = await askGemini(SYSTEM_PROMPT, turns, RESPONSE_SCHEMA);
+    const { reply, fixedCode } = JSON.parse(raw) as { reply: string; fixedCode?: string };
+    return NextResponse.json({ reply, fixedCode: fixedCode?.trim() ? fixedCode : null });
   } catch (error) {
     const status = error instanceof AIError ? error.status : 500;
     const message = error instanceof Error ? error.message : "AI request failed";

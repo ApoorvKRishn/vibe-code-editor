@@ -115,6 +115,7 @@ const MainPlaygroundPage = () => {
   const handleRun = async () => {
     if (!activeFile) return;
     setIsRunning(true);
+    setRunResult(null);
     try {
       const res = await fetch("/api/run", {
         method: "POST",

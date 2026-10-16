@@ -20,7 +20,9 @@ export default auth((req) => {
 
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
-  if (isApiAuthRoute) {
+  // API routes check the session themselves and answer 401 as JSON,
+  // instead of redirecting a fetch() call to the sign-in page.
+  if (isApiAuthRoute || nextUrl.pathname.startsWith("/api/")) {
     return null;
   }
 

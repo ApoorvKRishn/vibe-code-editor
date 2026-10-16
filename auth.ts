@@ -22,7 +22,6 @@ const customAdapter = {
 };
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
-  trustHost: true,
   secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
   adapter: customAdapter,
   session: { strategy: "jwt" },
