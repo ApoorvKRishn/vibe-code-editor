@@ -4,10 +4,7 @@ import { Header } from "@/modules/home/header";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: {
-    template: "VibeCode - Editor ",
-    default: "Code Editor For VibeCoders - VibeCode",
-  },
+  title: "Vibe Code Editor",
 };
 export default function HomeLayout({
   children,

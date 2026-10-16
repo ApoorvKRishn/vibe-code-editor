@@ -18,7 +18,8 @@ import { useFileExplorer } from "@/modules/playground/hooks/useFileExplorer";
 import { usePlayground } from "@/modules/playground/hooks/usePlayground";
 import { cloneTree, findFileByPath, getFileName } from "@/modules/playground/lib";
 import { getRunnableLanguage } from "@/modules/playground/lib/languages";
-import { AlertCircle, Check, FileText, Loader2, X } from "lucide-react";
+import { AlertCircle, ArrowLeft, Check, FileText, Loader2, X } from "lucide-react";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
@@ -169,9 +170,11 @@ const MainPlaygroundPage = () => {
   }
 
   const isWebProject = playgroundData?.template === "WEB";
+  const pageTitle = `${playgroundData?.title ?? "Playground"} · Vibe Code Editor`;
 
   return (
     <>
+      <title>{pageTitle}</title>
       <TemplateFileTree
         data={fileTree}
         onFileSelect={openFile}
@@ -187,6 +190,11 @@ const MainPlaygroundPage = () => {
       <SidebarInset className="min-w-0">
         <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />
+          <Button asChild variant="ghost" size="sm">
+            <Link href="/dashboard">
+              <ArrowLeft className="h-4 w-4" /> Dashboard
+            </Link>
+          </Button>
           <Separator orientation="vertical" className="mr-2 h-4" />
           <h1 className="text-sm font-medium flex-1 truncate">
             {playgroundData?.title || "Code Playground"}
