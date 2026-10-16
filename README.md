@@ -18,7 +18,7 @@ the fix with one click.
 - **AI pair-programmer** — Gemini sees the open file and your last run output;
   "Explain", "Find bugs" and "Fix it" actions, plus an **Apply** button that writes
   the AI's fix into the editor.
-- **GitHub login** with NextAuth; every project is private to its owner.
+- **Google and GitHub login** with NextAuth; every project is private to its owner.
 
 ## Tech stack
 
@@ -28,7 +28,7 @@ the fix with one click.
 | UI        | Tailwind CSS, shadcn/ui                    |
 | Editor    | Monaco Editor                              |
 | State     | Zustand (open files, file tree)            |
-| Auth      | NextAuth v5 (GitHub OAuth, JWT sessions)   |
+| Auth      | NextAuth v5 (Google + GitHub OAuth, JWT sessions) |
 | Database  | MongoDB via Prisma                         |
 | Execution | Judge0 API                                 |
 | AI        | Google Gemini API                          |
@@ -49,7 +49,7 @@ Preview (iframe srcdoc)┘  (built in the browser, no server call)
 
 ### Data model
 
-- `User` / `Account` — created by NextAuth on first GitHub login.
+- `User` / `Account` — created by NextAuth on first login.
 - `Playground` — a project: title, language template, owner.
 - `TemplateFile` — the project's whole file tree as one JSON document
   (one per playground).
@@ -96,7 +96,9 @@ You need:
 1. A MongoDB database (free tier on MongoDB Atlas) → `DATABASE_URL`
 2. A GitHub OAuth app → `AUTH_GITHUB_ID`, `AUTH_GITHUB_SECRET`
    (callback URL `http://localhost:3000/api/auth/callback/github`)
-3. `AUTH_SECRET` — generate with `npx auth secret`
-4. A Gemini API key from Google AI Studio → `GEMINI_API_KEY`
+3. A Google OAuth client → `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET`
+   (redirect URI `http://localhost:3000/api/auth/callback/google`)
+4. `AUTH_SECRET` — generate with `npx auth secret`
+5. A Gemini API key from Google AI Studio → `GEMINI_API_KEY`
 
 The public Judge0 instance is used by default and needs no key.

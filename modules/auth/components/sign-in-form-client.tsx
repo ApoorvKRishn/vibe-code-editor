@@ -9,8 +9,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Github } from "lucide-react";
+import { Chrome, Github } from "lucide-react";
 import { signIn } from "@/auth";
+
+async function handleGoogleSignIn(){
+"use server"
+await signIn("google")
+}
 
 async function handleGithubSignIn(){
 "use server"
@@ -25,11 +30,17 @@ const SignInFormClient = () => {
           Sign In
         </CardTitle>
         <CardDescription className="text-center">
-          Sign in with your GitHub account
+          Choose your preferred sign-in method
         </CardDescription>
       </CardHeader>
 
       <CardContent className="grid gap-4">
+        <form action={handleGoogleSignIn}>
+          <Button type="submit" variant={"outline"} className="w-full">
+            <Chrome className="mr-2 h-4 w-4" />
+            <span>Sign in with Google</span>
+          </Button>
+        </form>
         <form action={handleGithubSignIn}>
           <Button type="submit" variant={"outline"} className="w-full">
             <Github className="mr-2 h-4 w-4" />

@@ -35,7 +35,7 @@ export default function SettingsContainer({ user }: { user?: SettingsUser }) {
       <Card>
         <CardHeader>
           <CardTitle>Profile</CardTitle>
-          <CardDescription>From your GitHub account.</CardDescription>
+          <CardDescription>From your Google or GitHub account.</CardDescription>
         </CardHeader>
         <CardContent className="flex items-center gap-4">
           <Avatar className="h-16 w-16">

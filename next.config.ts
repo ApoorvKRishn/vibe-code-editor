@@ -2,8 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    // Only GitHub avatars — a wildcard would turn the image optimizer into an open proxy.
-    remotePatterns: [{ protocol: "https", hostname: "avatars.githubusercontent.com" }],
+    // Only the OAuth providers' avatar hosts — a wildcard would turn the image
+    // optimizer into an open proxy.
+    remotePatterns: [
+      { protocol: "https", hostname: "avatars.githubusercontent.com" },
+      { protocol: "https", hostname: "lh3.googleusercontent.com" },
+    ],
   },
 };
 
