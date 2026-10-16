@@ -1,13 +1,19 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { auth } from "@/auth";
+import { AI_COMPLETION_MODEL, chatCompletion } from "@/lib/ai";
+import { rateLimit } from "@/lib/rate-limit";
 
+// LLM calls can be slow; allow up to 60s on Vercel (the default can be as low as 10s).
+export const maxDuration = 60;
 
-interface CodeSuggestionRequest {
-  fileContent: string;
-  cursorLine: number;
-  cursorColumn: number;
-  suggestionType: string;
-  fileName?: string;
-}
+const codeSuggestionSchema = z.object({
+  fileContent: z.string().max(200_000),
+  cursorLine: z.number().int().min(0),
+  cursorColumn: z.number().int().min(0),
+  suggestionType: z.string().min(1).max(50),
+  fileName: z.string().max(255).optional(),
+});
 
 interface CodeContext {
   language: string;
@@ -23,34 +29,31 @@ interface CodeContext {
 }
 
 export async function POST(request: NextRequest) {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  // Completions fire while typing; keep under the AI provider's free-tier limit.
+  if (!rateLimit(`completion:${userId}`, 20, 60_000)) {
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+  }
+
+  const parsed = codeSuggestionSchema.safeParse(await request.json().catch(() => null));
+  if (!parsed.success) {
+    return NextResponse.json({ error: "Invalid input parameters" }, { status: 400 });
+  }
+
   try {
-    const body: CodeSuggestionRequest = await request.json();
+    const { fileContent, cursorLine, cursorColumn, suggestionType, fileName } = parsed.data;
 
-    const { fileContent, cursorLine, cursorColumn, suggestionType, fileName } =
-      body;
-
-    // Validate input
-    if (!fileContent || cursorLine < 0 || cursorColumn < 0 || !suggestionType) {
-      return NextResponse.json(
-        { error: "Invalid input parameters" },
-        { status: 400 }
-      );
-    }
-
-    const context = analyzeCodeContext(
-      fileContent,
-      cursorLine,
-      cursorColumn,
-      fileName
-    );
-
+    const context = analyzeCodeContext(fileContent, cursorLine, cursorColumn, fileName);
     const prompt = buildPrompt(context, suggestionType);
-
     const suggestion = await generateSuggestion(prompt);
 
     return NextResponse.json({
       suggestion,
-      context,
       metadata: {
         language: context.language,
         framework: context.framework,
@@ -59,12 +62,9 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error: unknown) {
-    console.error("Context analysis error:", error);
+    console.error("Code completion error:", error);
     const message = error instanceof Error ? error.message : "Unknown error";
-    return NextResponse.json(
-      { error: "Internal server error", message },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error", message }, { status: 500 });
   }
 }
 
@@ -130,49 +130,31 @@ Analysis:
 - Incomplete Patterns: ${context.incompletePatterns.join(", ") || "None"}
 
 Instructions:
-1. Provide only the code that should be inserted at the cursor
-2. Maintain proper indentation and style
-3. Follow ${context.language} best practices
-4. Make the suggestion contextually appropriate
+1. Reply with ONLY the code to insert at |CURSOR| — no explanations, no markdown
+2. Do not repeat code that already appears before or after the cursor
+3. Maintain proper indentation and style
+4. Follow ${context.language} best practices
 
-Generate suggestion:`;
+Code to insert:`;
 }
 
 async function generateSuggestion(prompt: string): Promise<string> {
   try {
-    const ollamaUrl = process.env.OLLAMA_URL || "http://localhost:11434";
-    const ollamaModel = process.env.OLLAMA_MODEL || "codellama:latest";
-    const response = await fetch(`${ollamaUrl}/api/generate`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: ollamaModel,
-        prompt,
-        stream: false,
-        options: {
-          temperature: 0.7,
-          max_tokens: 300,
-        },
-      }),
+    let suggestion = await chatCompletion([{ role: "user", content: prompt }], {
+      model: AI_COMPLETION_MODEL,
+      temperature: 0.2,
+      maxTokens: 1024,
     });
 
-       if (!response.ok) {
-      throw new Error(`AI service error: ${response.statusText}`)
-    }
+    // Models often wrap code in a markdown fence; keep only the code.
+    const codeMatch = suggestion.match(/```[\w-]*\n?([\s\S]*?)```/);
+    if (codeMatch) suggestion = codeMatch[1];
 
-      const data = await response.json()
-    let suggestion = data.response
-
-     // Clean up the suggestion
-    if (suggestion.includes("```")) {
-      const codeMatch = suggestion.match(/```[\w]*\n?([\s\S]*?)```/)
-      suggestion = codeMatch ? codeMatch[1].trim() : suggestion
-    }
-
-    return suggestion
+    return suggestion.replace(/\|CURSOR\|/g, "").replace(/\s+$/, "");
   } catch (error) {
-      console.error("AI generation error:", error)
-    return "// AI suggestion unavailable"
+    // An empty suggestion simply shows nothing in the editor.
+    console.error("AI generation error:", error);
+    return "";
   }
 }
 

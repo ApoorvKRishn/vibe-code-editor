@@ -26,7 +26,7 @@ function NewFileDialog({ isOpen, onClose, onCreateFile }: NewFileDialogProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (filename.trim()) {
-      onCreateFile(filename.trim(), extension.trim() || "js");
+      onCreateFile(filename.trim(), extension.trim().replace(/^\./, ""));
       setFilename("");
       setExtension("js");
     }

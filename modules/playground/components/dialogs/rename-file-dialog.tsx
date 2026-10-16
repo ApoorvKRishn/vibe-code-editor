@@ -42,7 +42,7 @@ function RenameFileDialog({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (filename.trim()) {
-      onRename(filename.trim(), extension.trim() || currentExtension);
+      onRename(filename.trim(), extension.trim().replace(/^\./, ""));
     }
   };
 

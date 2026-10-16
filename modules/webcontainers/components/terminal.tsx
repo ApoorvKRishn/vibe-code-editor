@@ -16,6 +16,8 @@ interface TerminalProps {
   className?: string;
   theme?: "dark" | "light";
   webContainerInstance?: any;
+  /** Replays and streams output from processes started outside the terminal. */
+  subscribeOutput?: (listener: (data: string) => void) => () => void;
 }
 
 // Define the methods that will be exposed through the ref
@@ -30,7 +32,8 @@ TerminalComponent = forwardRef<TerminalRef, TerminalProps>(({
   webcontainerUrl, 
   className,
   theme = "dark",
-  webContainerInstance
+  webContainerInstance,
+  subscribeOutput,
 }, ref) => {
   const terminalRef = useRef<HTMLDivElement>(null);
   const term = useRef<Terminal | null>(null);
@@ -47,6 +50,9 @@ TerminalComponent = forwardRef<TerminalRef, TerminalProps>(({
   const historyIndex = useRef<number>(-1);
   const currentProcess = useRef<any>(null);
   const shellProcess = useRef<any>(null);
+  // xterm's onData handler is bound once, so read the instance through a ref.
+  const instanceRef = useRef<any>(webContainerInstance);
+  instanceRef.current = webContainerInstance;
 
   const terminalThemes = {
     dark: {
@@ -123,7 +129,13 @@ TerminalComponent = forwardRef<TerminalRef, TerminalProps>(({
   }));
 
   const executeCommand = useCallback(async (command: string) => {
-    if (!webContainerInstance || !term.current) return;
+    const webContainerInstance = instanceRef.current;
+    if (!term.current) return;
+    if (!webContainerInstance) {
+      term.current.writeln("\r\nWebContainer is still starting, please wait...");
+      writePrompt();
+      return;
+    }
 
     // Add to history
     if (command.trim() && commandHistory.current[commandHistory.current.length - 1] !== command) {
@@ -135,6 +147,15 @@ TerminalComponent = forwardRef<TerminalRef, TerminalProps>(({
       // Handle built-in commands
       if (command.trim() === "clear") {
         term.current.clear();
+        writePrompt();
+        return;
+      }
+
+      if (command.trim() === "help") {
+        term.current.writeln("");
+        term.current.writeln("Run any command available in the WebContainer, e.g.:");
+        term.current.writeln("  npm install <package>   ls   cat package.json   node index.js");
+        term.current.writeln("Built-ins: clear, history, help. Ctrl+C stops the running command.");
         writePrompt();
         return;
       }
@@ -153,7 +174,7 @@ TerminalComponent = forwardRef<TerminalRef, TerminalProps>(({
       }
 
       // Parse command
-      const parts = command.trim().split(' ');
+      const parts = command.trim().split(/\s+/);
       const cmd = parts[0];
       const args = parts.slice(1);
 
@@ -178,7 +199,7 @@ TerminalComponent = forwardRef<TerminalRef, TerminalProps>(({
       }));
 
       // Wait for process to complete
-      const exitCode = await process.exit;
+      await process.exit;
       currentProcess.current = null;
 
       // Show new prompt
@@ -186,12 +207,13 @@ TerminalComponent = forwardRef<TerminalRef, TerminalProps>(({
 
     } catch (error) {
       if (term.current) {
-        term.current.writeln(`\r\nCommand not found: ${command}`);
+        const message = error instanceof Error ? error.message : String(error);
+        term.current.writeln(`\r\nFailed to run "${command}": ${message}`);
         writePrompt();
       }
       currentProcess.current = null;
     }
-  }, [webContainerInstance, writePrompt]);
+  }, [writePrompt]);
 
   const handleTerminalInput = useCallback((data: string) => {
     if (!term.current) return;
@@ -413,6 +435,11 @@ TerminalComponent = forwardRef<TerminalRef, TerminalProps>(({
       }
     };
   }, [initializeTerminal]);
+
+  useEffect(() => {
+    if (!subscribeOutput || !term.current) return;
+    return subscribeOutput((data) => term.current?.write(data));
+  }, [subscribeOutput]);
 
   useEffect(() => {
     if (webContainerInstance && term.current && !isConnected) {

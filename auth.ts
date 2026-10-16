@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import type { AdapterUser } from "next-auth/adapters";
 
 import authConfig from "./auth.config";
 import { db } from "./lib/db";
@@ -8,7 +9,7 @@ import { getUserById } from "./modules/auth/actions";
 const baseAdapter = PrismaAdapter(db);
 const customAdapter = {
   ...baseAdapter,
-  createUser: async (user: any) => {
+  createUser: async (user: AdapterUser) => {
     return db.user.create({
       data: {
         name: user.name ?? null,
@@ -53,4 +54,3 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   },
   ...authConfig,
 });
-// Cache-invalidation-v2

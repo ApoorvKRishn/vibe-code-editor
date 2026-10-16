@@ -1,129 +1,88 @@
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { auth } from "@/auth";
+import { AI_MODEL, AIRateLimitError, AIUnavailableError, chatCompletion } from "@/lib/ai";
+import { rateLimit } from "@/lib/rate-limit";
 
-interface ChatMessage {
-  role: "user" | "assistant";
-  content: string;
-}
+// LLM calls can be slow; allow up to 60s on Vercel (the default can be as low as 10s).
+export const maxDuration = 60;
 
-interface ChatRequest {
-  message: string;
-  history: ChatMessage[];
-}
+const MAX_MESSAGE_CHARS = 20_000;
 
-async function generateAIResponse(messages: ChatMessage[]): Promise<string> {
-  const systemPrompt = `You are a helpful AI coding assistant. You help developers with:
+const chatRequestSchema = z.object({
+  message: z.string().trim().min(1).max(MAX_MESSAGE_CHARS),
+  history: z
+    .array(
+      z.object({
+        role: z.enum(["user", "assistant"]),
+        content: z.string().max(MAX_MESSAGE_CHARS),
+      })
+    )
+    .default([]),
+});
+
+const SYSTEM_PROMPT = `You are a helpful AI coding assistant. You help developers with:
 - Code explanations and debugging
-- Best practices and architecture advice  
+- Best practices and architecture advice
 - Writing clean, efficient code
 - Troubleshooting errors
 - Code reviews and optimizations
 
 Always provide clear, practical answers. Use proper code formatting when showing examples.`;
 
-  const fullMessages = [{ role: "system", content: systemPrompt }, ...messages];
-
-  const prompt = fullMessages
-    .map((msg) => `${msg.role}: ${msg.content}`)
-    .join("\n\n");
-
-  try {
-    const ollamaUrl = process.env.OLLAMA_URL || "http://localhost:11434";
-    const ollamaModel = process.env.OLLAMA_MODEL || "codellama:latest";
-    const response = await fetch(`${ollamaUrl}/api/generate`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: ollamaModel,
-        prompt: prompt,
-        stream: false,
-        options: {
-          temperature: 0.7, // Controls randomness (0-1)
-          max_tokens: 1000, // Maximum response length
-          top_p: 0.9, // controls diversity
-        },
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Ollama returned HTTP ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    if (!data.response) {
-      throw new Error("No response from AI model");
-    }
-
-    return data.response.trim();
-  } catch (error) {
-    console.error("AI generation error:", error);
-    const message = error instanceof Error ? error.message : "Unknown error";
-    if (message.includes("fetch failed") || message.includes("ECONNREFUSED")) {
-      throw new Error(
-        "Ollama is not running. Install Ollama, run `ollama serve`, and pull the configured model."
-      );
-    }
-    throw new Error(message);
-  }
-}
-
 export async function POST(req: NextRequest) {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  if (!rateLimit(`chat:${userId}`, 20, 60_000)) {
+    return NextResponse.json(
+      { error: "Too many requests", details: "Please wait a moment and try again." },
+      { status: 429 }
+    );
+  }
+
+  const parsed = chatRequestSchema.safeParse(await req.json().catch(() => null));
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "Invalid request", details: "Message is required and must be a string" },
+      { status: 400 }
+    );
+  }
+
+  const { message, history } = parsed.data;
+
   try {
-    const body: ChatRequest = await req.json();
-    const { message, history = [] } = body;
-
-    // Validate input
-    if (!message || typeof message !== "string") {
-      return NextResponse.json(
-        { error: "Message is required and must be a string" },
-        { status: 400 }
-      );
-    }
-
-    // Validate history format
-    const validHistory = Array.isArray(history)
-      ? history.filter(
-          (msg) =>
-            msg &&
-            typeof msg === "object" &&
-            typeof msg.role === "string" &&
-            typeof msg.content === "string" &&
-            ["user", "assistant"].includes(msg.role)
-        )
-      : [];
-
-    const recentHistory = validHistory.slice(-10);
-
-    const messages: ChatMessage[] = [
-      ...recentHistory,
-      { role: "user", content: message },
-    ];
-
-    //   Generate ai response
-
-    const aiResponse = await generateAIResponse(messages);
-
-
+    const response = await chatCompletion(
+      [
+        { role: "system", content: SYSTEM_PROMPT },
+        ...history.slice(-10),
+        { role: "user", content: message },
+      ],
+      { temperature: 0.7, maxTokens: 2048, topP: 0.9 }
+    );
+    if (!response) throw new Error("No response from AI model");
 
     return NextResponse.json({
-      response: aiResponse,
+      response,
+      model: AI_MODEL,
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
     console.error("Chat API Error:", error);
-
-    const errorMessage =
-      error instanceof Error ? error.message : "Unknown error";
-
+    const details = error instanceof Error ? error.message : "Unknown error";
     return NextResponse.json(
       {
         error: "Failed to generate AI response",
-        details: errorMessage,
+        details,
         timestamp: new Date().toISOString(),
       },
-      { status: 500 }
+      {
+        status:
+          error instanceof AIRateLimitError ? 429 : error instanceof AIUnavailableError ? 503 : 500,
+      }
     );
   }
 }

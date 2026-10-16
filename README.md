@@ -1,8 +1,8 @@
 # 🧠 Vibecode Editor – AI-Powered Web IDE
 
-![Vibecode Editor Thumbnail](public/vibe-code-editor-thumbnaail.svg)
+![Vibecode Editor Thumbnail](public/vibe-code-editor-thumbnail.svg)
 
-**Vibecode Editor** is a blazing-fast, AI-integrated web IDE built entirely in the browser using **Next.js App Router**, **WebContainers**, **Monaco Editor**, and **local LLMs via Ollama**. It offers real-time code execution, an AI-powered chat assistant, and support for multiple tech stacks — all wrapped in a stunning developer-first UI.
+**Vibecode Editor** is a blazing-fast, AI-integrated web IDE built entirely in the browser using **Next.js App Router**, **WebContainers**, **Monaco Editor**, and **LLMs via any OpenAI-compatible API** (Groq in production, Ollama locally). It offers real-time code execution, an AI-powered chat assistant, and support for multiple tech stacks — all wrapped in a stunning developer-first UI.
 
 ---
 
@@ -14,7 +14,7 @@
 - 🧱 **Project Templates** – Choose from React, Next.js, Express, Hono, Vue, or Angular.
 - 🗂️ **Custom File Explorer** – Create, rename, delete, and manage files/folders easily.
 - 🖊️ **Enhanced Monaco Editor** – Syntax highlighting, formatting, keybindings, and AI autocomplete.
-- 💡 **AI Suggestions with Ollama** – Local models give you code completion on `Ctrl + Space` or double `Enter`. Accept with `Tab`.
+- 💡 **AI Inline Suggestions** – Ghost-text code completion appears when you pause typing (or press `Alt + \`). Accept with `Tab`.
 - ⚙️ **WebContainers Integration** – Instantly run frontend/backend apps right in the browser.
 - 💻 **Terminal with xterm.js** – Fully interactive embedded terminal experience.
 - 🤖 **AI Chat Assistant** – Share files with the AI and get help, refactors, or explanations.
@@ -30,7 +30,7 @@
 | Language      | TypeScript                                   |
 | Auth          | NextAuth (Google + GitHub OAuth)             |
 | Editor        | Monaco Editor                                |
-| AI Suggestion | Ollama (LLMs running locally via Docker)     |
+| AI            | Groq (gpt-oss) in production, Ollama locally |
 | Runtime       | WebContainers                                |
 | Terminal      | xterm.js                                     |
 | Database      | MongoDB (via DATABASE_URL)                   |
@@ -54,33 +54,18 @@ npm install
 
 ### 3. Set Up Environment Variables
 
-Create a `.env.local` file using the template:
+Create a `.env` file from the template and fill in your credentials:
 
 ```bash
-cp .env.example .env.local
+cp .env.example .env
 ```
 
-Then, fill in your credentials:
+### 4. Configure the AI
 
-```env
-AUTH_SECRET=your_auth_secret
-AUTH_GOOGLE_ID=your_google_client_id
-AUTH_GOOGLE_SECRET=your_google_secret
-AUTH_GITHUB_ID=your_github_client_id
-AUTH_GITHUB_SECRET=your_github_secret
-DATABASE_URL=your_mongodb_connection_string
-NEXTAUTH_URL=http://localhost:3000
-```
+The AI features talk to any OpenAI-compatible API. Pick one:
 
-### 4. Start Local Ollama Model
-
-Make sure [Ollama](https://ollama.com/) and Docker are installed, then run:
-
-```bash
-ollama run codellama
-```
-
-Or use your preferred model that supports code generation.
+- **Groq (free, recommended)** – create a key at [console.groq.com/keys](https://console.groq.com/keys) and set `AI_BASE_URL`, `AI_API_KEY`, `AI_MODEL`, `AI_COMPLETION_MODEL` and `AI_REASONING_EFFORT` as shown in `.env.example`.
+- **Ollama (offline)** – leave the `AI_*` variables unset, install [Ollama](https://ollama.com/) and run `ollama run codellama` (or set `OLLAMA_MODEL` to another code model).
 
 ### 5. Run the Development Server
 
@@ -95,9 +80,9 @@ Visit `http://localhost:3000` in your browser.
 
 ## 🎯 Keyboard Shortcuts
 
-* `Ctrl + Space` or `Double Enter`: Trigger AI suggestions
-* `Tab`: Accept AI suggestion
-* `/`: Open Command Palette (if implemented)
+* `Alt + \`: Ask for an AI suggestion now (they also appear when you pause typing)
+* `Tab` / `Esc`: Accept / dismiss the AI suggestion
+* `Ctrl/Cmd + S`: Save file · `Ctrl/Cmd + Shift + S`: Save all
 
 ---
 
@@ -114,7 +99,7 @@ This project is licensed under the [MIT License](LICENSE).
 ## 🙏 Acknowledgements
 
 * [Monaco Editor](https://microsoft.github.io/monaco-editor/)
-* [Ollama](https://ollama.com/) – for offline LLMs
+* [Groq](https://groq.com/) and [Ollama](https://ollama.com/) – LLM inference
 * [WebContainers](https://webcontainers.io/)
 * [xterm.js](https://xtermjs.org/)
 * [NextAuth.js](https://next-auth.js.org/)

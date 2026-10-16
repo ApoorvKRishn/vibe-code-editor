@@ -1,20 +1,51 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { currentUser } from "@/modules/auth/actions";
+import { Prisma } from "@prisma/client";
+import { currentUser, requireUserId } from "@/modules/auth/actions";
 import { revalidatePath } from "next/cache";
+import { z } from "zod";
+
+const templateSchema = z.enum([
+  "REACT",
+  "NEXTJS",
+  "EXPRESS",
+  "VUE",
+  "HONO",
+  "ANGULAR",
+]);
+
+const createPlaygroundSchema = z.object({
+  title: z.string().trim().min(1).max(100),
+  template: templateSchema,
+  description: z.string().trim().max(500).optional(),
+});
+
+const editPlaygroundSchema = z.object({
+  title: z.string().trim().min(1).max(100),
+  description: z.string().trim().max(500),
+});
+
+/** Throws unless the playground exists and belongs to the user. */
+const assertOwnsPlayground = async (playgroundId: string, userId: string) => {
+  const playground = await db.playground.findFirst({
+    where: { id: playgroundId, userId },
+    select: { id: true },
+  });
+  if (!playground) {
+    throw new Error("Playground not found");
+  }
+};
 
 export const toggleStarMarked = async (
   playgroundId: string,
   isChecked: boolean
 ) => {
-  const user = await currentUser();
-  const userId = user?.id;
-  if (!userId) {
-    throw new Error("User Id is Required");
-  }
+  const userId = await requireUserId();
 
   try {
+    await assertOwnsPlayground(playgroundId, userId);
+
     if (isChecked) {
       await db.starMark.upsert({
         where: {
@@ -60,7 +91,9 @@ export const getAllPlaygroundForUser = async () => {
         userId: user.id,
       },
       include: {
-        user: true,
+        user: {
+          select: { id: true, name: true, email: true, image: true },
+        },
         Starmark: {
           where: {
             userId: user.id,
@@ -87,82 +120,79 @@ export const createPlayground = async (data: {
   template: "REACT" | "NEXTJS" | "EXPRESS" | "VUE" | "HONO" | "ANGULAR";
   description?: string;
 }) => {
-  const user = await currentUser();
-  if (!user?.id) {
-    throw new Error("User not authenticated");
-  }
+  const userId = await requireUserId();
+  const { template, title, description } = createPlaygroundSchema.parse(data);
 
-  const { template, title, description } = data;
+  const playground = await db.playground.create({
+    data: {
+      title,
+      description,
+      template,
+      userId,
+    },
+  });
 
-  try {
-    const playground = await db.playground.create({
-      data: {
-        title,
-        description,
-        template,
-        userId: user.id,
-      },
-    });
-
-    revalidatePath("/dashboard");
-    return playground;
-  } catch (error) {
-    console.error("Error creating playground:", error);
-    throw error;
-  }
+  revalidatePath("/dashboard");
+  return playground;
 };
 
 export const deleteProjectById = async (id: string) => {
-  try {
-    await db.playground.delete({
-      where: {
-        id,
-      },
-    });
-    revalidatePath("/dashboard");
-  } catch (error) {
-    console.error("Error deleting project:", error);
+  const userId = await requireUserId();
+
+  const { count } = await db.playground.deleteMany({
+    where: { id, userId },
+  });
+  if (count === 0) {
+    throw new Error("Playground not found");
   }
+  revalidatePath("/dashboard");
 };
 
 export const editProjectById = async (
   id: string,
   data: { title: string; description: string }
 ) => {
-  try {
-    await db.playground.update({
-      where: {
-        id,
-      },
-      data,
-    });
-    revalidatePath("/dashboard");
-  } catch (error) {
-    console.error("Error updating project:", error);
+  const userId = await requireUserId();
+  const parsed = editPlaygroundSchema.parse(data);
+
+  const { count } = await db.playground.updateMany({
+    where: { id, userId },
+    data: parsed,
+  });
+  if (count === 0) {
+    throw new Error("Playground not found");
   }
+  revalidatePath("/dashboard");
 };
 
 export const duplicateProjectById = async (id: string) => {
-  try {
-    const originalPlayground = await db.playground.findUnique({
-      where: { id },
-    });
-    if (!originalPlayground) {
-      throw new Error("Original playground not found");
-    }
+  const userId = await requireUserId();
 
-    const duplicatedPlayground = await db.playground.create({
-      data: {
-        title: `${originalPlayground.title} (Copy)`,
-        description: originalPlayground.description,
-        template: originalPlayground.template,
-        userId: originalPlayground.userId,
-      },
-    });
-
-    revalidatePath("/dashboard");
-    return duplicatedPlayground;
-  } catch (error) {
-    console.error("Error duplicating project:", error);
+  const originalPlayground = await db.playground.findFirst({
+    where: { id, userId },
+    include: { templateFiles: { select: { content: true } } },
+  });
+  if (!originalPlayground) {
+    throw new Error("Playground not found");
   }
+
+  const savedContent = originalPlayground.templateFiles[0]?.content;
+
+  const duplicatedPlayground = await db.playground.create({
+    data: {
+      title: `${originalPlayground.title} (Copy)`,
+      description: originalPlayground.description,
+      template: originalPlayground.template,
+      userId,
+      // Copy the saved code too, otherwise the copy starts from the bare template.
+      ...(savedContent != null && {
+        templateFiles: {
+          create: { content: savedContent as Prisma.InputJsonValue },
+        },
+      }),
+    },
+  });
+
+  revalidatePath("/dashboard");
+  return duplicatedPlayground;
 };
