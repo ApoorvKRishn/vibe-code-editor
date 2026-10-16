@@ -2,7 +2,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button"
-// import { createPlayground } from "@/features/playground/actions";
 import { Plus } from 'lucide-react'
 import Image from "next/image"
 import { useRouter } from "next/navigation";
@@ -10,23 +9,18 @@ import { useState } from "react"
 import { toast } from "sonner";
 import TemplateSelectingModal from "./template-selecting-modal";
 import { createPlayground } from "../actions";
+import type { Templates } from "@prisma/client";
 
 const AddNewButton = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
- const [selectedTemplate, setSelectedTemplate] = useState<{
-    title: string;
-    template: "REACT" | "NEXTJS" | "EXPRESS" | "VUE" | "HONO" | "ANGULAR";
-    description?: string;
-  } | null>(null)
   const router = useRouter()
 
 
   const handleSubmit = async (data:{
       title: string;
-    template: "REACT" | "NEXTJS" | "EXPRESS" | "VUE" | "HONO" | "ANGULAR";
+    template: Templates;
     description?: string;
   })=>{
-    setSelectedTemplate(data)
 
     try {
       const res = await createPlayground(data);

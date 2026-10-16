@@ -1,107 +1,102 @@
-# 🧠 Vibecode Editor – AI-Powered Web IDE
+# Vibe Code Editor
 
-![Vibecode Editor Thumbnail](public/vibe-code-editor-thumbnail.svg)
+A cloud-based code editor that runs in the browser. Write code in multiple files,
+run it in **7 languages** with custom input, preview HTML/CSS/JS pages live, and ask
+a **Google Gemini** AI pair-programmer to explain, debug or fix your code — and apply
+the fix with one click.
 
-**Vibecode Editor** is a blazing-fast, AI-integrated web IDE built entirely in the browser using **Next.js App Router**, **WebContainers**, **Monaco Editor**, and **LLMs via any OpenAI-compatible API** (Groq in production, Ollama locally). It offers real-time code execution, an AI-powered chat assistant, and support for multiple tech stacks — all wrapped in a stunning developer-first UI.
+## Features
 
----
+- **Virtual File System** — create, rename and delete files and folders; the whole
+  project tree is stored as one JSON document in MongoDB.
+- **Multi-tab editor** — Monaco (the editor behind VS Code) with one tab per open file.
+- **Auto-save** — changes are saved 1.5 s after you stop typing (debounced); `Ctrl+S`
+  saves immediately.
+- **Code execution** — C++, Python, Java, JavaScript, TypeScript, Go and Rust run in
+  the [Judge0](https://judge0.com) sandbox, with stdin input, execution time and memory.
+- **Live web preview** — HTML/CSS/JS projects render in a sandboxed iframe as you type.
+- **AI pair-programmer** — Gemini sees the open file and your last run output;
+  "Explain", "Find bugs" and "Fix it" actions, plus an **Apply** button that writes
+  the AI's fix into the editor.
+- **GitHub login** with NextAuth; every project is private to its owner.
 
-## 🚀 Features
+## Tech stack
 
-- 🔐 **OAuth Login with NextAuth** – Supports Google & GitHub login.
-- 🎨 **Modern UI** – Built with TailwindCSS & ShadCN UI.
-- 🌗 **Dark/Light Mode** – Seamlessly toggle between themes.
-- 🧱 **Project Templates** – Choose from React, Next.js, Express, Hono, Vue, or Angular.
-- 🗂️ **Custom File Explorer** – Create, rename, delete, and manage files/folders easily.
-- 🖊️ **Enhanced Monaco Editor** – Syntax highlighting, formatting, keybindings, and AI autocomplete.
-- 💡 **AI Inline Suggestions** – Ghost-text code completion appears when you pause typing (or press `Alt + \`). Accept with `Tab`.
-- ⚙️ **WebContainers Integration** – Instantly run frontend/backend apps right in the browser.
-- 💻 **Terminal with xterm.js** – Fully interactive embedded terminal experience.
-- 🤖 **AI Chat Assistant** – Share files with the AI and get help, refactors, or explanations.
+| Layer     | Technology                                 |
+| --------- | ------------------------------------------ |
+| Framework | Next.js 15 (App Router), React 19, TypeScript |
+| UI        | Tailwind CSS, shadcn/ui                    |
+| Editor    | Monaco Editor                              |
+| State     | Zustand (open files, file tree)            |
+| Auth      | NextAuth v5 (GitHub OAuth, JWT sessions)   |
+| Database  | MongoDB via Prisma                         |
+| Execution | Judge0 API                                 |
+| AI        | Google Gemini API                          |
+| Hosting   | Vercel                                     |
 
----
+## Architecture
 
-## 🧱 Tech Stack
+```
+Browser (React)                         Next.js server                 External
+───────────────                         ──────────────                 ────────
+Monaco editor + tabs ─┐
+File explorer (Zustand)├─ auto-save ──▶ Server Action SaveUpdatedCode ─▶ MongoDB
+                      │                 (checks the user owns it)
+Run panel ────────────┼─ POST /api/run ▶ auth → rate limit → validate ─▶ Judge0 sandbox
+AI panel ─────────────┼─ POST /api/ai ─▶ auth → rate limit → validate ─▶ Gemini API
+Preview (iframe srcdoc)┘  (built in the browser, no server call)
+```
 
-| Layer         | Technology                                   |
-|---------------|----------------------------------------------|
-| Framework     | Next.js 15 (App Router)                      |
-| Styling       | TailwindCSS, ShadCN UI                       |
-| Language      | TypeScript                                   |
-| Auth          | NextAuth (Google + GitHub OAuth)             |
-| Editor        | Monaco Editor                                |
-| AI            | Groq (gpt-oss) in production, Ollama locally |
-| Runtime       | WebContainers                                |
-| Terminal      | xterm.js                                     |
-| Database      | MongoDB (via DATABASE_URL)                   |
+### Data model
 
----
+- `User` / `Account` — created by NextAuth on first GitHub login.
+- `Playground` — a project: title, language template, owner.
+- `TemplateFile` — the project's whole file tree as one JSON document
+  (one per playground).
+- `StarMark` — projects a user has starred.
 
-## 🛠️ Getting Started
+### Key design decisions
 
-### 1. Clone the Repo
+- **Why Judge0 instead of running code on my server?** Running untrusted code on
+  the web server could let a user read secrets or crash the server. Judge0 runs
+  each submission in an isolated sandbox with CPU-time and memory limits.
+- **Why store the file tree as one JSON document?** Projects are small, and the
+  editor always loads and saves the whole project, so one read and one write per
+  save is simplest. For large projects I would store one document per file.
+- **Why debounce auto-save?** Saving on every keystroke would send hundreds of
+  writes; waiting until typing pauses sends one.
+- **Why is the preview iframe sandboxed?** `sandbox="allow-scripts"` without
+  `allow-same-origin` runs the user's JavaScript in an isolated origin, so it
+  cannot read the app's cookies or call the API as the user.
+- **Security** — every API route and server action checks the session, and every
+  database query filters by `userId`, so users can only see their own projects.
+  Inputs are validated with Zod, and run/AI requests are rate-limited per user.
+
+### Limitations / what I'd improve
+
+- Only the open file is executed (Judge0 runs a single file), not multi-file programs.
+- The rate limiter is in memory, so on Vercel it is per server instance; Redis would
+  make it global.
+- No real-time collaboration; version history would be a good next feature.
+
+## Getting started
 
 ```bash
-git clone https://github.com/your-username/vibecode-editor.git
-cd vibecode-editor
-````
-
-### 2. Install Dependencies
-
-```bash
+git clone https://github.com/ApoorvKRishn/vibe-code-editor.git
+cd vibe-code-editor
 npm install
-```
-
-### 3. Set Up Environment Variables
-
-Create a `.env` file from the template and fill in your credentials:
-
-```bash
-cp .env.example .env
-```
-
-### 4. Configure the AI
-
-The AI features talk to any OpenAI-compatible API. Pick one:
-
-- **Groq (free, recommended)** – create a key at [console.groq.com/keys](https://console.groq.com/keys) and set `AI_BASE_URL`, `AI_API_KEY`, `AI_MODEL`, `AI_COMPLETION_MODEL` and `AI_REASONING_EFFORT` as shown in `.env.example`.
-- **Ollama (offline)** – leave the `AI_*` variables unset, install [Ollama](https://ollama.com/) and run `ollama run codellama` (or set `OLLAMA_MODEL` to another code model).
-
-### 5. Run the Development Server
-
-```bash
+cp .env.example .env   # fill in the values
 npm run dev
 ```
 
-Visit `http://localhost:3000` in your browser.
+Open http://localhost:3000.
 
+You need:
 
----
+1. A MongoDB database (free tier on MongoDB Atlas) → `DATABASE_URL`
+2. A GitHub OAuth app → `AUTH_GITHUB_ID`, `AUTH_GITHUB_SECRET`
+   (callback URL `http://localhost:3000/api/auth/callback/github`)
+3. `AUTH_SECRET` — generate with `npx auth secret`
+4. A Gemini API key from Google AI Studio → `GEMINI_API_KEY`
 
-## 🎯 Keyboard Shortcuts
-
-* `Alt + \`: Ask for an AI suggestion now (they also appear when you pause typing)
-* `Tab` / `Esc`: Accept / dismiss the AI suggestion
-* `Ctrl/Cmd + S`: Save file · `Ctrl/Cmd + Shift + S`: Save all
-
----
-
-
-
----
-
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-## 🙏 Acknowledgements
-
-* [Monaco Editor](https://microsoft.github.io/monaco-editor/)
-* [Groq](https://groq.com/) and [Ollama](https://ollama.com/) – LLM inference
-* [WebContainers](https://webcontainers.io/)
-* [xterm.js](https://xtermjs.org/)
-* [NextAuth.js](https://next-auth.js.org/)
-
-```
+The public Judge0 instance is used by default and needs no key.

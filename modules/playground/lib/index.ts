@@ -1,4 +1,4 @@
-import type { TemplateFile, TemplateFolder, TemplateItem } from "./path-to-json";
+import type { TemplateFile, TemplateFolder, TemplateItem } from "./types";
 
 // Files are identified by their full path ("src/components/App.tsx"), never by
 // name alone — templates contain many files that share a name (index.ts, ...).

@@ -1,19 +1,13 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { Prisma } from "@prisma/client";
+import { Prisma, Templates } from "@prisma/client";
+import { STARTERS } from "@/modules/playground/lib/languages";
 import { currentUser, requireUserId } from "@/modules/auth/actions";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
-const templateSchema = z.enum([
-  "REACT",
-  "NEXTJS",
-  "EXPRESS",
-  "VUE",
-  "HONO",
-  "ANGULAR",
-]);
+const templateSchema = z.enum(Templates);
 
 const createPlaygroundSchema = z.object({
   title: z.string().trim().min(1).max(100),
@@ -94,7 +88,7 @@ export const getAllPlaygroundForUser = async () => {
         user: {
           select: { id: true, name: true, email: true, image: true },
         },
-        Starmark: {
+        starMarks: {
           where: {
             userId: user.id,
           },
@@ -117,7 +111,7 @@ export const getAllPlaygroundForUser = async () => {
 
 export const createPlayground = async (data: {
   title: string;
-  template: "REACT" | "NEXTJS" | "EXPRESS" | "VUE" | "HONO" | "ANGULAR";
+  template: Templates;
   description?: string;
 }) => {
   const userId = await requireUserId();
@@ -129,6 +123,12 @@ export const createPlayground = async (data: {
       description,
       template,
       userId,
+      // Every project starts as a copy of its language's starter files.
+      templateFiles: {
+        create: {
+          content: STARTERS[template].files as unknown as Prisma.InputJsonValue,
+        },
+      },
     },
   });
 

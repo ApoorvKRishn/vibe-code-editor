@@ -2,7 +2,8 @@
 
 import { db } from "@/lib/db";
 import { Prisma } from "@prisma/client";
-import { TemplateFolder } from "../lib/path-to-json";
+import type { TemplateFolder } from "../lib/types";
+import { STARTERS } from "../lib/languages";
 import { requireUserId } from "@/modules/auth/actions";
 
 // Generous cap so a single save can't be used to stuff the database.
@@ -40,7 +41,8 @@ export const getPlaygroundById = async (id: string) => {
     id: playground.id,
     title: playground.title,
     template: playground.template,
-    content: isTemplateFolder(parsed) ? parsed : null,
+    content: isTemplateFolder(parsed) ? parsed : STARTERS[playground.template].files,
+    mainFile: STARTERS[playground.template].mainFile,
   };
 };
 

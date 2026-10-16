@@ -51,7 +51,7 @@ import type {
   TemplateFile,
   TemplateFolder,
   TemplateItem,
-} from "../lib/path-to-json";
+} from "../lib/types";
 import { getFileName, getItemName, joinPath } from "../lib";
 
 interface TemplateFileTreeProps {

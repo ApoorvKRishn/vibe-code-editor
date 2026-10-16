@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { format, parseISO } from "date-fns";
 import type { Project } from "../types";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -89,7 +88,7 @@ export default function ProjectTable({
   });
   const [isLoading, setIsLoading] = useState(false);
   const [starredMap, setStarredMap] = useState<Record<string, boolean>>(
-    () => Object.fromEntries(projects.map((p) => [p.id, p.Starmark?.[0]?.isMarked ?? false]))
+    () => Object.fromEntries(projects.map((p) => [p.id, p.starMarks?.[0]?.isMarked ?? false]))
   );
 
   const handleEditClick = (project: Project) => {
@@ -233,7 +232,7 @@ export default function ProjectTable({
                 </TableCell>
                 <TableCell>
                   <span className="text-sm text-gray-500">
-                    {format(new Date(project.createdAt), "MMM dd, yyyy")}
+                    {new Date(project.createdAt).toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" })}
                   </span>
                 </TableCell>
                 <TableCell>
@@ -260,7 +259,7 @@ export default function ProjectTable({
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="w-48">
                       <DropdownMenuItem asChild>
-                        <MarkedToggleButton markedForRevision={project.Starmark[0]?.isMarked} id={project.id} />
+                        <MarkedToggleButton markedForRevision={project.starMarks[0]?.isMarked} id={project.id} />
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
                         <Link

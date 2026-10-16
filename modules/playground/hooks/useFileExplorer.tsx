@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { toast } from "sonner";
 
-import { TemplateFile, TemplateFolder } from "../lib/path-to-json";
+import { TemplateFile, TemplateFolder } from "../lib/types";
 import {
   cloneTree,
   findFileByPath,
@@ -19,14 +19,6 @@ export interface OpenFile extends TemplateFile {
   originalContent: string;
 }
 
-/** Mirror of file operations into the running WebContainer. */
-export interface FileSystemSync {
-  writeFile: (path: string, content: string) => Promise<void>;
-  mkdir: (path: string) => Promise<void>;
-  rm: (path: string) => Promise<void>;
-  rename: (oldPath: string, newPath: string) => Promise<void>;
-}
-
 interface FileExplorerState {
   playgroundId: string;
   templateData: TemplateFolder | null;
@@ -34,11 +26,9 @@ interface FileExplorerState {
   activeFileId: string | null;
 
   persist: ((data: TemplateFolder) => Promise<void>) | null;
-  fsSync: FileSystemSync | null;
 
   initialize: (playgroundId: string, templateData: TemplateFolder) => void;
   setPersist: (persist: (data: TemplateFolder) => Promise<void>) => void;
-  setFsSync: (fsSync: FileSystemSync | null) => void;
   setActiveFileId: (fileId: string | null) => void;
 
   openFile: (file: TemplateFile, parentPath: string) => void;
@@ -83,18 +73,6 @@ export const useFileExplorer = create<FileExplorerState>((set, get) => {
     return next;
   };
 
-  // The WebContainer is a live mirror; failing to update it should not block saving.
-  const syncFs = async (action: (fs: FileSystemSync) => Promise<void>) => {
-    const { fsSync } = get();
-    if (!fsSync) return;
-    try {
-      await action(fsSync);
-    } catch (error) {
-      console.error("WebContainer sync failed:", error);
-      toast.warning("Saved, but the live preview could not be updated");
-    }
-  };
-
   /**
    * Applies a structural change to a copy of the tree, saves it, and rolls the
    * tree back if saving fails. Returns false if nothing was changed.
@@ -131,12 +109,10 @@ export const useFileExplorer = create<FileExplorerState>((set, get) => {
     openFiles: [],
     activeFileId: null,
     persist: null,
-    fsSync: null,
 
     initialize: (playgroundId, templateData) =>
       set({ playgroundId, templateData, openFiles: [], activeFileId: null }),
     setPersist: (persist) => set({ persist }),
-    setFsSync: (fsSync) => set({ fsSync }),
     setActiveFileId: (fileId) => set({ activeFileId: fileId }),
 
     openFile: (file, parentPath) => {
@@ -211,23 +187,25 @@ export const useFileExplorer = create<FileExplorerState>((set, get) => {
 
       await persistTree(updated);
 
-      set((state) => ({
-        templateData: updated,
-        openFiles: state.openFiles.map((f) => {
-          const content = savedContent.get(f.id);
-          if (content === undefined) return f;
-          return {
-            ...f,
-            originalContent: content,
-            hasUnsavedChanges: f.content !== content,
-          };
-        }),
-      }));
-
-      await syncFs(async (fs) => {
+      set((state) => {
+        // Re-apply onto the latest tree in case a rename/delete happened meanwhile.
+        const latest = state.templateData ? cloneTree(state.templateData) : updated;
         for (const [path, content] of savedContent) {
-          await fs.writeFile(path, content);
+          const file = findFileByPath(latest, path);
+          if (file) file.content = content;
         }
+        return {
+          templateData: latest,
+          openFiles: state.openFiles.map((f) => {
+            const content = savedContent.get(f.id);
+            if (content === undefined) return f;
+            return {
+              ...f,
+              originalContent: content,
+              hasUnsavedChanges: f.content !== content,
+            };
+          }),
+        };
       });
     },
 
@@ -243,7 +221,6 @@ export const useFileExplorer = create<FileExplorerState>((set, get) => {
       if (!saved) return;
 
       toast.success(`Created file: ${name}`);
-      await syncFs((fs) => fs.writeFile(joinPath(parentPath, name), newFile.content || ""));
       get().openFile(newFile, parentPath);
     },
 
@@ -259,7 +236,6 @@ export const useFileExplorer = create<FileExplorerState>((set, get) => {
       if (!saved) return;
 
       toast.success(`Created folder: ${name}`);
-      await syncFs((fs) => fs.mkdir(joinPath(parentPath, name)));
     },
 
     handleDeleteFile: async (file, parentPath) => {
@@ -287,7 +263,6 @@ export const useFileExplorer = create<FileExplorerState>((set, get) => {
       }
 
       toast.success(`Deleted file: ${name}`);
-      await syncFs((fs) => fs.rm(filePath));
     },
 
     handleDeleteFolder: async (folder, parentPath) => {
@@ -316,7 +291,6 @@ export const useFileExplorer = create<FileExplorerState>((set, get) => {
       }
 
       toast.success(`Deleted folder: ${name}`);
-      await syncFs((fs) => fs.rm(folderPath));
     },
 
     handleRenameFile: async (file, newFilename, newExtension, parentPath) => {
@@ -354,7 +328,6 @@ export const useFileExplorer = create<FileExplorerState>((set, get) => {
       }
 
       toast.success(`Renamed file to: ${newName}`);
-      await syncFs((fs) => fs.rename(oldPath, newPath));
     },
 
     handleRenameFolder: async (folder, newFolderName, parentPath) => {
@@ -390,7 +363,6 @@ export const useFileExplorer = create<FileExplorerState>((set, get) => {
       }
 
       toast.success(`Renamed folder to: ${newFolderName}`);
-      await syncFs((fs) => fs.rename(oldPath, newPath));
     },
   };
 });
