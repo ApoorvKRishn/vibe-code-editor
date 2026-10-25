@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { Clock, Cpu, Loader2, Play } from "lucide-react";
+import { Clock, Cpu, Play, Square } from "lucide-react";
 
 export interface RunResult {
   language: string;
@@ -29,6 +29,7 @@ interface RunPanelProps {
   stdin: string;
   onStdinChange: (value: string) => void;
   onRun: () => void;
+  onStop: () => void;
   isRunning: boolean;
   result: RunResult | null;
 }
@@ -38,6 +39,7 @@ export function RunPanel({
   stdin,
   onStdinChange,
   onRun,
+  onStop,
   isRunning,
   result,
 }: RunPanelProps) {
@@ -47,15 +49,18 @@ export function RunPanel({
         <span className="text-sm text-muted-foreground">
           {languageLabel ?? "Open a .cpp, .py, .java, .js, .ts, .go or .rs file to run it"}
         </span>
-        <Button
-          size="sm"
-          onClick={onRun}
-          disabled={!languageLabel || isRunning}
-          title="Run (Ctrl+Enter)"
-        >
-          {isRunning ? <Loader2 className="h-4 w-4 animate-spin" /> : <Play className="h-4 w-4" />}
-          Run
-        </Button>
+        {/* While a program runs, Run turns into Stop (e.g. for an infinite loop). */}
+        {isRunning ? (
+          <Button size="sm" variant="destructive" onClick={onStop}>
+            <Square className="h-4 w-4 fill-current" />
+            Stop
+          </Button>
+        ) : (
+          <Button size="sm" onClick={onRun} disabled={!languageLabel} title="Run (Ctrl+Enter)">
+            <Play className="h-4 w-4" />
+            Run
+          </Button>
+        )}
       </div>
 
       <div className="flex flex-col gap-1">

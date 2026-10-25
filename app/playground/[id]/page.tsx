@@ -23,7 +23,7 @@ import { getRunnableLanguage } from "@/modules/playground/lib/languages";
 import { AlertCircle, ArrowLeft, Check, FileText, Loader2, X } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 
 // Auto-save runs this long after the user stops typing (debounce).
@@ -38,6 +38,18 @@ interface RunState {
 }
 
 const EMPTY_RUN_STATE: RunState = { stdin: "", result: null };
+
+const STOPPED_RESULT: RunResult = {
+  language: "",
+  status: "Stopped",
+  success: false,
+  stdout: "",
+  stderr: "",
+  compileOutput: "",
+  message: "Run stopped.",
+  timeMs: null,
+  memoryKb: null,
+};
 
 const MainPlaygroundPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -67,6 +79,8 @@ const MainPlaygroundPage = () => {
   // Keyed by file path. Only one program runs at a time.
   const [runStates, setRunStates] = useState<Record<string, RunState>>({});
   const [runningFileId, setRunningFileId] = useState<string | null>(null);
+  // Lets the Stop button cancel the request of the run in progress.
+  const runAbortRef = useRef<AbortController | null>(null);
 
   const activeFile = openFiles.find((file) => file.id === activeFileId);
   const { stdin, result: runResult } = (activeFileId && runStates[activeFileId]) || EMPTY_RUN_STATE;
@@ -140,11 +154,14 @@ const MainPlaygroundPage = () => {
     }
     // Remember which file was run: the user may switch tabs before the output comes back.
     const fileId = activeFile.id;
+    const controller = new AbortController();
+    runAbortRef.current = controller;
     setRunningFileId(fileId);
     updateRunState(fileId, { result: null });
     try {
       const res = await fetch("/api/run", {
         method: "POST",
+        signal: controller.signal,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fileExtension: activeFile.fileExtension,
@@ -156,11 +173,20 @@ const MainPlaygroundPage = () => {
       if (!res.ok) throw new Error(data.error || "Run failed");
       updateRunState(fileId, { result: data });
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Run failed");
+      if (controller.signal.aborted) {
+        updateRunState(fileId, { result: STOPPED_RESULT });
+      } else {
+        toast.error(error instanceof Error ? error.message : "Run failed");
+      }
     } finally {
+      runAbortRef.current = null;
       setRunningFileId(null);
     }
   }, [activeFile, runnableLanguage, runningFileId, stdin, updateRunState]);
+
+  // Stops waiting for the program (e.g. an infinite loop). Judge0 also kills
+  // it on its own once it passes the CPU time limit.
+  const handleStop = useCallback(() => runAbortRef.current?.abort(), []);
 
   // Ctrl+Enter runs the file. Listening in the capture phase catches the keys
   // before Monaco does (it would otherwise insert a new line).
@@ -321,6 +347,7 @@ const MainPlaygroundPage = () => {
                     stdin={stdin}
                     onStdinChange={(value) => activeFileId && updateRunState(activeFileId, { stdin: value })}
                     onRun={handleRun}
+                    onStop={handleStop}
                     isRunning={runningFileId !== null && runningFileId === activeFileId}
                     result={runResult}
                   />
