@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { Clock, Cpu, Loader2, Play } from "lucide-react";
-import { useEffect, useState } from "react";
 
 export interface RunResult {
   language: string;
@@ -42,8 +41,6 @@ export function RunPanel({
   isRunning,
   result,
 }: RunPanelProps) {
-  const elapsedSeconds = useElapsedSeconds(isRunning);
-
   return (
     <div className="h-full flex flex-col gap-3 p-3 overflow-auto">
       <div className="flex items-center justify-between gap-2">
@@ -102,9 +99,7 @@ export function RunPanel({
           )}
         >
           {isRunning
-            ? `Running... ${elapsedSeconds}s
-
-The free shared code runner queues programs, so this can take 5-15 seconds.`
+            ? "Running..."
             : result
               ? formatRunOutput(result) || "(no output)"
               : "Press Run to execute the current file."}
@@ -114,17 +109,3 @@ The free shared code runner queues programs, so this can take 5-15 seconds.`
   );
 }
 
-/** Seconds since `active` became true; resets each time it does. */
-function useElapsedSeconds(active: boolean) {
-  const [seconds, setSeconds] = useState(0);
-
-  useEffect(() => {
-    if (!active) return;
-    setSeconds(0);
-    const start = Date.now();
-    const timer = setInterval(() => setSeconds(Math.floor((Date.now() - start) / 1000)), 1000);
-    return () => clearInterval(timer);
-  }, [active]);
-
-  return seconds;
-}
