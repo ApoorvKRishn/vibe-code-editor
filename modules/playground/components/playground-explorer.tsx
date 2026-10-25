@@ -5,12 +5,13 @@ import {
   ChevronRight,
   File,
   Folder,
-  Plus,
   FilePlus,
   FolderPlus,
   MoreHorizontal,
   Trash2,
   Edit3,
+  Copy,
+  Download,
 } from "lucide-react";
 
 import {
@@ -21,6 +22,7 @@ import {
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupAction,
   SidebarGroupContent,
@@ -53,6 +55,14 @@ import type {
   TemplateItem,
 } from "../lib/types";
 import { getFileName, getItemName, joinPath } from "../lib";
+import { getStarterContent } from "../lib/languages";
+
+// A new file starts with the starter code for its language (empty if there is none).
+const createFile = (filename: string, extension: string): TemplateFile => ({
+  filename,
+  fileExtension: extension,
+  content: getStarterContent(extension),
+});
 
 interface TemplateFileTreeProps {
   data: TemplateItem;
@@ -60,8 +70,14 @@ interface TemplateFileTreeProps {
   /** Path of the file currently open in the editor. */
   selectedFileId?: string;
   title?: string;
+  /** Extension pre-filled in the New File dialog, e.g. "cpp" in a C++ project. */
+  defaultExtension?: string;
+  /** Rendered at the bottom of the sidebar (the settings menu). */
+  footer?: React.ReactNode;
   onAddFile?: (file: TemplateFile, parentPath: string) => void;
   onAddFolder?: (folder: TemplateFolder, parentPath: string) => void;
+  onDuplicateFile?: (file: TemplateFile, parentPath: string) => void;
+  onDownloadFile?: (file: TemplateFile, parentPath: string) => void;
   onDeleteFile?: (file: TemplateFile, parentPath: string) => void;
   onDeleteFolder?: (folder: TemplateFolder, parentPath: string) => void;
   onRenameFile?: (
@@ -82,8 +98,12 @@ export function TemplateFileTree({
   onFileSelect,
   selectedFileId,
   title = "Files Explorer",
+  defaultExtension,
+  footer,
   onAddFile,
   onAddFolder,
+  onDuplicateFile,
+  onDownloadFile,
   onDeleteFile,
   onDeleteFolder,
   onRenameFile,
@@ -104,12 +124,7 @@ export function TemplateFileTree({
 
   const handleCreateFile = (filename: string, extension: string) => {
     if (onAddFile && isRootFolder) {
-      const newFile: TemplateFile = {
-        filename,
-        fileExtension: extension,
-        content: "",
-      };
-      onAddFile(newFile, "");
+      onAddFile(createFile(filename, extension), "");
     }
     setIsNewFileDialogOpen(false);
   };
@@ -130,23 +145,21 @@ export function TemplateFileTree({
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>{title}</SidebarGroupLabel>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <SidebarGroupAction>
-                <Plus className="h-4 w-4" />
-              </SidebarGroupAction>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={handleAddRootFile}>
-                <FilePlus className="h-4 w-4 mr-2" />
-                New File
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={handleAddRootFolder}>
-                <FolderPlus className="h-4 w-4 mr-2" />
-                New Folder
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <SidebarGroupAction
+            className="right-10"
+            onClick={handleAddRootFile}
+            title="New File"
+            aria-label="New File"
+          >
+            <FilePlus />
+          </SidebarGroupAction>
+          <SidebarGroupAction
+            onClick={handleAddRootFolder}
+            title="New Folder"
+            aria-label="New Folder"
+          >
+            <FolderPlus />
+          </SidebarGroupAction>
           <SidebarGroupContent>
             <SidebarMenu>
               {isRootFolder ? (
@@ -160,6 +173,9 @@ export function TemplateFileTree({
                     path=""
                     onAddFile={onAddFile}
                     onAddFolder={onAddFolder}
+                    defaultExtension={defaultExtension}
+                    onDuplicateFile={onDuplicateFile}
+                    onDownloadFile={onDownloadFile}
                     onDeleteFile={onDeleteFile}
                     onDeleteFolder={onDeleteFolder}
                     onRenameFile={onRenameFile}
@@ -175,6 +191,9 @@ export function TemplateFileTree({
                   path=""
                   onAddFile={onAddFile}
                   onAddFolder={onAddFolder}
+                  defaultExtension={defaultExtension}
+                  onDuplicateFile={onDuplicateFile}
+                  onDownloadFile={onDownloadFile}
                   onDeleteFile={onDeleteFile}
                   onDeleteFolder={onDeleteFolder}
                   onRenameFile={onRenameFile}
@@ -185,12 +204,14 @@ export function TemplateFileTree({
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      {footer && <SidebarFooter>{footer}</SidebarFooter>}
       <SidebarRail />
 
       <NewFileDialog
         isOpen={isNewFileDialogOpen}
         onClose={() => setIsNewFileDialogOpen(false)}
         onCreateFile={handleCreateFile}
+        defaultExtension={defaultExtension}
       />
 
       <NewFolderDialog
@@ -209,8 +230,11 @@ interface TemplateNodeProps {
   selectedFileId?: string;
   level: number;
   path?: string;
+  defaultExtension?: string;
   onAddFile?: (file: TemplateFile, parentPath: string) => void;
   onAddFolder?: (folder: TemplateFolder, parentPath: string) => void;
+  onDuplicateFile?: (file: TemplateFile, parentPath: string) => void;
+  onDownloadFile?: (file: TemplateFile, parentPath: string) => void;
   onDeleteFile?: (file: TemplateFile, parentPath: string) => void;
   onDeleteFolder?: (folder: TemplateFolder, parentPath: string) => void;
   onRenameFile?: (
@@ -232,8 +256,11 @@ function TemplateNode({
   selectedFileId,
   level,
   path = "",
+  defaultExtension,
   onAddFile,
   onAddFolder,
+  onDuplicateFile,
+  onDownloadFile,
   onDeleteFile,
   onDeleteFolder,
   onRenameFile,
@@ -300,6 +327,14 @@ function TemplateNode({
                 <Edit3 className="h-4 w-4 mr-2" />
                 Rename
               </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => onDuplicateFile?.(file, path)}>
+                <Copy className="h-4 w-4 mr-2" />
+                Duplicate
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => onDownloadFile?.(file, path)}>
+                <Download className="h-4 w-4 mr-2" />
+                Download
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={handleDelete}
@@ -360,12 +395,7 @@ function TemplateNode({
 
     const handleCreateFile = (filename: string, extension: string) => {
       if (onAddFile) {
-        const newFile: TemplateFile = {
-          filename,
-          fileExtension: extension,
-          content: "",
-        };
-        onAddFile(newFile, currentPath);
+        onAddFile(createFile(filename, extension), currentPath);
       }
       setIsNewFileDialogOpen(false);
     };
@@ -450,6 +480,9 @@ function TemplateNode({
                   path={currentPath}
                   onAddFile={onAddFile}
                   onAddFolder={onAddFolder}
+                  defaultExtension={defaultExtension}
+                  onDuplicateFile={onDuplicateFile}
+                  onDownloadFile={onDownloadFile}
                   onDeleteFile={onDeleteFile}
                   onDeleteFolder={onDeleteFolder}
                   onRenameFile={onRenameFile}
@@ -464,6 +497,7 @@ function TemplateNode({
           isOpen={isNewFileDialogOpen}
           onClose={() => setIsNewFileDialogOpen(false)}
           onCreateFile={handleCreateFile}
+          defaultExtension={defaultExtension}
         />
 
         <NewFolderDialog

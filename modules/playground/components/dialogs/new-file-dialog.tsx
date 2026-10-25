@@ -17,18 +17,24 @@ interface NewFileDialogProps {
   isOpen: boolean;
   onClose: () => void;
   onCreateFile: (filename: string, extension: string) => void;
+  defaultExtension?: string;
 }
 
-function NewFileDialog({ isOpen, onClose, onCreateFile }: NewFileDialogProps) {
+function NewFileDialog({
+  isOpen,
+  onClose,
+  onCreateFile,
+  defaultExtension = "js",
+}: NewFileDialogProps) {
   const [filename, setFilename] = React.useState("");
-  const [extension, setExtension] = React.useState("js");
+  const [extension, setExtension] = React.useState(defaultExtension);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (filename.trim()) {
       onCreateFile(filename.trim(), extension.trim().replace(/^\./, ""));
       setFilename("");
-      setExtension("js");
+      setExtension(defaultExtension);
     }
   };
 
@@ -65,7 +71,7 @@ function NewFileDialog({ isOpen, onClose, onCreateFile }: NewFileDialogProps) {
                 value={extension}
                 onChange={(e) => setExtension(e.target.value)}
                 className="col-span-2"
-                placeholder="js"
+                placeholder={defaultExtension}
               />
             </div>
           </div>

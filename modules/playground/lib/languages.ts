@@ -175,3 +175,18 @@ fn main() {
     ),
   },
 };
+
+// New files get the matching starter file's code, keyed by extension
+// (main.cpp's code for any .cpp file, style.css's for any .css file, ...).
+const STARTER_CONTENT_BY_EXTENSION: Record<string, string> = {};
+for (const starter of Object.values(STARTERS)) {
+  for (const item of starter.files.items) {
+    if ("fileExtension" in item) {
+      STARTER_CONTENT_BY_EXTENSION[item.fileExtension.toLowerCase()] ??= item.content;
+    }
+  }
+}
+
+/** Default code for a new file with this extension, or "" if there is none. */
+export const getStarterContent = (fileExtension: string) =>
+  STARTER_CONTENT_BY_EXTENSION[fileExtension.toLowerCase()] ?? "";

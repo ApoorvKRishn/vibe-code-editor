@@ -1,7 +1,9 @@
 "use client"
 
-import Editor, { type Monaco } from "@monaco-editor/react"
+import Editor from "@monaco-editor/react"
+import { useTheme } from "next-themes"
 import type { OpenFile } from "../hooks/useFileExplorer"
+import { useEditorSettings } from "../hooks/useEditorSettings"
 import { configureMonaco, defaultEditorOptions, getEditorLanguage } from "../lib/editor-config"
 
 interface PlaygroundEditorProps {
@@ -10,6 +12,9 @@ interface PlaygroundEditorProps {
 }
 
 export const PlaygroundEditor = ({ activeFile, onContentChange }: PlaygroundEditorProps) => {
+  const { resolvedTheme } = useTheme()
+  const fontSize = useEditorSettings((state) => state.fontSize)
+
   return (
     <Editor
       height="100%"
@@ -17,10 +22,12 @@ export const PlaygroundEditor = ({ activeFile, onContentChange }: PlaygroundEdit
       path={activeFile?.id}
       value={activeFile?.content ?? ""}
       onChange={(value) => onContentChange(value ?? "")}
-      onMount={(_editor, monaco: Monaco) => configureMonaco(monaco)}
+      // beforeMount so our dark theme is defined before the editor first renders with it.
+      beforeMount={configureMonaco}
+      theme={resolvedTheme === "light" ? "vs" : "modern-dark"}
       language={activeFile ? getEditorLanguage(activeFile.fileExtension || "") : "plaintext"}
       // @ts-expect-error the options object includes a few Monaco keys missing from the types
-      options={defaultEditorOptions}
+      options={{ ...defaultEditorOptions, fontSize, lineHeight: Math.round(fontSize * 1.45) }}
     />
   )
 }

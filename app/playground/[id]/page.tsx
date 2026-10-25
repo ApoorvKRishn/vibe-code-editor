@@ -13,10 +13,12 @@ import { AIPanel } from "@/modules/playground/components/ai-panel";
 import { PlaygroundEditor } from "@/modules/playground/components/playground-editor";
 import { TemplateFileTree } from "@/modules/playground/components/playground-explorer";
 import { RunPanel, formatRunOutput, type RunResult } from "@/modules/playground/components/run-panel";
+import { SettingsMenu } from "@/modules/playground/components/settings-menu";
 import { WebPreview } from "@/modules/playground/components/web-preview";
 import { useFileExplorer } from "@/modules/playground/hooks/useFileExplorer";
 import { usePlayground } from "@/modules/playground/hooks/usePlayground";
-import { cloneTree, findFileByPath, getFileName } from "@/modules/playground/lib";
+import { cloneTree, downloadFile, findFileByPath, getFileName, joinPath } from "@/modules/playground/lib";
+import type { TemplateFile } from "@/modules/playground/lib/types";
 import { getRunnableLanguage } from "@/modules/playground/lib/languages";
 import { AlertCircle, ArrowLeft, Check, FileText, Loader2, X } from "lucide-react";
 import Link from "next/link";
@@ -28,6 +30,14 @@ import { toast } from "sonner";
 const AUTOSAVE_DELAY_MS = 1500;
 
 type SaveStatus = "saved" | "unsaved" | "saving" | "error";
+
+/** Each file keeps its own stdin and last output, so switching files never mixes them up. */
+interface RunState {
+  stdin: string;
+  result: RunResult | null;
+}
+
+const EMPTY_RUN_STATE: RunState = { stdin: "", result: null };
 
 const MainPlaygroundPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -45,6 +55,7 @@ const MainPlaygroundPage = () => {
     saveFiles,
     handleAddFile,
     handleAddFolder,
+    handleDuplicateFile,
     handleDeleteFile,
     handleDeleteFolder,
     handleRenameFile,
@@ -53,11 +64,12 @@ const MainPlaygroundPage = () => {
   } = useFileExplorer();
 
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("saved");
-  const [stdin, setStdin] = useState("");
-  const [isRunning, setIsRunning] = useState(false);
-  const [runResult, setRunResult] = useState<RunResult | null>(null);
+  // Keyed by file path. Only one program runs at a time.
+  const [runStates, setRunStates] = useState<Record<string, RunState>>({});
+  const [runningFileId, setRunningFileId] = useState<string | null>(null);
 
   const activeFile = openFiles.find((file) => file.id === activeFileId);
+  const { stdin, result: runResult } = (activeFileId && runStates[activeFileId]) || EMPTY_RUN_STATE;
   const hasUnsavedChanges = openFiles.some((file) => file.hasUnsavedChanges);
   const runnableLanguage = activeFile ? getRunnableLanguage(activeFile.fileExtension) : null;
 
@@ -113,10 +125,23 @@ const MainPlaygroundPage = () => {
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [hasUnsavedChanges]);
 
-  const handleRun = async () => {
-    if (!activeFile) return;
-    setIsRunning(true);
-    setRunResult(null);
+  const updateRunState = useCallback((fileId: string, change: Partial<RunState>) => {
+    setRunStates((prev) => ({
+      ...prev,
+      [fileId]: { ...(prev[fileId] ?? EMPTY_RUN_STATE), ...change },
+    }));
+  }, []);
+
+  const handleRun = useCallback(async () => {
+    if (!activeFile || !runnableLanguage) return;
+    if (runningFileId) {
+      toast.info("Wait for the current run to finish");
+      return;
+    }
+    // Remember which file was run: the user may switch tabs before the output comes back.
+    const fileId = activeFile.id;
+    setRunningFileId(fileId);
+    updateRunState(fileId, { result: null });
     try {
       const res = await fetch("/api/run", {
         method: "POST",
@@ -129,12 +154,33 @@ const MainPlaygroundPage = () => {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Run failed");
-      setRunResult(data);
+      updateRunState(fileId, { result: data });
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Run failed");
     } finally {
-      setIsRunning(false);
+      setRunningFileId(null);
     }
+  }, [activeFile, runnableLanguage, runningFileId, stdin, updateRunState]);
+
+  // Ctrl+Enter runs the file. Listening in the capture phase catches the keys
+  // before Monaco does (it would otherwise insert a new line).
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+        e.preventDefault();
+        e.stopPropagation();
+        handleRun();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown, true);
+    return () => window.removeEventListener("keydown", handleKeyDown, true);
+  }, [handleRun]);
+
+  // Downloads include edits that haven't been auto-saved yet.
+  const handleDownloadFile = (file: TemplateFile, parentPath: string) => {
+    const filePath = joinPath(parentPath, getFileName(file));
+    const content = openFiles.find((f) => f.id === filePath)?.content ?? file.content;
+    downloadFile(getFileName(file), content);
   };
 
   // The preview shows unsaved edits too: overlay open files on the saved tree.
@@ -180,8 +226,19 @@ const MainPlaygroundPage = () => {
         onFileSelect={openFile}
         selectedFileId={activeFileId ?? undefined}
         title="File Explorer"
+        defaultExtension={playgroundData?.mainFile.split(".").pop()}
+        footer={
+          <SettingsMenu
+            activeFileName={activeFile ? getFileName(activeFile) : null}
+            onDownloadActiveFile={() =>
+              activeFile && downloadFile(getFileName(activeFile), activeFile.content)
+            }
+          />
+        }
         onAddFile={handleAddFile}
         onAddFolder={handleAddFolder}
+        onDuplicateFile={handleDuplicateFile}
+        onDownloadFile={handleDownloadFile}
         onDeleteFile={handleDeleteFile}
         onDeleteFolder={handleDeleteFolder}
         onRenameFile={handleRenameFile}
@@ -262,9 +319,9 @@ const MainPlaygroundPage = () => {
                   <RunPanel
                     languageLabel={runnableLanguage?.label ?? null}
                     stdin={stdin}
-                    onStdinChange={setStdin}
+                    onStdinChange={(value) => activeFileId && updateRunState(activeFileId, { stdin: value })}
                     onRun={handleRun}
-                    isRunning={isRunning}
+                    isRunning={runningFileId !== null && runningFileId === activeFileId}
                     result={runResult}
                   />
                 </TabsContent>

@@ -40,6 +40,7 @@ interface FileExplorerState {
 
   handleAddFile: (newFile: TemplateFile, parentPath: string) => Promise<void>;
   handleAddFolder: (newFolder: TemplateFolder, parentPath: string) => Promise<void>;
+  handleDuplicateFile: (file: TemplateFile, parentPath: string) => Promise<void>;
   handleDeleteFile: (file: TemplateFile, parentPath: string) => Promise<void>;
   handleDeleteFolder: (folder: TemplateFolder, parentPath: string) => Promise<void>;
   handleRenameFile: (
@@ -236,6 +237,29 @@ export const useFileExplorer = create<FileExplorerState>((set, get) => {
       if (!saved) return;
 
       toast.success(`Created folder: ${name}`);
+    },
+
+    handleDuplicateFile: async (file, parentPath) => {
+      const filePath = joinPath(parentPath, getFileName(file));
+      // Copy what is in the editor, including edits that aren't saved yet.
+      const content = get().openFiles.find((f) => f.id === filePath)?.content ?? file.content;
+      let copy: TemplateFile | null = null;
+
+      const saved = await applyTreeChange((tree) => {
+        const folder = findFolder(tree, parentPath);
+        if (!folder) return "Folder not found";
+        // g2.cpp -> g2-copy.cpp, then g2-copy-2.cpp, g2-copy-3.cpp, ...
+        let filename = `${file.filename}-copy`;
+        for (let n = 2; nameExistsInFolder(folder, getFileName({ ...file, filename })); n++) {
+          filename = `${file.filename}-copy-${n}`;
+        }
+        copy = { filename, fileExtension: file.fileExtension, content };
+        folder.items.push(copy);
+      });
+      if (!saved || !copy) return;
+
+      toast.success(`Created file: ${getFileName(copy)}`);
+      get().openFile(copy, parentPath);
     },
 
     handleDeleteFile: async (file, parentPath) => {

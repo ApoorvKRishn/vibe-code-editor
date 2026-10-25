@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { Clock, Cpu, Loader2, Play } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export interface RunResult {
   language: string;
@@ -41,13 +42,20 @@ export function RunPanel({
   isRunning,
   result,
 }: RunPanelProps) {
+  const elapsedSeconds = useElapsedSeconds(isRunning);
+
   return (
     <div className="h-full flex flex-col gap-3 p-3 overflow-auto">
       <div className="flex items-center justify-between gap-2">
         <span className="text-sm text-muted-foreground">
           {languageLabel ?? "Open a .cpp, .py, .java, .js, .ts, .go or .rs file to run it"}
         </span>
-        <Button size="sm" onClick={onRun} disabled={!languageLabel || isRunning}>
+        <Button
+          size="sm"
+          onClick={onRun}
+          disabled={!languageLabel || isRunning}
+          title="Run (Ctrl+Enter)"
+        >
           {isRunning ? <Loader2 className="h-4 w-4 animate-spin" /> : <Play className="h-4 w-4" />}
           Run
         </Button>
@@ -94,7 +102,9 @@ export function RunPanel({
           )}
         >
           {isRunning
-            ? "Running..."
+            ? `Running... ${elapsedSeconds}s
+
+The free shared code runner queues programs, so this can take 5-15 seconds.`
             : result
               ? formatRunOutput(result) || "(no output)"
               : "Press Run to execute the current file."}
@@ -102,4 +112,19 @@ export function RunPanel({
       </div>
     </div>
   );
+}
+
+/** Seconds since `active` became true; resets each time it does. */
+function useElapsedSeconds(active: boolean) {
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    if (!active) return;
+    setSeconds(0);
+    const start = Date.now();
+    const timer = setInterval(() => setSeconds(Math.floor((Date.now() - start) / 1000)), 1000);
+    return () => clearInterval(timer);
+  }, [active]);
+
+  return seconds;
 }
